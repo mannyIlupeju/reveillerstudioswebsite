@@ -19,9 +19,7 @@ const Page = async () => {
 
   return (
     <section className="">
-      <Navigation/>
       <ProductCategories collections={collections}/>
-
       <main className="flex justify-center">
        <ProductGrid products={products}/>
       </main>

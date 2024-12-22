@@ -52,13 +52,12 @@ const Navigation = () => {
   }));
 
   return (
-    <nav className="p-2 absolute top-0 left-0 z-9 w-full m-2 flex justify-around">
-      <div className="flex gap-10 justify-center items-center">
+    <nav className=" m-2 flex justify-center ">
+      <div className="flex gap-4 justify-center items-center">
         <div className="h-3 flex justify-start items-center">
           <Link href='/'>
-            {/* <h1 className='text-zinc-800'>Reveillerstudios</h1> */}
             <img 
-            src='/images/rvrblack.png'
+            src='/images/rvrlogo-nav.png'
             height={250}
             width={250}
             alt="reveiller black logo"/>

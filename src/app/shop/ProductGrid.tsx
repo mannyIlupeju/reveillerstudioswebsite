@@ -44,7 +44,7 @@ export default function ProductGrid({products}:Props) {
   };
   
   return (
-         <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 mt-40 gap-x-12 gap-y-12">
+         <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
         {products.map((item:any) => {
           const product = item.node;
         
@@ -66,7 +66,7 @@ export default function ProductGrid({products}:Props) {
                 )}
               </div>
 
-              <div className="text-center font-bold">
+              <div className="text-center font-bold mt-8">
                 <h1>{product.title}</h1>
                 <span>{product.priceRange.minVariantPrice.amount}</span>
               </div>

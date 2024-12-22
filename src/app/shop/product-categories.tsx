@@ -18,7 +18,7 @@ type Props = {
 
 function ProductCategories({ collections }: Props) {
   return (
-      <aside className="absolute bottom-1/4 p-4">
+      <aside className="absolute bottom-1/3 p-4">
         <div className = "flex flex-col gap-5">
         {collections.map((item:any) => {
             const collection = item.node
