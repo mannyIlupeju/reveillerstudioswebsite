@@ -10,7 +10,7 @@ export const fetchProducts = async () => {
             title
             handle
             descriptionHtml 
-            images(first: 4) {
+            images(first:6) {
                 edges {
                 node {
                     originalSrc

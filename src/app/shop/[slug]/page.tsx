@@ -1,22 +1,21 @@
 import React from 'react';
+import ProductDetails from '../productDetails';
 import client from '../../../../utils/shopify-client/shopify-client';
 import Navigation from '@/components/Navigation/Navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
 
 
-
 // Define the Page Component
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
-
- 
+  
 
   try {
     // Fetch product data using the slug
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
-    // console.log(product)
+    console.log(product.descriptionHtml)
     
     
     if (!product) {
@@ -26,25 +25,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
     const imageUrl = product.images.edges.map((item:any)=> {
       const images = item.node
+      console.log(images)
       return images
     })
+
   
     return (
-        <main className="container-width w-screen p-4 mt-20 flex flex-row gap-5 justify-center overflow-x-scrollauto">
-        {imageUrl.map((item:any) => {
-          console.log(item)
-          return (
-            <div key={product.id} className="flex items-star max-h-screen">
-            <Image
-            src={item.originalSrc}
-            alt="Product images"
-            width={1000}
-            height={1200}
-            />
-            </div>
-          )
-        })}
-       </main>
+      <ProductDetails products={product} images={imageUrl}/>
         
       )
      
@@ -74,15 +61,6 @@ export async function generateStaticParams() {
   }
 }
 
-// export async function getStaticProps({params} : {params: {slug: string}}){
-//   try {
-//     const response = await client.request(productQuery, {variables: {handle: params.slug}})
-//     console.log(response)
-
-//   }catch(error){
-//     console.error("Error")
-//   }
-// }
 
 // Queries
 const paramQuery = `
@@ -104,18 +82,18 @@ query getProductByHandle($handle: String!) {
     title
     descriptionHtml
     handle
-     images(first:65) {
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first:6) {
       edges {
         node {
           originalSrc
           altText
         }
-      }
-    }
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
       }
     }
      

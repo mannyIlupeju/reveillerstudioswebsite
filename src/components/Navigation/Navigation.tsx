@@ -52,7 +52,7 @@ const Navigation = () => {
   }));
 
   return (
-    <nav className=" m-2 flex justify-center ">
+    <nav className="flex justify-center mx-auto container-width">
       <div className="flex gap-4 justify-center items-center">
         <div className="h-3 flex justify-start items-center">
           <Link href='/'>
