@@ -22,7 +22,6 @@ export default function RootLayout({
     <GlobalProvider>
       <LoadingProvider>
         <CanvasProvider>
-
           <html lang="en">
             <body>
               <Navigation/>

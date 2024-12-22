@@ -6,6 +6,7 @@ import { useLoading} from '@/Context/context/LoadingContext'
 import Cursor from '@/components/Cursor/cursor'
 // import Sketch from '@/components/Canvas/3dLanding'
 import ThreeSketch from '@/components/Canvas/ThreeSketch'
+import Navigation from '@/components/Navigation/Navigation'
 
 
 export default function Home() {
@@ -16,11 +17,10 @@ export default function Home() {
           (<Loading/>)
         :
           ( 
-          <section className="">
             <main className="flex items-center flex-col overflow-x-hidden overflow-y-hidden min-h-200">
             <ThreeSketch/>
             </main>   
-            </section>
+           
           )
       }
     </>   
