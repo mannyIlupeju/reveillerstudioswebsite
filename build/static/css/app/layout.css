@@ -531,6 +531,9 @@ video {
 .mt-12 {
   margin-top: 3rem;
 }
+.mt-20 {
+  margin-top: 5rem;
+}
 .mt-4 {
   margin-top: 1rem;
 }
@@ -558,6 +561,9 @@ video {
 }
 .h-screen {
   height: 100vh;
+}
+.max-h-screen {
+  max-height: 100vh;
 }
 .w-96 {
   width: 24rem;
@@ -590,6 +596,9 @@ video {
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.flex-row {
+  flex-direction: row;
 }
 .flex-col {
   flex-direction: column;
