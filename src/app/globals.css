@@ -81,6 +81,15 @@ canvas {
 
 }
 
+.activeImage {
+  
+
+}
+
+.lastItem {
+  order: -1;
+}
+
 .shopImage {
   background-color: antiquewhite;
   width: 20rem;

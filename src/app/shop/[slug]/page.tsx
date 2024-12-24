@@ -1,9 +1,8 @@
 import React from 'react';
 import ProductDetails from '../productDetails';
 import client from '../../../../utils/shopify-client/shopify-client';
-import Navigation from '@/components/Navigation/Navigation';
 import { Metadata } from 'next';
-import Image from 'next/image';
+
 
 
 // Define the Page Component
@@ -15,35 +14,24 @@ export default async function Page({ params }: { params: { slug: string } }) {
     // Fetch product data using the slug
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
-    console.log(product.descriptionHtml)
-    
+  
     
     if (!product) {
-      // Return a 404 page if product is not found
       return <h1>Product not found</h1>;
     }
-
-    const imageUrl = product.images.edges.map((item:any)=> {
-      const images = item.node
-      console.log(images)
-      return images
-    })
-
   
     return (
-      <ProductDetails products={product} images={imageUrl}/>
+      <ProductDetails products={product}/>
         
-      )
+    )
      
-
-    
-
-    
   } catch (error) {
     console.error("Error fetching product data:", error);
     return <h1>Error loading product</h1>;
   }
 }
+
+
 
 // Generate Static Params for Dynamic Routes
 export async function generateStaticParams() {
@@ -62,7 +50,6 @@ export async function generateStaticParams() {
 }
 
 
-// Queries
 const paramQuery = `
 query {
   products(first: 10) {
