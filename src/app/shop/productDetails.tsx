@@ -1,9 +1,12 @@
 'use client'
 
-import React, {useState, useEffect} from 'react'
+import React, { Component, useState, useEffect} from 'react'
 import Image from 'next/image'
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 
 
@@ -24,34 +27,20 @@ const ProductDetails = ({products}:any) => {
     return images
   })
 
- 
+  const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 2,
+    slidesToScroll: 4,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 4000,
+    cssEase: "linear"
+  };
 
-// useEffect(() => {
-//   const interval = setInterval(() => {
-//     let lastSlide = currentIndex === products.images.edges.length - 1;
-//     const nextSlide = lastSlide ? 0 : currentIndex + 1;
-//     setCurrentIndex(nextSlide);
-//   }, 1000);
 
-//   return () => clearInterval(interval); // Cleanup on unmount
-// }, [currentIndex, products.images.edges.length]);
-
-
-  function prevImage(e:any){
-    e.preventDefault()
-    let firstSlide =  currentIndex == 0
-    const prevSlide = firstSlide ? products.images.edges.length - 1 : currentIndex - 1
-    console.log('clicked back arrow')
-    // setCurrentIndex(prevSlide)
-  }
-
-  function nextImage(e:any){
-    e.preventDefault()
-    let lastSlide = currentIndex == products.images.edges.length -1 
-    const nextSlide = lastSlide ? 0 : currentIndex + 1
-    console.log('clicked next arrow')
-    // setCurrentIndex(nextSlide)
-  }
 
 
   return (
@@ -68,38 +57,26 @@ const ProductDetails = ({products}:any) => {
             
           </aside>
        
-          <main className="relative block top-0 bottom-0 right-3 mt-10">
-              <div className="relative">
-                <div className="flex justify-start flex-nowrap gap-10">
+          <main className="mt-10 slider-container">
+                
+                  <Slider {...settings}>
                   {imageUrl.map((item:any, index:any) => {
                     return (
-                      <div key={index} className={`${index === imageLength.length-1 ? "lastItem" : ""} ${currentIndex === index ? 'activeImage' : ''} w-screen`}
+                      <div key={index}
                       >
                         <Image
                         src={item.originalSrc}
                         alt="Product images"
-                        width={1200}
-                        height={1200}
+                        width={800}
+                        height={800}
                         />
 
                       </div>
                       
                     )
                   })}
-                  <FaChevronLeft 
-                  className="absolute left-10 translate-y-1/2 top-5" 
-                  size={20}
-                  onClick={prevImage}
-                  
-                  />
-                  <FaChevronRight 
-                  className="absolute right-10 translate-y-1/2 top-5" 
-                  size={20}
-                  onClick={nextImage}
-                  />
 
-                </div>
-              </div>
+                </Slider>
           </main>
       </section>
   )

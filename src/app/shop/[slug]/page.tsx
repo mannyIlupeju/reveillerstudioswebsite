@@ -14,6 +14,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     // Fetch product data using the slug
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
+    
   
     
     if (!product) {

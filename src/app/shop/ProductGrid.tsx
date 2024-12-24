@@ -45,7 +45,7 @@ export default function ProductGrid({products}:Props) {
   
   return (
          <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
-        {products.map((item:any) => {
+        {products?.map((item:any) => {
           const product = item.node;
         
           const id = product.id
