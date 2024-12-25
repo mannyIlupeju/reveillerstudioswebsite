@@ -15,16 +15,10 @@ import client from '../shopify-client/shopify-client';
             }
         }
     }
-    `
-  const response = await client.request(paramQuery);
+  `
+  const response = await client.request(paramQuery)
   console.log(response)
-
-
 }
-
-
-
-
 
 
 export async function getStaticProps({ params }:any) {
@@ -51,7 +45,7 @@ export async function getStaticProps({ params }:any) {
                 currencyCode
             }
             }
-            variants(first: 10) {
+            variants(first:10) {
             edges {
                 node {
                 id

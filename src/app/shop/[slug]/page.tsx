@@ -15,8 +15,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
     
-  
-    
     if (!product) {
       return <h1>Product not found</h1>;
     }
@@ -68,7 +66,7 @@ query getProductByHandle($handle: String!) {
   productByHandle(handle: $handle) {
     id
     title
-    descriptionHtml
+    
     handle
     priceRange {
       minVariantPrice {
@@ -76,6 +74,7 @@ query getProductByHandle($handle: String!) {
         currencyCode
       }
     }
+    descriptionHtml
     images(first:6) {
       edges {
         node {
@@ -84,11 +83,30 @@ query getProductByHandle($handle: String!) {
         }
       }
     }
+    variants(first:10) {
+      edges {
+        node {
+        id
+        title
+        sku
+        priceV2 {
+        amount
+        currencyCode
+      }
+      availableForSale
+      selectedOptions {
+          name
+          value
+      }
+      quantityAvailable        
+      }
+    }
+  }
      
    
      
  
    
-  }
+}
 }
 `;

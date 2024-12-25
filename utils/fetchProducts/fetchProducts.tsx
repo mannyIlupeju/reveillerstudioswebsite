@@ -9,8 +9,12 @@ export const fetchProducts = async () => {
             id
             title
             handle
+            options {
+                name
+                values
+            }
             descriptionHtml 
-            images(first:98) {
+            images(first:6) {
                 edges {
                 node {
                     originalSrc
@@ -35,7 +39,7 @@ export const fetchProducts = async () => {
         console.error("Error fetching data from shopify")
     }
 
-    return data?.products.edges
     console.log(data)
+    return data?.products.edges
 }
 

@@ -1,40 +1,38 @@
 'use client'
 
-import React, { Component, useState, useEffect} from 'react'
+import React, { Component } from 'react'
 import Image from 'next/image'
-import { FaChevronLeft } from "react-icons/fa6";
-import { FaChevronRight } from "react-icons/fa6";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import DOMPurify from 'isomorphic-dompurify';
 
 
 
 const ProductDetails = ({products}:any) => {
-  console.log(products)
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  const mainImageUrl = products.images.edges[currentIndex].node.originalSrc
-  console.log(products.images.edges.length)
-  const imageLength = products.images.edges
-  console.log(imageLength.length)
-  console.log(mainImageUrl)
-
-
-
   const imageUrl = products.images.edges.map((item:any)=> {
     const images = item.node
     return images
   })
 
+  
+
+  const markUpText =  products.descriptionHtml
+
+  const CleanMarkUp = ({markUpText}: {markUpText: string}) => {
+    const sanitizeDescription = DOMPurify.sanitize(markUpText);
+    return <div dangerouslySetInnerHTML={{__html: sanitizeDescription}} />
+  }
+
+
   const settings = {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "60px",
+    centerPadding: "20rem",
     slidesToShow: 2,
-    slidesToScroll: 4,
-    autoplay: true,
+    slidesToScroll: 1,
+    autoplay:true,
     speed: 2000,
     autoplaySpeed: 4000,
     cssEase: "linear"
@@ -44,39 +42,51 @@ const ProductDetails = ({products}:any) => {
 
 
   return (
-      <section>
-          <aside className="bg-gray-100 p-3 ml-4 text-xl font-bold rounded-lg w-fit -mt-3">
-            <div className="flex flex-row gap-10">
-            <span className="">{products.title}</span>
-            <span>${products.priceRange.minVariantPrice.amount}</span>
+      <section className="relative">
+          <aside className="absolute z-10 p-3 ml-4 flex flex-col gap-5 font-bold -mt-3">
+            <div className="bg-gray-100 p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black">
+              <span className="">{products.title}</span>
+              <span>${products.priceRange.minVariantPrice.amount}</span>
             </div>
 
-            <div>
+            <div className="flex flex-row gap-8">
+              <select className="bg-gray-100 w-fit text-md p-2 rounded-lg">
+              {products.variants.edges.map((item:any, index:any)=>{
+                const prices = item.node
+                return (
+                  <option key={index} value={prices.selectedOptions[1].value}>{prices.selectedOptions[1].value} / {prices.selectedOptions[0].value} </option>
+                  )
+                  
+                })}
+              </select> 
 
+              <button className="bg-gray-300 p-4 rounded-lg">Add to Cart</button>
             </div>
+
+            <div className="bg-gray-100 p-2 rounded-lg">
+              <CleanMarkUp markUpText={markUpText} />
+            </div>
+
             
           </aside>
        
           <main className="mt-10 slider-container">
-                
-                  <Slider {...settings}>
-                  {imageUrl.map((item:any, index:any) => {
-                    return (
-                      <div key={index}
-                      >
-                        <Image
-                        src={item.originalSrc}
-                        alt="Product images"
-                        width={800}
-                        height={800}
-                        />
-
-                      </div>
+            <Slider {...settings}>
+              {imageUrl.map((item:any, index:any) => {
+                return (
+                  <div key={index}>
+                    <Image
+                      src={item.originalSrc}
+                      alt="Product images"
+                      width={600}
+                      height={400}
+                    />
+                  </div>
                       
-                    )
-                  })}
+                )
+              })}
 
-                </Slider>
+            </Slider>
           </main>
       </section>
   )
