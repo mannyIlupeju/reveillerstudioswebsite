@@ -6,7 +6,7 @@ import { fetchCategories } from '../../../utils/fetchCategories/fetchCategories'
 import Navigation from '@/components/Navigation/Navigation'
 import Footer from '@/components/Footer/Footer'
 import ProductGrid from './ProductGrid'
-import ProductCategories from './product-categories'
+import ProductCategories from './productCategories'
 
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ const Page = async () => {
     <section className="">
       <ProductCategories collections={collections}/>
       <main className="flex justify-center">
-       <ProductGrid products={products}/>
+       <ProductGrid items={products} isProductGrid={true} />
       </main>
       <Footer/>
     </section>

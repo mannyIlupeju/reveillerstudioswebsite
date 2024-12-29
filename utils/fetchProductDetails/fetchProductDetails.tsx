@@ -1,9 +1,7 @@
 
 import client from '../shopify-client/shopify-client';
 
-
-
- export async function generateStaticParams() {
+export async function generateStaticParams() {
 
    const paramQuery = `
     query {

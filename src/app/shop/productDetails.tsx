@@ -10,11 +10,11 @@ import DOMPurify from 'isomorphic-dompurify';
 
 
 const ProductDetails = ({products}:any) => {
+  console.log(products)
   const imageUrl = products.images.edges.map((item:any)=> {
     const images = item.node
     return images
   })
-
   
 
   const markUpText =  products.descriptionHtml
@@ -32,10 +32,49 @@ const ProductDetails = ({products}:any) => {
     centerPadding: "20rem",
     slidesToShow: 2,
     slidesToScroll: 1,
+    speed:3000,
     autoplay:true,
-    speed: 2000,
-    autoplaySpeed: 4000,
-    cssEase: "linear"
+    autoplaySpeed:2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+          speed:2000,
+          autoplay:true,
+          autoplaySpeed: 4000,
+          cssEase: "linear",
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+          speed:2000,
+          autoplay:true,
+          autoplaySpeed: 4000,
+          cssEase: "linear",
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          speed:2000,
+          autoplay:true,
+          autoplaySpeed: 4000,
+          cssEase: "linear",
+        }
+      }
+    ]
+    
   };
 
 
@@ -73,6 +112,7 @@ const ProductDetails = ({products}:any) => {
           <main className="mt-10 slider-container">
             <Slider {...settings}>
               {imageUrl.map((item:any, index:any) => {
+                console.log(item)
                 return (
                   <div key={index}>
                     <Image
