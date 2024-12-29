@@ -81,6 +81,15 @@ canvas {
 
 }
 
+.activeImage {
+  background-color: red;
+
+}
+
+.lastItem {
+  order: -1;
+}
+
 .shopImage {
   background-color: antiquewhite;
   width: 20rem;
@@ -92,6 +101,10 @@ canvas {
   aspect-ratio: 1/1;
 }
 
+.pd-animation {
+  animation: product-scroll 4s linear 1s infinite;
+}
+
 @keyframes underlineAnimation {
   0% {
     width: 0;
@@ -101,3 +114,21 @@ canvas {
   }
 }
 
+@keyframes product-scroll{
+  0% {
+    transform: translateX(0%);
+  }
+
+  /* 50%{
+    transform: translateX(1.1em);
+  } */
+
+  
+  /* 80%{
+    transform: translateX(8.1em);
+  } */
+
+  100%{
+    transform: translateX(-100%)
+  }
+}

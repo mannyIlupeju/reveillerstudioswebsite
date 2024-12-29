@@ -1,2 +1,7 @@
 /node_modules/
 .env
+build/
+dist/
+*.gz
+*.pack.gz.old
+fallback-build-manifest.json
