@@ -15,6 +15,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
     
+    
     if (!product) {
       return <h1>Product not found</h1>;
     }
@@ -66,7 +67,7 @@ query getProductByHandle($handle: String!) {
   productByHandle(handle: $handle) {
     id
     title
-    
+    totalInventory
     handle
     priceRange {
       minVariantPrice {
