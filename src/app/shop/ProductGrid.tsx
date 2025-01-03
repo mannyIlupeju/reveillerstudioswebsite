@@ -34,11 +34,11 @@ type Props = {
 
 export default function ProductGrid({items, isProductGrid = true}:Props) {
 
-  //filtering the values from the product object
+  //filtering the values from the product object and collections object
   const itemMaps = items.flatMap((item:any)=>{
     return item
   })
-  // console.log(itemMaps)
+  
  
 
  
@@ -58,19 +58,14 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
          <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
         {itemMaps?.map((values:any) => {
          const item = values.node
-         console.log(item)
+       
 
-         
-          
-          
-    
           const id = item.id
           const _id = id?.match(/\d+/g).join('') || id;
           
 
           return (
-            // <h1>hella</h1>
-            <Link href={ `/shop/allProducts/${item.handle}`} key={_id}>
+            <Link href={`/shop/allProducts/${item.handle}`} key={_id}>
               <div key={item.id} onMouseEnter={()=> handleMouseEnter(_id)} onMouseLeave={handleMouseLeave}>
                 {item.images.edges[0] && (
                   <Image

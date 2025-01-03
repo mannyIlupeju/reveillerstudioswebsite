@@ -1,10 +1,5 @@
 {
-<<<<<<< HEAD
-  "/shop/[slug]/page": "app/shop/[slug]/page.js"
-=======
-  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
   "/shop/page": "app/shop/page.js",
-  "/shop/collections/[slug]/page": "app/shop/collections/[slug]/page.js",
   "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js"
->>>>>>> 66cf5407e6ae0fdf6f260772136629c5188f9b81
 }

@@ -1,6 +1,10 @@
 import React from 'react'
 import client from '../../../../../utils/shopify-client/shopify-client'
 import ProductGrid from '../../ProductGrid'
+import ProductCategories from '../../productCategories'
+
+
+
 export default async function Page({params}: {params: { slug: string }}){
    const {slug} = params
    
@@ -17,9 +21,9 @@ export default async function Page({params}: {params: { slug: string }}){
      
 
      return (
-      <div>
+      <section>
        <ProductGrid items={collections} isProductGrid={false}/>
-      </div>
+      </section>
      )
       
 

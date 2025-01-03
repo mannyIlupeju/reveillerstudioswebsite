@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 import { usePathname } from 'next/navigation';
 
 type NavLinkType = {
@@ -46,7 +47,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ links }) => (
 );
 
 const Navigation = () => {
-  const navLinks = ['Shop', 'Showroom', 'Catalogue', 'Journal'].map((name) => ({
+  const navLinks = ['Shop', 'Showroom', 'Archive', 'Journal'].map((name) => ({
     name,
     href: `/${name.toLowerCase()}`,
   }));
@@ -56,7 +57,7 @@ const Navigation = () => {
       <div className="flex gap-4 justify-center items-center">
         <div className="h-3 flex justify-start items-center">
           <Link href='/'>
-            <img 
+            <Image
             src='/images/rvrlogo-nav.png'
             height={250}
             width={250}
@@ -72,7 +73,7 @@ const Navigation = () => {
         </div>
 
         <div>
-          <img 
+          <Image
            src="/images/rvrspinninglogo-unscreen.gif" 
            width={200}
            height={200}
