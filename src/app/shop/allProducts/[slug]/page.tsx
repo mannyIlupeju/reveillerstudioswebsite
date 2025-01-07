@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductDetails from '../../productDetails';
+import { fetchCategories } from '../../../../../utils/fetchCategories/fetchCategories';
 import client from '../../../../../utils/shopify-client/shopify-client';
 import { Metadata } from 'next';
 
@@ -8,6 +9,7 @@ import { Metadata } from 'next';
 // Define the Page Component
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
+ 
   
 
   try {

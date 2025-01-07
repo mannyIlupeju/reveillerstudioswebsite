@@ -55,8 +55,8 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
   };
   
   return (
-         <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
-        {itemMaps?.map((values:any) => {
+    <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
+      {itemMaps?.map((values:any) => {
          const item = values.node
        
 
@@ -73,7 +73,7 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                     width={450}
                     height={450}
                     alt="Product Image"
-                    className="flex items-center justify-center transform transition hover:scale-105 "
+                    className="flex items-center justify-center transform transition hover:scale-105 optimized"
                     loading='lazy'
                   />
                 )}

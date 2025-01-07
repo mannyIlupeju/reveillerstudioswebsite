@@ -37,7 +37,7 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
 
     return (
         <aside className="absolute z-10 p-3 ml-4 flex flex-col gap-5 font-bold -mt-3">
-            <div className="bg-gray-100 p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black">
+            <div className="glassBox p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black">
               <span className="">{title}</span>
               <span>${priceRange.minVariantPrice.amount}</span>
             </div>
@@ -51,7 +51,7 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
                       id={prices.id} 
                       onClick={(e)=> selectSize(e, prices.id)}
                       className={`
-                        ${isButtonSelected === prices.id && quantityAvailable !== 0 ? `bg-green-400 rounded-xl p-3` : `bg-gray-100 rounded-xl p-3`}`
+                        ${isButtonSelected === prices.id && quantityAvailable !== 0 ? `bg-green-400 rounded-xl p-3 glassBox` : `bg-gray-100 glassBox rounded-xl p-3`}`
                       }> 
                       {prices.selectedOptions[1].value} 
                     </button> 
@@ -84,7 +84,7 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
             </button>
                   
                 
-            <div className="bg-gray-100 p-2 rounded-lg">
+            <div className="bg-gray-100 p-2 rounded-lg text-xl leading-8 addToCartGlassBox">
               <CleanMarkUp markUpText={markUpText} />
             </div>
 

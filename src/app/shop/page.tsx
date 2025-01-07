@@ -1,3 +1,4 @@
+//main Shop Page display
 
 import React from 'react'
 import type {Metadata} from 'next'
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 const Page = async () => {  
   const products = await fetchProducts();
   const collections = await fetchCategories();
+  
 
   return (
     <section className="">

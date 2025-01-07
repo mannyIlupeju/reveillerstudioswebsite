@@ -1,5 +1,6 @@
 import React from 'react'
 import client from '../../../../../utils/shopify-client/shopify-client'
+import { fetchCategories } from '../../../../../utils/fetchCategories/fetchCategories';
 import ProductGrid from '../../ProductGrid'
 import ProductCategories from '../../productCategories'
 
@@ -7,6 +8,9 @@ import ProductCategories from '../../productCategories'
 
 export default async function Page({params}: {params: { slug: string }}){
    const {slug} = params
+
+   
+   
    
    try {
      const response = await client.request(collectionQuery, {variables: { handle:slug }})
@@ -19,10 +23,14 @@ export default async function Page({params}: {params: { slug: string }}){
       return item
      })
      
+     const allCategories = await fetchCategories();
 
      return (
       <section>
-       <ProductGrid items={collections} isProductGrid={false}/>
+       <ProductCategories collections={allCategories}/>
+       <main className="flex justify-center">
+        <ProductGrid items={collections} isProductGrid={false}/>
+       </main>
       </section>
      )
       
