@@ -77,7 +77,6 @@ const ProductDetails = ({products}:any) => {
 
   return (
       <section className="relative">
-
           <ProdDetailsConfiguration title={title} priceRange={priceRange} variants={variants} descriptionHtml={descriptionHtml} /> 
            
             <main className="mt-10 slider-container">

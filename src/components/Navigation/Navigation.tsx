@@ -57,9 +57,9 @@ const Navigation = () => {
   }));
 
   return (
-    <nav className="flex justify-center mx-auto container-width">
-      <div className="flex gap-4 justify-center items-center">
-        <div className="h-3 flex justify-start items-center">
+    <nav className="flex justify-between lg:justify-center mx-auto container-width">
+      <div className="flex  justify-center items-center">
+        <div className="flex lg:flex-row flex-col justify-start items-center">
           <Link href='/'>
             <Image
             src='/images/rvrlogo-nav.png'
@@ -67,21 +67,21 @@ const Navigation = () => {
             width={250}
             alt="reveiller black logo"/>
           </Link>
+
+          <div className="p-2 flex justify-start items-center">
+            <span className="text-zinc-800 text-xs">
+              Designed & Engineered by Reveillerstudios.<br></br>
+              A Holistic and accessible approach to Functionality & Grunge.
+            </span>
+          </div>
         </div>
 
-        <div className="p-2 flex justify-start items-center">
-          <span className="text-zinc-800 text-xs">
-            Designed & Engineered by Reveillerstudios.<br></br>
-            A Holistic and accessible approach to Functionality & Grunge.
-          </span>
-        </div>
-
-        <div>
+        <div className="">
           <Image
-           src="/images/rvrspinninglogo-unscreen.gif" 
-           width={200}
-           height={200}
-           alt="rvr spinning logo"
+            src="/images/rvrspinninglogo-unscreen.gif" 
+            width={200}
+            height={200}
+            alt="rvr spinning logo"
           />
         </div>
 

@@ -9,9 +9,7 @@ import { Metadata } from 'next';
 // Define the Page Component
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
- 
   
-
   try {
     // Fetch product data using the slug
     const response = await client.request(productQuery, { variables: {handle: slug }});

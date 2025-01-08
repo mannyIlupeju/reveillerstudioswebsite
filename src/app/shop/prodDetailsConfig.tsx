@@ -34,7 +34,6 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
     }
   }
 
-  console.log(isButtonSelected)
 
     return (
         <aside className="absolute z-10 p-3 ml-4 flex flex-col gap-5 font-bold -mt-3">
