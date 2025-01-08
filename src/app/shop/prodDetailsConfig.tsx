@@ -22,7 +22,7 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
   }
 
 
-  function selectSize(e:MouseEvent, id:string){
+  function selectSize(e:React.MouseEvent, id:string){
     e.preventDefault();
   
     const sizeExist = productVariants.find((item:any)=> item.id === id);
@@ -30,10 +30,11 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
     if(sizeExist){
       setSelectButton(id)
       setQuantityAvailable(sizeExist.quantityAvailable)
-      console.log(quantityAvailable)
+      console.log(id)
     }
-
   }
+
+  console.log(isButtonSelected)
 
     return (
         <aside className="absolute z-10 p-3 ml-4 flex flex-col gap-5 font-bold -mt-3">
@@ -42,17 +43,17 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
               <span>${priceRange.minVariantPrice.amount}</span>
             </div>
 
-            <div className="flex flex-row justify-center gap-8" key={productVariants.id}>
+            <div className="flex flex-row justify-around gap-8" key={productVariants.id}>
                 {variants.edges.map((item:any, index:any)=>{
                   const prices = item.node
                   return (
                     <button 
                       key={index}
                       id={prices.id} 
-                      onClick={(e)=> selectSize(e, prices.id)}
+                      onClick={(e) => selectSize(e, prices.id)}
                       className={`
-                        ${isButtonSelected === prices.id && quantityAvailable !== 0 ? `bg-green-400 rounded-xl p-3 glassBox` : `bg-gray-100 glassBox rounded-xl p-3`}`
-                      }> 
+                        ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-400` : `bg-gray-300 `} rounded-xl p-3 glassBox`}
+                      > 
                       {prices.selectedOptions[1].value} 
                     </button> 
                   )

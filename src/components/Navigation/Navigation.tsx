@@ -14,25 +14,29 @@ interface NavLinksProps {
   links: NavLinkType[];
 }
 
+
+function showName(e, pathName:any){
+  console.log(pathName)
+}
+
 const NavLink = ({ name, href }: NavLinkType) => {
-  const [underlineVisible, setUnderlineVisible] = useState(false);
+   const [underlineVisible, setUnderlineVisible] = useState(false);
+  const [isLinkHovered, setLinkIsHovered] = useState(null);
   const pathName = usePathname();
   const isActive = pathName?.startsWith(href);
+
+  console.log(pathName)
 
   return (
     <div className="group">
       <Link
         href={href}
-        onMouseEnter={() => setUnderlineVisible(true)}
-        onMouseLeave={() => setUnderlineVisible(false)}
-        className={`relative p-4 rounded-xl ${isActive ? 'nav-active' : 'nav-link'}`}
       >
-        {name}
         <span
-          className={`absolute -bottom-1 left-0 w-full h-0.5 transform transition-transform origin-left ${
-            underlineVisible || isActive ? 'scale-x-100' : 'scale-x-0'
+          className={` ${underlineVisible || isActive ? 'scale-x-100' : 'scale-x-0'
           }`}
-        ></span>
+        >{name}
+        </span>
       </Link>
     </div>
   );

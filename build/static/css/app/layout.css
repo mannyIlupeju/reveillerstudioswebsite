@@ -507,17 +507,11 @@ video {
 .relative {
   position: relative;
 }
-.-bottom-1 {
-  bottom: -0.25rem;
-}
 .bottom-1\/3 {
   bottom: 33.333333%;
 }
 .bottom-12 {
   bottom: 3rem;
-}
-.left-0 {
-  left: 0px;
 }
 .right-3 {
   right: 0.75rem;
@@ -553,12 +547,6 @@ video {
 .grid {
   display: grid;
 }
-.h-0 {
-  height: 0px;
-}
-.h-0\.5 {
-  height: 0.125rem;
-}
 .h-3 {
   height: 0.75rem;
 }
@@ -576,14 +564,8 @@ video {
   width: -moz-fit-content;
   width: fit-content;
 }
-.w-full {
-  width: 100%;
-}
 .w-screen {
   width: 100vw;
-}
-.origin-left {
-  transform-origin: left;
 }
 .scale-x-0 {
   --tw-scale-x: 0;
@@ -605,18 +587,6 @@ video {
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.grid-cols-\[repeat\(auto-fit\2c minmax\(300px\2c 1fr\)\)\] {
-  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-}
-.grid-cols-\[repeat\(auto-fit\2c minmax\(300px\2c 3fr\)\)\] {
-  grid-template-columns: repeat(auto-fit,minmax(300px,3fr));
-}
 .flex-row {
   flex-direction: row;
 }
@@ -634,6 +604,9 @@ video {
 }
 .justify-between {
   justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
 }
 .justify-items-end {
   justify-items: end;
@@ -655,9 +628,6 @@ video {
 }
 .gap-8 {
   gap: 2rem;
-}
-.gap-12 {
-  gap: 3rem;
 }
 .gap-x-12 {
   -moz-column-gap: 3rem;
@@ -697,6 +667,10 @@ video {
 .bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+.bg-green-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
 .bg-green-400 {
   --tw-bg-opacity: 1;
@@ -773,11 +747,6 @@ video {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-.transition-transform {
-  transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -909,7 +878,6 @@ canvas {
 
 
 .glassBox {
-  background: rgba(255, 255, 255, 0.24);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(7.9px);
