@@ -79,9 +79,9 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                 )}
               </div>
 
-              <div className="text-center font-bold mt-8">
+              <div className="text-center flex justify-center gap-8 font-bold -mt-4 productTitleBox w-full p-2">
                 <h1>{item.title}</h1>
-                <span>{item.priceRange.minVariantPrice.amount}</span>
+                <span>${item.priceRange.minVariantPrice.amount}</span>
               </div>
 
             </Link>

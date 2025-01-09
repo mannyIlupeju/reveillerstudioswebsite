@@ -51,7 +51,7 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
                       id={prices.id} 
                       onClick={(e) => selectSize(e, prices.id)}
                       className={`
-                        ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-400` : `bg-gray-300 `} rounded-xl p-3 glassBox`}
+                        ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-300` : `bg-gray-300 `} rounded-xl p-3 glassBox`}
                       > 
                       {prices.selectedOptions[1].value} 
                     </button> 
@@ -84,7 +84,7 @@ export default function ProdDetailsConfiguration({title, priceRange, variants, d
             </button>
                   
                 
-            <div className="bg-gray-100 p-2 rounded-lg text-xl leading-8 addToCartGlassBox">
+            <div className="bg-gray-100 p-2 rounded-lg text-xl leading-10 addToCartGlassBox">
               <CleanMarkUp markUpText={markUpText} />
             </div>
 

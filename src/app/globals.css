@@ -12,6 +12,26 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Switzer-Light';
+  src: url('/Switzer/fonts/Switzer-Light.woff2') format('woff2'),
+       url('/Switzer/fonts/Switzer-Light.woff') format('woff'),
+       url('/Switzer/fonts/Switzer-Light.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Satoshi-light';
+  src: url('/WEB/fonts/Satoshi-light.woff2') format('woff2'),
+       url('/WEB/fonts/Satoshi-light.woff') format('woff'),
+       url('/WEB/fonts/Satoshi-light.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+} */
+
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -31,10 +51,15 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding:0;
-  font-family: 'Satoshi-Light', sans-serif;
   background-color: transparent;
+  font-family:'Switzer-Light', sans-serif;
+ 
  
   /* position:relative */
+}
+
+.nav-font {
+  font-family: 'Satoshi-Light', sans-serif;
 }
 
 canvas {
@@ -150,3 +175,12 @@ backdrop-filter: blur(10.4px);
 -webkit-backdrop-filter: blur(10.4px);
 border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+.productTitleBox {
+  background: rgba(190, 188, 188, 0.45);
+ border-radius: 16px;
+ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5.4px);
+-webkit-backdrop-filter: blur(5.4px);
+border: 1px solid rgba(176, 172, 172, 0.24);
+} 

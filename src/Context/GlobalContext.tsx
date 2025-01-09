@@ -18,9 +18,6 @@ type GlobalContextType = {
 
 
 
-
-
-
 // Create the context with an initial value of `null`
 const GlobalContext = createContext<GlobalContextType | null>(null);
 
@@ -34,8 +31,8 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
   const [timeState, setState] = useState<GlobalState>({
     currentTime: '',
   });
-
   const [isHovered, setIsItemHovered] = useState(null)
+  const [isMenuOpen, setOpenMenu] = useState(false)
 
   // Function to update the current time
   const setCurrentTime = (currentTime: string) => {
