@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Satoshi-Light';
+  src: url('/WEB/fonts/Satoshi-Light.woff2') format('woff2'),
+       url('/WEB/fonts/Satoshi-Light.woff') format('woff'),
+       url('/WEB/fonts/Satoshi-Light.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Light';
+  src: url('/Switzer/fonts/Switzer-Light.woff2') format('woff2'),
+       url('/Switzer/fonts/Switzer-Light.woff') format('woff'),
+       url('/Switzer/fonts/Switzer-Light.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* @font-face {
+  font-family: 'Satoshi-light';
+  src: url('/WEB/fonts/Satoshi-light.woff2') format('woff2'),
+       url('/WEB/fonts/Satoshi-light.woff') format('woff'),
+       url('/WEB/fonts/Satoshi-light.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+} */
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding:0;
+  background-color: transparent;
+  font-family:'Switzer-Light', sans-serif;
+ 
+ 
+  /* position:relative */
+}
+
+.nav-font {
+  font-family: 'Satoshi-Light', sans-serif;
+}
+
+canvas {
+  display: block; /* Removes inline padding and margin */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+/*  */
+
+.footer-section {
+  background: linear-gradient(180deg, rgba(34,34,36,1) 63%, rgba(19,36,24,1) 99%);
+}
+
+.custom-cursor {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  background: url('/reveillerstudios/public/rvrlogo-web.png');
+  background-size: contain;
+}
+
+.center-image { 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%; /* Ensure image doesn't exceed container width */
+  max-height: 100%; /* Ensure image doesn't exceed container height */
+  width: auto;
+  height: auto;
+
+}
+
+.activeImage {
+  background-color: red;
+
+}
+
+.lastItem {
+  order: -1;
+}
+
+.shopImage {
+  background-color: antiquewhite;
+  width: 20rem;
+  height: 25rem;
+  padding: 2rem;
+  display: flex;
+
+  border-radius: 0.5rem;
+  aspect-ratio: 1/1;
+}
+
+.pd-animation {
+  animation: product-scroll 4s linear 1s infinite;
+}
+
+@keyframes underlineAnimation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes product-scroll{
+  0% {
+    transform: translateX(0%);
+  }
+
+  /* 50%{
+    transform: translateX(1.1em);
+  } */
+
+  
+  /* 80%{
+    transform: translateX(8.1em);
+  } */
+
+  100%{
+    transform: translateX(-100%)
+  }
+}
+
+
+.glassBox {
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.9px);
+  -webkit-backdrop-filter: blur(7.9px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.prodDetailsOptionsBox {
+  background: rgba(255, 255, 255, 0.677);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(10.4px);
+-webkit-backdrop-filter: blur(10.4px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.addToCartBox {
+  background: rgba(17, 215, 62, 0.68);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(17, 215, 62, 0.24);
+}
+
+.productTitleBox {
+  background: rgba(190, 188, 188, 0.45);
+ border-radius: 16px;
+ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5.4px);
+-webkit-backdrop-filter: blur(5.4px);
+border: 1px solid rgba(176, 172, 172, 0.24);
+
+} 
+
+table, th, td {
+  border: 1px solid red;
+}
+
+th, td {
+  padding: 15px;
+}
+
+.size-text {
+  max-width: 30rem;
+  font-size: 0.6rem;
+}
+
