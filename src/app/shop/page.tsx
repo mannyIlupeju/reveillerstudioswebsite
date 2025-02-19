@@ -4,22 +4,15 @@ import React from 'react'
 import type {Metadata} from 'next'
 import { fetchProducts } from '../../../utils/fetchProducts/fetchProducts'
 import { fetchCategories } from '../../../utils/fetchCategories/fetchCategories'
-<<<<<<< HEAD
-import Navigation from '@/components/Navigation/Navigation'
-=======
->>>>>>> origin/main
 import Footer from '@/components/Footer/Footer'
 import ProductGrid from './ProductGrid'
 import ProductCategories from './productCategories'
 
 
-<<<<<<< HEAD
-=======
 
 
 
 
->>>>>>> origin/main
 export const metadata: Metadata = {
   title: 'Shop page'
 }

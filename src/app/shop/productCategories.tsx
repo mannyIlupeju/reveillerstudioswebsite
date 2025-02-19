@@ -16,22 +16,6 @@ type Props = {
 }
 
 
-<<<<<<< HEAD
-function ProductCategories({ collections }: Props) {
-  return (
-      <aside className="xl:absolute xl:translate-y-64 lg:p-4">
-        <div className = "flex xl:flex-col justify-center mt-12 flex-row gap-5">
-        {collections.map((item:any) => {
-            const collection = item.node
-
-            return (
-                <Link 
-                key={collection.id} 
-                href={`/shop/collections/${collection.handle}`} 
-                className= "hover:text-yellow-600 text-zinc-800 cursor-pointer"
-                >
-                  <p className="font-semibold">{collection.title.toUpperCase()}</p>
-=======
 
 
 
@@ -95,7 +79,6 @@ function ProductCategories({ collections }: Props) {
                   <span className="font-semibold uppercase">
                     {hoveredID === id && reversedTitle ? reversedTitle : title}
                   </span>
->>>>>>> origin/main
                 </Link>
             )
         })}
@@ -105,9 +88,6 @@ function ProductCategories({ collections }: Props) {
 }
 
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin/main
 export default ProductCategories

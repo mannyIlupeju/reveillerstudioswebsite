@@ -10,11 +10,6 @@ export default async function Page({params}: {params: { slug: string }}){
    const {slug} = params
 
    
-<<<<<<< HEAD
-   
-   
-=======
->>>>>>> origin/main
    try {
      const response = await client.request(collectionQuery, {variables: { handle:slug }})
 
@@ -28,10 +23,6 @@ export default async function Page({params}: {params: { slug: string }}){
      
      const allCategories = await fetchCategories();
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
      return (
       <section>
        <ProductCategories collections={allCategories}/>

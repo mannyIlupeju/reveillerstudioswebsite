@@ -11,15 +11,10 @@ import Slider from "react-slick";
 
 
 const ProductDetails = ({products}:any) => {
-<<<<<<< HEAD
-  
-  const {images, descriptionHtml, title, priceRange, variants, price} = products
-=======
 
   const {id, images, descriptionHtml, title, priceRange, variants, price, collections} = products
 
 
->>>>>>> origin/main
 
   //get images from product object
   const imageUrl = images.edges.map((item:any)=> {
@@ -84,11 +79,7 @@ const ProductDetails = ({products}:any) => {
 
   return (
       <section className="relative">
-<<<<<<< HEAD
-          <ProdDetailsConfiguration title={title} priceRange={priceRange} variants={variants} descriptionHtml={descriptionHtml} /> 
-=======
           <ProdDetailsConfiguration title={title} priceRange={priceRange} variants={variants} descriptionHtml={descriptionHtml} collections={collections} images={images} /> 
->>>>>>> origin/main
            
             <main className="mt-10 slider-container">
               <Slider {...settings}>

@@ -6,14 +6,6 @@ import { Metadata } from 'next';
 
 
 
-<<<<<<< HEAD
-// Define the Page Component
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  
-  try {
-    // Fetch product data using the slug
-=======
 
 // Define the Page Component
 
@@ -22,7 +14,6 @@ export default async function Page({ params }: { params: { slug: string } }): Pr
   try {
     // Fetch product data using the slug
     const {slug} = params;
->>>>>>> origin/main
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
     
@@ -30,19 +21,10 @@ export default async function Page({ params }: { params: { slug: string } }): Pr
     if (!product) {
       return <h1>Product not found</h1>;
     }
-<<<<<<< HEAD
-  
-    return (
-      <ProductDetails products={product}/>
-        
-    )
-     
-=======
 
     return (
       <ProductDetails products={product}/>
     )
->>>>>>> origin/main
   } catch (error) {
     console.error("Error fetching product data:", error);
     return <h1>Error loading product</h1>;
@@ -81,54 +63,6 @@ query {
 `;
 
 const productQuery = `
-<<<<<<< HEAD
-query getProductByHandle($handle: String!) {
-  productByHandle(handle: $handle) {
-    id
-    title
-    totalInventory
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    descriptionHtml
-    images(first:6) {
-      edges {
-        node {
-          originalSrc
-          altText
-        }
-      }
-    }
-    variants(first:10) {
-      edges {
-        node {
-        id
-        title
-        sku
-        priceV2 {
-        amount
-        currencyCode
-      }
-      availableForSale
-      selectedOptions {
-          name
-          value
-      }
-      quantityAvailable        
-      }
-    }
-  }
-     
-   
-     
- 
-   
-}
-=======
   query getProductByHandle($handle: String!) {
     productByHandle(handle: $handle) {
       id
@@ -181,6 +115,5 @@ query getProductByHandle($handle: String!) {
     }
 
   }
->>>>>>> origin/main
 }
 `;
