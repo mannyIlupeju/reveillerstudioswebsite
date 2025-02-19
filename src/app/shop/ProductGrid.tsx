@@ -39,10 +39,13 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
     return item
   })
   
+<<<<<<< HEAD
  
 
  
   
+=======
+>>>>>>> origin/main
 
   const [isImageHovered, setIsImageHovered] = useState<string | (null)>(null)
 

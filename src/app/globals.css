@@ -167,8 +167,13 @@ canvas {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+<<<<<<< HEAD
 .addToCartGlassBox {
   background: rgba(255, 255, 255, 0.69);
+=======
+.prodDetailsOptionsBox {
+  background: rgba(255, 255, 255, 0.677);
+>>>>>>> origin/main
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(10.4px);
@@ -176,6 +181,18 @@ backdrop-filter: blur(10.4px);
 border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+<<<<<<< HEAD
+=======
+.addToCartBox {
+  background: rgba(17, 215, 62, 0.68);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(17, 215, 62, 0.24);
+}
+
+>>>>>>> origin/main
 .productTitleBox {
   background: rgba(190, 188, 188, 0.45);
  border-radius: 16px;
@@ -183,4 +200,23 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 backdrop-filter: blur(5.4px);
 -webkit-backdrop-filter: blur(5.4px);
 border: 1px solid rgba(176, 172, 172, 0.24);
+<<<<<<< HEAD
 } 
+=======
+
+} 
+
+table, th, td {
+  border: 1px solid red;
+}
+
+th, td {
+  padding: 15px;
+}
+
+.size-text {
+  max-width: 30rem;
+  font-size: 0.6rem;
+}
+
+>>>>>>> origin/main
