@@ -5,8 +5,8 @@
 @font-face {
   font-family: 'Satoshi-Light';
   src: url('/WEB/fonts/Satoshi-Light.woff2') format('woff2'),
-       url('/WEB/fonts/Satoshi-Light.woff') format('woff'),
-       url('/WEB/fonts/Satoshi-Light.ttf') format('truetype');
+    url('/WEB/fonts/Satoshi-Light.woff') format('woff'),
+    url('/WEB/fonts/Satoshi-Light.ttf') format('truetype');
   font-weight: 600;
   font-display: swap;
   font-style: normal;
@@ -15,8 +15,8 @@
 @font-face {
   font-family: 'Switzer-Light';
   src: url('/Switzer/fonts/Switzer-Light.woff2') format('woff2'),
-       url('/Switzer/fonts/Switzer-Light.woff') format('woff'),
-       url('/Switzer/fonts/Switzer-Light.ttf') format('truetype');
+    url('/Switzer/fonts/Switzer-Light.woff') format('woff'),
+    url('/Switzer/fonts/Switzer-Light.ttf') format('truetype');
   font-weight: 400;
   font-display: swap;
   font-style: normal;
@@ -50,11 +50,11 @@
 body {
   overflow-x: hidden;
   margin: 0;
-  padding:0;
+  padding: 0;
   background-color: transparent;
-  font-family:'Switzer-Light', sans-serif;
- 
- 
+  font-family: 'Switzer-Light', sans-serif;
+
+
   /* position:relative */
 }
 
@@ -63,11 +63,14 @@ body {
 }
 
 canvas {
-  display: block; /* Removes inline padding and margin */
+  display: block;
+  /* Removes inline padding and margin */
   top: 0;
   left: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
+  width: 100vw;
+  /* Full width */
+  height: 100vh;
+  /* Full height */
 }
 
 @layer utilities {
@@ -80,7 +83,7 @@ canvas {
 /*  */
 
 .footer-section {
-  background: linear-gradient(180deg, rgba(34,34,36,1) 63%, rgba(19,36,24,1) 99%);
+  background: linear-gradient(180deg, rgba(34, 34, 36, 1) 63%, rgba(19, 36, 24, 1) 99%);
 }
 
 .custom-cursor {
@@ -94,13 +97,15 @@ canvas {
   background-size: contain;
 }
 
-.center-image { 
+.center-image {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 100%; /* Ensure image doesn't exceed container width */
-  max-height: 100%; /* Ensure image doesn't exceed container height */
+  max-width: 100%;
+  /* Ensure image doesn't exceed container width */
+  max-height: 100%;
+  /* Ensure image doesn't exceed container height */
   width: auto;
   height: auto;
 
@@ -134,12 +139,13 @@ canvas {
   0% {
     width: 0;
   }
+
   100% {
     width: 100%;
   }
 }
 
-@keyframes product-scroll{
+@keyframes product-scroll {
   0% {
     transform: translateX(0%);
   }
@@ -148,12 +154,12 @@ canvas {
     transform: translateX(1.1em);
   } */
 
-  
+
   /* 80%{
     transform: translateX(8.1em);
   } */
 
-  100%{
+  100% {
     transform: translateX(-100%)
   }
 }
@@ -169,11 +175,11 @@ canvas {
 
 .prodDetailsOptionsBox {
   background: rgba(255, 255, 255, 0.677);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(10.4px);
--webkit-backdrop-filter: blur(10.4px);
-border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10.4px);
+  -webkit-backdrop-filter: blur(10.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .addToCartBox {
@@ -187,24 +193,53 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 
 .productTitleBox {
   background: rgba(190, 188, 188, 0.45);
- border-radius: 16px;
- box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5.4px);
--webkit-backdrop-filter: blur(5.4px);
-border: 1px solid rgba(176, 172, 172, 0.24);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(176, 172, 172, 0.24);
 
-} 
-
-table, th, td {
-  border: 1px solid red;
 }
 
-th, td {
+table,
+th,
+td {
+  border: 1px solid #e5e7eb;
+  /* Light gray border */
+}
+
+th,
+td {
   padding: 15px;
+  text-align: left;
+  /* Left align content */
+  border-bottom: 1px solid #e5e7eb;
+  /* Consistent bottom border */
+}
+
+th {
+  background-color: #f9fafb;
+  /* Light background for headers */
+  font-weight: 500;
+  /* Semi-bold headers */
+}
+
+/* Responsive text sizes */
+@media screen and (max-width: 768px) {
+  th, td {
+    padding: 12px;
+    font-size: 14px; /* Medium screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  th, td {
+    padding: 8px;
+    font-size: 12px; /* Small screens */
+  }
 }
 
 .size-text {
   max-width: 30rem;
   font-size: 0.6rem;
 }
-

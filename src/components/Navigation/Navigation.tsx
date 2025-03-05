@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../store/store';
+import { CartItem } from '../../../store/cartSlice';
 
 type NavLinkType = {
   name: string;
@@ -19,6 +22,8 @@ const NavLink = ({ name, href }: NavLinkType) => {
   const [linkName, setLinkName] = useState(name);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [isReversed, setIsReversed] = useState(false);
+  
+  
   const pathName = usePathname();
   const isActive = pathName?.startsWith(href);
 
@@ -41,6 +46,8 @@ const NavLink = ({ name, href }: NavLinkType) => {
     }
     setLinkName(name);
   };
+
+ 
 
   return (
     <div className="group">
@@ -68,6 +75,9 @@ const NavLinks: React.FC<NavLinksProps> = ({ links }) => (
 
 const Navigation = () => {
   const [isMenuOpen, setOpenMenu] = useState(false);
+  const [cartQuantity, setCartQuantity]= useState<string | number>(0)
+
+  
   const navLinks = ['Shop', 'Archive', 'Journal'].map((name) => ({
     name,
     href: `/${name.toLowerCase()}`,
@@ -77,11 +87,18 @@ const Navigation = () => {
     setOpenMenu((prevState) => !prevState);
   };
 
+  const cartState = useSelector((state: RootState) => state.cart)
+  const cartQty = Number(cartState.totalQuantity)
+  
+  useEffect(() => {
+    setCartQuantity(cartQty)
+  }, [cartQty]);
+
   return (
-    <nav className="flex justify-between gap-4 mx-auto container nav-font">
-      <div className="flex justify-center items-center">
-        <div className="flex lg:flex-row flex-col justify-start items-center">
-          <div className="hidden lg:flex w-fit items-start">
+    <nav className="flex justify-around gap-4 container nav-font">
+      <div className="hidden xl:flex justify-center items-center">
+        <div className="flex flex-row justify-start items-center">
+          <div className="lg:flex w-fit items-start">
             <Image
               src="/images/rvrspinninglogo-unscreen2.gif"
               width={50}
@@ -105,21 +122,15 @@ const Navigation = () => {
         </div>
       </div>
 
-      <div className="hidden">
-        <Image
-          src="/images/rvrspinninglogo-unscreen.gif"
-          width={200}
-          height={200}
-          alt="rvr spinning logo"
-        />
-      </div>
+   
 
-      <div className="lg:flex flex-row hidden">
-        <div className="lg:flex gap-5">
+      <div className="flex-row xl:flex hidden justify-end">
+        <div className="flex gap-5">
           <NavLinks links={navLinks} />
-          <div className="flex flex-row items-center">
-            <Link href="/cart">
-              <h1>Cart</h1>
+          <div className="flex items-center">
+            <Link href="/cart" className="flex gap-1">
+              <h1>Cart</h1> 
+              <span>({cartQuantity})</span>
             </Link>
           </div>
         </div>
@@ -135,11 +146,23 @@ const Navigation = () => {
         />
       </div>
 
-      {isMenuOpen && (
-        <div className="bg-gray-300 p-8">
-          <NavLinks links={navLinks} />
-        </div>
-      )}
+     {isMenuOpen && 
+      <div className="lg:hidden flex items-center p-4">
+          <div className="flex flex-row gap-5 items-center">
+            <Link href='/'>Home</Link>
+            <Link href='/shop'>Shop</Link>
+            <Link href='/archive'>Archive</Link>
+            <Link href='/journal'>Journal</Link>
+             <div className="flex items-center">
+            <Link href="/cart" className="flex gap-1">
+              <h1>Cart</h1> 
+              <span>({cartQuantity})</span>
+            </Link>
+          </div>
+          </div>
+      </div>
+      }
+      
     </nav>
   );
 };

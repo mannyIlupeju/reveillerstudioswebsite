@@ -11,6 +11,7 @@ import client from '../../../utils/shopify-client/shopify-client';
 import { useGlobalContext } from '@/Context/GlobalContext';
 import { addItem, setLoading, setError } from '../../../store/cartSlice';
 import type { RootState } from '../../../store/store';
+import { CartItem } from '../../../store/cartSlice';
 
 
   type Attribute = {
@@ -59,16 +60,11 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const [isButtonSelected, setSelectButton] = useState<string | null>(null)
   const [activeAccordionId, setActiveAccordionId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<{[key: string]: number}>({});
+  const [isItemAddedToCart, setIsItemAddedToCart] = useState<boolean>(false)
   const dispatch = useDispatch()
   const cartState = useSelector((state: RootState) => state.cart)
 
-  
 
-  console.log(quantity)
-
-
-
-  
 
   const {quantityAvailable, setQuantityAvailable, sizeInfo, setSizeInfo, cartId, setCartId}= useGlobalContext()
 
@@ -83,9 +79,6 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const productVariants = variants.edges.map((item:any)=>{
     return item.node
   })
-
-
-  console.log(productVariants)
 
 
   const productPrice = priceRange.minVariantPrice.amount
@@ -112,7 +105,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
     
   }
 
-const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
+  const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
     if(quantityAvailable === null) return;
 
     setQuantity(prev => {
@@ -225,15 +218,43 @@ const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
             const selectedQuantity = quantity[isButtonSelected!] || 1;
 
 
-            const cartItem = {
-              id: productVariantID,
-              title,
-              price: parseFloat(productPrice),
-              quantity: selectedQuantity,
-              variantId: productVariantID,
-              image: productImage,
-              size: sizeDetails
-            };
+           const cartItem: CartItem = {
+             id: productVariantID,
+             title: title,
+             price: Number(productPrice),
+             quantity: selectedQuantity,
+             image: productImage,
+             currencyCode:
+               variants.edges[0]?.node.priceV2.currencyCode || "USD", // Get from variants
+             size: {
+               name: sizeDetails.name,
+               value: sizeDetails.value,
+             },
+             variantId: productVariantID,
+             merchandise: {
+               id: productVariantID,
+               image: {
+                 src: productImage,
+                 altText: null,
+               },
+               priceV2: {
+                 amount: Number(productPrice),
+                 currencyCode:
+                   variants.edges[0]?.node.priceV2.currencyCode || "USD",
+               },
+               product: {
+                 title: title,
+                 handle: variants.edges[0]?.node.product?.handle || "",
+                 vendor: variants.edges[0]?.node.product?.vendor || "",
+               },
+             },
+             attributes: [
+               {
+                 key: "Size",
+                 value: sizeDetails.value,
+               },
+             ],
+           };
 
             if (!sizeDetails) {
               throw new Error('Please select a size');
@@ -259,6 +280,7 @@ const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
               throw new Error('Failed to add item to cart');
             }
             
+            setIsItemAddedToCart(true)
             console.log("Product added to cart successfully");
           } catch(error) {
             dispatch(setError(error instanceof Error ? error.message : 'Failed to add item'));
@@ -278,7 +300,7 @@ const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
 
 
   return (
-    <aside className='absolute z-10 p-3 ml-4 flex flex-col gap-5 font-bold cursor-pointer'>
+    <aside className='absolute md:top-12 z-10 p-3 flex flex-col gap-5 font-bold cursor-pointer'>
       <div className='prodDetailsOptionsBox p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
         <span>${productPrice}</span>
@@ -360,7 +382,7 @@ const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
           }
         }}
       >
-        Add to Cart
+        {isItemAddedToCart ? "Item added to Cart" : "Add to Cart"}
       </button>
 
 

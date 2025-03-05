@@ -35,6 +35,19 @@ const ProductDetails = ({products}:any) => {
     autoplaySpeed:2000,
     cssEase: "linear",
     responsive: [
+        {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          centerPadding: "25rem",
+          speed:2000,
+          autoplay:true,
+          autoplaySpeed: 4000,
+          cssEase: "linear",
+        }
+      },
       {
         breakpoint: 1024,
         settings: {
@@ -63,7 +76,7 @@ const ProductDetails = ({products}:any) => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           speed:2000,
           autoplay:true,
@@ -79,10 +92,8 @@ const ProductDetails = ({products}:any) => {
 
   return (
       <section className="relative">
-          <ProdDetailsConfiguration title={title} priceRange={priceRange} variants={variants} descriptionHtml={descriptionHtml} collections={collections} images={images} /> 
-           
-            <main className="mt-10 slider-container">
-              <Slider {...settings}>
+          <main className="mt-10 slider-container">
+            <Slider {...settings}>
                 {imageUrl.map((item:any, index:any) => {
                   return (
                     <div key={index}>
@@ -96,8 +107,15 @@ const ProductDetails = ({products}:any) => {
                         
                   )
                 })}
-              </Slider>
-            </main>
+            </Slider>
+          </main>
+          <ProdDetailsConfiguration 
+          title={title} priceRange={priceRange} 
+          variants={variants} 
+          descriptionHtml={descriptionHtml} 
+          collections={collections} 
+          images={images} 
+          /> 
       </section>
   )
 }
