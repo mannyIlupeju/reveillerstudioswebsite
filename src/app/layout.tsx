@@ -1,9 +1,7 @@
 'use client'
 
-import React, {useContext} from 'react'
-
-import Navigation from '@/components/Navigation/Navigation'
-import Footer from '@/components/Footer/Footer'
+import React, {useState, useEffect, useContext} from 'react'
+import Loading from '@/components/Loading/Loading';
 import { LoadingProvider } from '@/Context/context/LoadingContext';
 import { CanvasProvider } from '@/Context/context/CanvasContext';
 import { GlobalProvider } from '@/Context/GlobalContext';
@@ -20,24 +18,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+    const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  
+
   
   return (
-    <html lang="en">
+     <html lang="en">
       <body>
-        <Provider store={store}>
-          <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        
+          <Provider store={store}>
             <GlobalProvider>
-              <LoadingProvider>
-                <CanvasProvider>
-                  <Navigation/>
-                  <main className="flex flex-col">
-                    {children}
-                  </main>
-                </CanvasProvider>
-              </LoadingProvider>
+              <PersistGate loading={<div>loading....</div>} persistor={persistor}>
+                <LoadingProvider>
+                  <CanvasProvider>
+                    <main className="flex flex-col">{children}</main>
+                  </CanvasProvider>
+                </LoadingProvider>
+              </PersistGate>
             </GlobalProvider>
-          </PersistGate>
-        </Provider>
+          </Provider>
+        
       </body>
     </html>
   );

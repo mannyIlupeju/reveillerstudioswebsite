@@ -7,6 +7,7 @@ import { fetchCategories } from '../../../utils/fetchCategories/fetchCategories'
 import Footer from '@/components/Footer/Footer'
 import ProductGrid from './ProductGrid'
 import ProductCategories from './productCategories'
+import Navigation from '@/components/Navigation/Navigation'
 
 
 
@@ -23,6 +24,8 @@ const Page = async () => {
   
 
   return (
+    <>
+    <Navigation/>
     <section className="">
       <ProductCategories collections={collections}/>
       <main className="flex justify-center">
@@ -30,6 +33,7 @@ const Page = async () => {
       </main>
       <Footer/>
     </section>
+    </>
   )
 }
 

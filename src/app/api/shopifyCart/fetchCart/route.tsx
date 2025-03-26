@@ -7,6 +7,7 @@ export async function POST(req: Request){
     const body = await req.json();
 
     const {cartId} = body
+    console.log(cartId)
 
     try {
         const query = `
@@ -99,14 +100,15 @@ export async function POST(req: Request){
         }
 
         const data:any = await response.json()
+        console.log(data)
 
-        if(!data || !data.data || !data.data.cart){
+        if(!data || !data || !data.cart){
             return NextResponse.json({error: "Cart not found"}, {status: 404})
         }
         console.log("Cart data:", data)
         
 
-        return NextResponse.json({ success: true, cart: data.data.cart }, {status: 200});
+        return NextResponse.json({ success: true, cart: data.cart }, {status: 200});
     } catch (error){
         console.error('Error fetching cart data:', error);
         return NextResponse.json({error: "Internal server error"}, {status: 500})

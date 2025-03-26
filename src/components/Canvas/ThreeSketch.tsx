@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from "react";
+import { useRouter } from 'next/navigation';
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
 import LocationDate from "../../../helper-functions/getCurrentTime/location-date/location-date";
+
 
 <<<<<<< HEAD
 =======
@@ -21,7 +23,6 @@ const ThreeSketch = () => {
 <<<<<<< HEAD
 =======
   
->>>>>>> origin/main
 
   
   useEffect(() => {
@@ -196,12 +197,6 @@ const ThreeSketch = () => {
   return (
     <>
       <canvas ref={backgroundCanvasRef}/>
-<<<<<<< HEAD
-      <div className="bg-gray-200 absolute bottom-12 right-3 p-3">
-        <LocationDate/>
-      </div>
-=======
->>>>>>> origin/main
     </>
   )
 };

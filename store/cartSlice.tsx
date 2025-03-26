@@ -1,18 +1,37 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
-
-interface CartItem {
+export interface CartItem {
   id: string;
   title: string;
   price: number;
   quantity: number;
   image: string;
+  currencyCode: string;
   size: {
-    name:string;
-    value:string;
+    name: string;
+    value: string;
   };
   variantId: string;
+  merchandise: {
+    id: string;
+    image: {
+      src: string;
+      altText: string | null;
+    };
+    priceV2: {
+      amount: number;
+      currencyCode: string;
+    };
+    product: {
+      title: string;
+      handle: string;
+      vendor: string;
+    };
+  };
+  attributes: {
+    key: string;
+    value: string;
+  }[];
 }
 
 interface CartState {
@@ -23,25 +42,26 @@ interface CartState {
   error: string | null;
 }
 
+const initialState: CartState = {
+  cart: [],
+  totalPrice: 0,
+  totalQuantity: 0,
+  isLoading: false,
+  error: null,
+};
 
-const initialState:CartState = {
-   cart: [],
-   totalPrice: 0,
-   totalQuantity: 0,
-   isLoading: false,
-   error: null
-
-
-}
-
-const calculateTotals = (state: CartState) => {
-    state.totalQuantity = state.cart.reduce((total, item) => total + item.quantity, 0);
-    state.totalPrice = state.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-}
-
+const calculateTotals = (cart: CartItem[]) => {
+  return {
+    totalQuantity: cart.reduce((total, item) => total + item.quantity, 0),
+    totalPrice: cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    ),
+  };
+};
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -52,42 +72,67 @@ const cartSlice = createSlice({
     },
     addItem: (state, action: PayloadAction<CartItem>) => {
       const existingItemIndex = state.cart.findIndex(
-        item => item.variantId === action.payload.variantId
+        (item) => item.variantId === action.payload.variantId
       );
-      
+
       if (existingItemIndex >= 0) {
         state.cart[existingItemIndex].quantity += action.payload.quantity;
       } else {
         state.cart.push(action.payload);
       }
-      calculateTotals(state);
+
+      const totals = calculateTotals(state.cart);
+      state.totalQuantity = totals.totalQuantity;
+      state.totalPrice = totals.totalPrice;
     },
     removeItem: (state, action: PayloadAction<string>) => {
-      state.cart = state.cart.filter(item => item.variantId !== action.payload);
-      calculateTotals(state);
+      state.cart = state.cart.filter(
+        (item) => item.variantId !== action.payload
+      );
+      const totals = calculateTotals(state.cart);
+      state.totalQuantity = totals.totalQuantity;
+      state.totalPrice = totals.totalPrice;
     },
-    updateQuantity: (state, action: PayloadAction<{ variantId: string; quantity: number }>) => {
-      const item = state.cart.find(item => item.variantId === action.payload.variantId);
+    updateQuantity: (
+      state,
+      action: PayloadAction<{ lineId: string; quantity: number }>
+    ) => {
+      const { lineId, quantity } = action.payload;
+      const item = state.cart.find((item) => item.variantId === lineId);
+
       if (item) {
-        item.quantity = action.payload.quantity;
-        calculateTotals(state);
+        item.quantity = quantity;
+        const totals = calculateTotals(state.cart);
+        state.totalQuantity = totals.totalQuantity;
+        state.totalPrice = totals.totalPrice;
       }
+    },
+    setCartItems: (state, action: PayloadAction<CartItem[]>) => {
+      state.cart = action.payload;
+      const totals = calculateTotals(action.payload);
+      state.totalQuantity = totals.totalQuantity;
+      state.totalPrice = totals.totalPrice;
+    },
+    clearError: (state) => {
+      state.error = null;
     },
     clearCart: (state) => {
       state.cart = [];
-      calculateTotals(state);
-    }
-  }
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
+    },
+  },
 });
 
-
-export const { 
-  addItem, 
-  removeItem, 
-  updateQuantity, 
-  clearCart,
+export const {
+  addItem,
+  removeItem,
+  updateQuantity,
   setLoading,
-  setError 
+  setError,
+  clearError,
+  clearCart,
+  setCartItems,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

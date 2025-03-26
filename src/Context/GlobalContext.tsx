@@ -13,6 +13,7 @@ type GlobalState = {
     value: string;
   };
 
+
  type SizeInfo = {
     availableForSale: boolean;
     id: string;
@@ -47,7 +48,8 @@ type GlobalContextType = {
   setIsItemHovered: React.Dispatch<React.SetStateAction<boolean | null>>;
   isMenuOpen: boolean;
   setOpenMenu:  React.Dispatch<React.SetStateAction<boolean>>;
-
+  isCartOpen: boolean;
+  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 
@@ -73,6 +75,7 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
 
   const [isHovered, setIsItemHovered] = useState<boolean | null>(null)
   const [isMenuOpen, setOpenMenu] = useState<boolean>(false)
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
   // const [quantity, setQuantity] = useState<number>(1)
   const [quantityAvailable, setQuantityAvailable] = useState<number | null>(null)
   const [sizeInfo, setSizeInfo] = useState<SizeInfo>({availableForSale:false, id:"", priceV2:{amount:"", currencyCode:""},quantityAvailable:0, title:"", selectedOptions:[]})
@@ -111,6 +114,8 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         setIsItemHovered,
         isMenuOpen,
         setOpenMenu,
+        setIsCartOpen,
+        isCartOpen,
         removeCart,
         // quantity,
         // setQuantity, 
