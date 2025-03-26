@@ -14,6 +14,7 @@ import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
 
 
+
   type Attribute = {
     key: string,
     value:string
@@ -66,12 +67,15 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
 
-  const {quantityAvailable, setQuantityAvailable, sizeInfo, setSizeInfo, cartId, setCartId}= useGlobalContext()
+  const {quantityAvailable, setQuantityAvailable, sizeInfo, setSizeInfo, cartId, setCartId, setIsCartOpen}= useGlobalContext()
 
   const sizeDetails = sizeInfo.selectedOptions[1] ?? null;
 
   const collectionItemSearch = collections.edges.map((item:any) => item.node.title)
-  const collectionItem = collectionItemSearch[0]
+  const collectionItems = collectionItemSearch.filter((item:any) => item !== "All")
+  console.log(collectionItems[0])
+  const collectionItem = collectionItems[0]
+  // console.log(collectionItemSearch)
 
 
 
@@ -281,6 +285,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
             }
             
             setIsItemAddedToCart(true)
+            setIsCartOpen(true)
             console.log("Product added to cart successfully");
           } catch(error) {
             dispatch(setError(error instanceof Error ? error.message : 'Failed to add item'));
@@ -300,6 +305,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
   return (
+    <>
+  
     <aside className='absolute md:top-12 z-10 p-3 flex flex-col gap-5 font-bold cursor-pointer'>
       <div className='prodDetailsOptionsBox p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
@@ -401,5 +408,6 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
         />
       ))}
     </aside>
+    </>
   )
 }

@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from "react";
+import { useRouter } from 'next/navigation';
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
 import LocationDate from "../../../helper-functions/getCurrentTime/location-date/location-date";
+
 
 type videoType = {
     src: string,
@@ -16,6 +18,7 @@ const ThreeSketch = () => {
   const { backgroundCanvasRef } = useCanvas()
   const modelRef = useRef<THREE.Group | null>(null);
   
+  const router = useRouter();
 
   
   useEffect(() => {
@@ -153,6 +156,14 @@ const ThreeSketch = () => {
   return (
     <>
       <canvas ref={backgroundCanvasRef}/>
+   
+      <button 
+      className="bg-zinc-800 absolute bottom-20 p-4 text-white w-48 rounded-lg text-lg"
+      onClick={() => router.push('/shop')}
+      >
+        Enter
+      </button>
+     
     </>
   )
 };

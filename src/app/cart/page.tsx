@@ -13,6 +13,7 @@ const cartId = getCartId?.value
 
 
 
+
 if(!cartId){
   return <p>No Items in cart</p>
 }

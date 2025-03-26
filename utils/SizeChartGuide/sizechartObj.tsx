@@ -2,7 +2,7 @@
 export const getSizeChart = [
     {
       id: "2",
-      category: "hoodies",
+      category: "Hoodies",
       sizeChart: `
               <table>
                  <tr>
@@ -49,7 +49,7 @@ export const getSizeChart = [
     },
      {
       id: "2",
-      category: "sweatpants",
+      category: "Sweatpants",
       sizeChart: `
               <table>
                  <tr>

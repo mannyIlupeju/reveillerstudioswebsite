@@ -1,7 +1,24 @@
-export async function removeCartItem(itemId: string, cartId: string) {
-  try {
-    setIsLoading(true);
+'use client'
 
+import { useGlobalContext } from "@/Context/GlobalContext";
+import Image from "next/image"
+import { FaMinus, FaPlus } from 'react-icons/fa';
+import {useSelector, useDispatch} from 'react-redux'
+import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "../../store/cartSlice";
+import {useEffect, useState} from 'react';
+import { RootState } from "../../store/store";
+import Footer from "@/components/Footer/Footer";
+import Navigation from "@/components/Navigation/Navigation";
+import {Dispatch} from "redux"
+
+
+
+
+  
+export async function removeCartItem(itemId: string, cartId: string, dispatch:Dispatch) {
+  if(!cartId) return;
+
+  try {
     const response = await fetch("/api/shopifyCart/removeItem", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -16,20 +33,18 @@ export async function removeCartItem(itemId: string, cartId: string) {
     }
 
     // Refresh cart after successful removal
-    await refreshCart(cartId);
+    await refreshCart(cartId, dispatch);
   } catch (error) {
     console.error("Error removing item from cart:", error);
-    await refreshCart(cartId); // Refresh to ensure UI is in sync
-  } finally {
-    setIsLoading(false);
-  }
+    await refreshCart(cartId, dispatch); // Refresh to ensure UI is in sync
+  } 
 }
 
-async function updateCartQty(lineId: string, quantity: number) {
+export async function updateCartQty(lineId: string, cartId:string | null, quantity: number, dispatch:Dispatch) {
   if (!cartId) return;
 
   try {
-    setIsLoading(true);
+   
     dispatch(setLoading(true));
 
     // Optimistically update UI
@@ -50,17 +65,16 @@ async function updateCartQty(lineId: string, quantity: number) {
     }
 
     // Refresh cart data
-    await refreshCart(cartId);
+    await refreshCart(cartId, dispatch);
   } catch (error) {
     console.error("Error updating cart quantity:", error);
-    await refreshCart(cartId); // Refresh to revert to server state if there was an error
+    await refreshCart(cartId, dispatch); // Refresh to revert to server state if there was an error
   } finally {
-    setIsLoading(false);
     dispatch(setLoading(false));
   }
 }
 
-async function refreshCart(cartId: string) {
+export async function refreshCart(cartId: string, dispatch:Dispatch) {
   if (!cartId) return;
 
   try {
@@ -101,5 +115,27 @@ async function refreshCart(cartId: string) {
   } catch (error) {
     console.error("Error refreshing cart:", error);
     dispatch(setError("Failed to refresh cart"));
+  }
+}
+
+export async function handleCheckout(cartId: string | null) {
+  if (!cartId) return;
+
+  try {
+    const response = await fetch("api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartId }),
+    });
+
+    const data = await response.json();
+    const fetchedData = data;
+    if (fetchedData.data.cart) {
+      window.location.href = fetchedData.data.cart.checkoutUrl;
+    }
+  } catch (error) {
+    console.error("Error checking items out:", error);
   }
 }

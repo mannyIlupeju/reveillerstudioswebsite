@@ -215,6 +215,8 @@ td {
   /* Left align content */
   border-bottom: 1px solid #e5e7eb;
   /* Consistent bottom border */
+  font-size: 16px;
+  /* Default size for large screens */
 }
 
 th {
@@ -226,16 +228,22 @@ th {
 
 /* Responsive text sizes */
 @media screen and (max-width: 768px) {
-  th, td {
+
+  th,
+  td {
     padding: 12px;
-    font-size: 14px; /* Medium screens */
+    font-size: 14px;
+    /* Medium screens */
   }
 }
 
 @media screen and (max-width: 480px) {
-  th, td {
+
+  th,
+  td {
     padding: 8px;
-    font-size: 12px; /* Small screens */
+    font-size: 12px;
+    /* Small screens */
   }
 }
 

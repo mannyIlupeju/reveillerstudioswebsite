@@ -2,6 +2,7 @@
 import React, {useState} from "react"
 import Link from 'next/link'
 import Image from 'next/image'
+import Navigation from "@/components/Navigation/Navigation"
 
 type Item = {
   id: string;
@@ -51,6 +52,7 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
   };
   
   return (
+    
     <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
         {itemMaps?.map((values:any) => {
          const item = values.node
@@ -87,5 +89,6 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
         })
         }
         </div>
+        
   )
 }

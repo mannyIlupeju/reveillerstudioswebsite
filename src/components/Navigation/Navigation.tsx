@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
+import { useGlobalContext } from '@/Context/GlobalContext';
 
 type NavLinkType = {
   name: string;
@@ -77,6 +79,7 @@ const Navigation = () => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [cartQuantity, setCartQuantity]= useState<string | number>(0)
 
+  const {setIsCartOpen} = useGlobalContext()
   
   const navLinks = ['Shop', 'Archive', 'Journal'].map((name) => ({
     name,
@@ -87,6 +90,11 @@ const Navigation = () => {
     setOpenMenu((prevState) => !prevState);
   };
 
+  const toggleCart = () => {
+    console.log("open Cart")
+    setIsCartOpen(true)
+  }
+
   const cartState = useSelector((state: RootState) => state.cart)
   const cartQty = Number(cartState.totalQuantity)
   
@@ -96,7 +104,7 @@ const Navigation = () => {
 
   return (
     <nav className="flex justify-around gap-4 container nav-font">
-      <div className="hidden xl:flex justify-center items-center">
+      <div className="hidden lg:flex justify-center items-center">
         <div className="flex flex-row justify-start items-center">
           <div className="lg:flex w-fit items-start">
             <Image
@@ -124,20 +132,20 @@ const Navigation = () => {
 
    
 
-      <div className="flex-row xl:flex hidden justify-end">
+      <div className="flex-row lg:flex hidden justify-end">
         <div className="flex gap-5">
           <NavLinks links={navLinks} />
           <div className="flex items-center">
-            <Link href="/cart" className="flex gap-1">
+            <button onClick={toggleCart} className="flex gap-1">
               <h1>Cart</h1> 
               <span>({cartQuantity})</span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Responsive menu */}
-      <div className="lg:hidden flex cursor-pointer" onClick={toggleMenu}>
+      <div className="lg:hidden flex justify-center cursor-pointer" onClick={toggleMenu}>
         <Image
           src="/images/rvrspinninglogo-unscreen2.gif"
           width={50}

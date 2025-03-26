@@ -86,15 +86,16 @@ export  async function POST(req: Request) {
             
             const data:any = await response.json();
             console.log("Shopify API response:", JSON.stringify(data, null, 2))
+            
     
 
             
 
             // Check if cartLinesAdd is available and has userErrors
         
-                if (data.data?.cartLinesAdd?.userErrors.length > 0) {
-                    console.error('User errors:', data.data.cartLinesAdd.userErrors);
-                    return NextResponse.json({error: "Shopify error", details: data.data.cartLinesAdd.userErrors }, { status: 400 })
+                if (data?.cartLinesAdd?.userErrors.length > 0) {
+                    console.error('User errors:', data.cartLinesAdd.userErrors);
+                    return NextResponse.json({error: "Shopify error", details: data.cartLinesAdd.userErrors }, { status: 400 })
                 }
             
             return NextResponse.json({ success: true, cart: data.data.cartLinesAdd.cart });
