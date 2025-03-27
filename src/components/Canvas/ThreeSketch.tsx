@@ -6,22 +6,16 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
 import LocationDate from "../../../helper-functions/getCurrentTime/location-date/location-date";
 
-<<<<<<< HEAD
-=======
 type videoType = {
     src: string,
     preload: boolean,
 }
 
->>>>>>> origin/main
 
 const ThreeSketch = () => {
   const { backgroundCanvasRef } = useCanvas()
   const modelRef = useRef<THREE.Group | null>(null);
-<<<<<<< HEAD
-=======
   
->>>>>>> origin/main
 
   
   useEffect(() => {
@@ -31,39 +25,23 @@ const ThreeSketch = () => {
       return;
     }
 
-<<<<<<< HEAD
-    const canvas = backgroundCanvasRef.current;
-    if (!canvas) return;
-
-=======
->>>>>>> origin/main
     
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xd3d3d3); // Dark gray  
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
     const aspect = {
       width: window.innerWidth,
       height: window.innerHeight,
     };
 
-<<<<<<< HEAD
-=======
 
     const canvas = backgroundCanvasRef.current;
     if (!canvas) return;
 
->>>>>>> origin/main
     const camera = new THREE.PerspectiveCamera(75, aspect.width / aspect.height);
     scene.add(camera);
     camera.position.z = 5;
 
-<<<<<<< HEAD
-  
-=======
     //Video background but actually Video model
     // const videoGroup = new THREE.Group();
     // scene.add(videoGroup)
@@ -90,7 +68,6 @@ const ThreeSketch = () => {
     scene.add(modelGroup)
 
     
->>>>>>> origin/main
 
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
@@ -102,11 +79,7 @@ const ThreeSketch = () => {
       (gltf) => {
         modelRef.current = gltf.scene;
         updateModelScale();
-<<<<<<< HEAD
-        scene.add(modelRef.current);
-=======
         modelGroup.add(modelRef.current);
->>>>>>> origin/main
       },
       undefined,
       (error) => {
@@ -115,11 +88,7 @@ const ThreeSketch = () => {
     );
 
     const controls = new OrbitControls(camera, canvas);
-<<<<<<< HEAD
-    controls.autoRotate = true;
-=======
    
->>>>>>> origin/main
     controls.enableZoom = false;
 
 
@@ -165,30 +134,18 @@ const ThreeSketch = () => {
             requestAnimationFrame(animate);
 
             // Rotate the model if it's loaded
-<<<<<<< HEAD
-           if (modelRef.current) {
-            modelRef.current.rotation.z = Math.PI * Math.sin(rotationSpeed) * 2 
-        }
-=======
             modelGroup.rotation.y += 0.01;
             
 
            
->>>>>>> origin/main
 
             controls.update()
             renderer.render(scene, camera);
         };
         
-<<<<<<< HEAD
-          animate();
-
-         return () => {
-=======
         animate();
 
         return () => {
->>>>>>> origin/main
             window.removeEventListener("resize", handleResize);
         };
   }, [backgroundCanvasRef]);
@@ -196,12 +153,6 @@ const ThreeSketch = () => {
   return (
     <>
       <canvas ref={backgroundCanvasRef}/>
-<<<<<<< HEAD
-      <div className="bg-gray-200 absolute bottom-12 right-3 p-3">
-        <LocationDate/>
-      </div>
-=======
->>>>>>> origin/main
     </>
   )
 };

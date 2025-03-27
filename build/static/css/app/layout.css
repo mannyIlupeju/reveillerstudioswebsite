@@ -540,12 +540,6 @@ video {
 .relative {
   position: relative;
 }
-.bottom-12 {
-  bottom: 3rem;
-}
-.right-3 {
-  right: 0.75rem;
-}
 .z-10 {
   z-index: 10;
 }
