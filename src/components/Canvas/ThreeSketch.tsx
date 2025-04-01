@@ -75,7 +75,7 @@ const ThreeSketch = () => {
     gltfLoader.setDRACOLoader(dracoLoader);
 
     gltfLoader.load(
-      "/models/GLTF/rvr3dmetallight.gltf",
+      "/models/bloodredlargelow/GLTF/redrvr3dlogoMetal.gltf",
       (gltf) => {
         modelRef.current = gltf.scene;
         updateModelScale();
