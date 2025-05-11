@@ -81,13 +81,9 @@ const collectionQuery = `
       id
       title
       handle
-<<<<<<< HEAD
-      products(first: 5, reverse: true) {
-=======
 
       products(first: 10, reverse: true) {
 
->>>>>>> origin/main
         edges {
           node {
             id

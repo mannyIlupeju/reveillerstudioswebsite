@@ -5,6 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
 import LocationDate from "../../../helper-functions/getCurrentTime/location-date/location-date";
+import * as motion from "motion/react-client"
 
 type videoType = {
     src: string,
@@ -15,6 +16,7 @@ type videoType = {
 const ThreeSketch = () => {
   const { backgroundCanvasRef } = useCanvas()
   const modelRef = useRef<THREE.Group | null>(null);
+  const constraintRef = useRef<HTMLDivElement>(null)
   
 
   
@@ -75,7 +77,7 @@ const ThreeSketch = () => {
     gltfLoader.setDRACOLoader(dracoLoader);
 
     gltfLoader.load(
-      "/models/bloodredlargelow/GLTF/redrvr3dlogoMetal.gltf",
+      "/models/GLTF/10rvr3dlogoMetal.gltf",
       (gltf) => {
         modelRef.current = gltf.scene;
         updateModelScale();
@@ -135,10 +137,6 @@ const ThreeSketch = () => {
 
             // Rotate the model if it's loaded
             modelGroup.rotation.y += 0.01;
-            
-
-           
-
             controls.update()
             renderer.render(scene, camera);
         };
@@ -153,6 +151,50 @@ const ThreeSketch = () => {
   return (
     <>
       <canvas ref={backgroundCanvasRef}/>
+        <motion.div 
+          drag
+          dragConstraints={backgroundCanvasRef}
+          dragElastic={0.05}
+          className="box box1 flex  justify-center items-center relative cursor-pointer">
+          <video autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
+            
+            <source 
+            src="/videos/newreleases.MOV"
+            />
+          </video>
+           {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20 z-10"></div>
+
+          {/* Text */}
+          <h1 className="z-20 text-white text-xl font-bold">New Releases</h1>
+
+        </motion.div>
+        <motion.div 
+          drag
+          dragConstraints={backgroundCanvasRef}
+          dragElastic={0.05}
+          className="box box2 flex justify-center items-center cursor-pointer"  
+        >
+          <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
+            
+            <source 
+            src="/videos/aboutvid1.mov"
+            />
+          </video>
+           {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20 z-10"></div>
+
+          {/* Text */}
+          <h1 className="z-20 text-white text-xl font-bold">About</h1>
+
+        </motion.div>
+        <motion.div 
+          drag
+          dragConstraints={backgroundCanvasRef}
+          dragElastic={0.05}
+          className="box box3 flex justify-center items-center cursor-pointer">
+          Announcement bar
+        </motion.div>
     </>
   )
 };

@@ -27,7 +27,7 @@ const ProductDetails = ({products}:any) => {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "25rem",
+   
     slidesToShow: 2,
     slidesToScroll: 1,
     speed:3000,
@@ -38,10 +38,10 @@ const ProductDetails = ({products}:any) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow:3,
+          slidesToScroll: 2,
           infinite: true,
-          centerPadding: "25rem",
+          centerPadding: "8rem",
           speed:2000,
           autoplay:true,
           autoplaySpeed: 4000,

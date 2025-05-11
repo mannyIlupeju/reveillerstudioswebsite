@@ -208,3 +208,36 @@ th, td {
   font-size: 0.6rem;
 }
 
+.box {
+  position: absolute;
+  z-index: 99;
+}
+
+.box1{
+  clip-path: circle(50% at 50% 50%);
+  width: 600px;
+  height: 270px;
+  font-family:'Switzer-Light', sans-serif;
+
+  
+}
+.box2{
+   clip-path: circle(50% at 50% 50%);
+  width: 600px;
+  height: 270px;
+  background-color: yellow;
+  font-family:'Switzer-Light', sans-serif;
+}
+.box3{
+  width: 600px;
+  height: 60px;
+  background-color: rgb(241, 244, 241);
+}
+
+.videoOverlay {
+  background: rgba(193, 190, 190, 5);
+}
+
+.polygon {
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+}
