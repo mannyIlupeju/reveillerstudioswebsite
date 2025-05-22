@@ -80,7 +80,7 @@ canvas {
 /*  */
 
 .footer-section {
-  background: linear-gradient(180deg, rgba(34,34,36,1) 63%, rgba(19,36,24,1) 99%);
+  background: linear-gradient(180deg, rgba(34,34,36,1) 63%, rgb(44, 14, 17) 99%);
 }
 
 .custom-cursor {

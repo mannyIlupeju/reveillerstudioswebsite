@@ -556,6 +556,9 @@ video {
 .-mt-4 {
   margin-top: -1rem;
 }
+.mb-24 {
+  margin-bottom: 6rem;
+}
 .ml-4 {
   margin-left: 1rem;
 }
@@ -651,6 +654,9 @@ video {
 .justify-start {
   justify-content: flex-start;
 }
+.justify-end {
+  justify-content: flex-end;
+}
 .justify-center {
   justify-content: center;
 }
@@ -735,9 +741,6 @@ video {
 }
 .p-2 {
   padding: 0.5rem;
-}
-.p-24 {
-  padding: 6rem;
 }
 .p-3 {
   padding: 0.75rem;
@@ -879,7 +882,7 @@ canvas {
 /*  */
 
 .footer-section {
-  background: linear-gradient(180deg, rgba(34,34,36,1) 63%, rgba(19,36,24,1) 99%);
+  background: linear-gradient(180deg, rgba(34,34,36,1) 63%, rgb(44, 14, 17) 99%);
 }
 
 .custom-cursor {
@@ -1126,10 +1129,6 @@ th, td {
 
   .lg\:gap-5 {
     gap: 1.25rem;
-  }
-
-  .lg\:gap-\[15vw\] {
-    gap: 15vw;
   }
 
   .lg\:gap-\[10vw\] {

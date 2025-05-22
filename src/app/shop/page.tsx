@@ -25,7 +25,7 @@ const Page = async () => {
   return (
     <section className="">
       <ProductCategories collections={collections}/>
-      <main className="flex justify-center">
+      <main className="flex justify-end p-4 mb-24">
        <ProductGrid items={products} isProductGrid={true} />
       </main>
     </section>
