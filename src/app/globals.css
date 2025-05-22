@@ -211,6 +211,14 @@ th, td {
   width: 100%;
   height: 60px;
   background-color: rgb(241, 244, 241);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 15s linear infinite;
 }
 
 .videoOverlay {
@@ -252,7 +260,7 @@ th, td {
 
 @keyframes floatDown {
   0% {
-    transofrm: translateX(0)
+    transform: translateX(0)
   }
 
   50% {
@@ -263,6 +271,15 @@ th, td {
     transform: translate(50%, 80%);
     position: absolute;
     bottom: 5rem;
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
   }
 }
 

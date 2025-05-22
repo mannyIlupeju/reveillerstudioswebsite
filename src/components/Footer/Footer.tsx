@@ -15,9 +15,9 @@ export default function Footer() {
 
   return (
      
-        <div className="flex flex-col md:flex-row gap-4 lg:gap-[20vw] lg:justify-center text-zinc-100 text-lg p-4 footer-section">
+        <div className="flex flex-col md:flex-row gap-4 lg:gap-[15vw] text-zinc-100 text-lg p-4 footer-section">
             <div className="flex flex-col md:flex-row gap-10 mt-4">
-                <div className="flex flex-col lg:gap-8 w-[250px] h-[250px]">
+                <div className="flex flex-col lg:gap-2 w-[250px] h-[250px]">
                     <Image 
                     src='/images/footerlogo.PNG'
                     alt="footer logo"
@@ -25,26 +25,27 @@ export default function Footer() {
                     height={250}
                     />
 
-                    <span className="text-sm">© {timeState.currentYear} Reveillerstudios</span>
+                    <span className="text-sm items-center">© {timeState.currentYear} Reveillerstudios</span>
+                    <span className="text-xs">Designed in-house by machnmb</span>
                 </div>
 
-                <div className="flex flex-row lg:gap-8 w-max text-sm">
-                    <div className="flex flex-col">
+                <div className="flex flex-row lg:gap-20 w-max text-sm">
+                    <div className="flex flex-col gap-5">
                         <Link href='/contact'className="footer-link">About</Link>
                         <Link href=''className="footer-link">Privacy policy</Link>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col gap-5">
                         <Link href=''className="footer-link">Shipping</Link>
                         <Link href=''className="footer-link">Delivery & Returns</Link>
                     </div>
                         
 
-                    <div className="flex flex-col lg:gap-3">
+                    <div className="flex flex-col lg:gap-5">
                         <Link href=''className="footer-link">Contact</Link>
+
                         <div>
                             <p>Connect with us!</p>
-                        </div>
-                        <ul className="flex gap-2">
+                        <ul className="flex gap-2 mt-4">
                         <li>
                             <Image src="/images/tiktokpng.webp" alt="tiktok logo" width={30} height={30}/>
                         </li>
@@ -55,6 +56,7 @@ export default function Footer() {
                             <Image src="/images/pinterestlogo.png" alt="pinterest logo" width={30} height={30}/>
                         </li>
                         </ul>
+                        </div>
                     </div>
 
                 </div>
