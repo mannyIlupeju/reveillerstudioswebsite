@@ -33,6 +33,7 @@ export default function RootLayout({
                   <main className="flex flex-col">
                     {children}
                   </main>
+                  <Footer/>
                 </CanvasProvider>
               </LoadingProvider>
             </GlobalProvider>

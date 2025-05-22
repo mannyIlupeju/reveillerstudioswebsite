@@ -17,7 +17,7 @@ export default function Home() {
           (<Loading/>)
         :
           ( 
-            <main className="flex items-center flex-col overflow-x-hidden overflow-y-hidden min-h-200">
+            <main className="flex items-center flex-col relative overflow-x-hidden overflow-y-hidden min-h-200">
             <ThreeSketch/>
             </main>   
            

@@ -28,7 +28,6 @@ const Page = async () => {
       <main className="flex justify-center">
        <ProductGrid items={products} isProductGrid={true} />
       </main>
-      <Footer/>
     </section>
   )
 }

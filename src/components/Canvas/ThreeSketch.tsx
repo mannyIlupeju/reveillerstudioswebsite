@@ -192,7 +192,7 @@ const ThreeSketch = () => {
           drag
           dragConstraints={backgroundCanvasRef}
           dragElastic={0.05}
-          className="box box3 flex justify-center items-center cursor-pointer">
+          className="box box3 flex justify-center items-center cursor-pointer text-md">
           Announcement bar
         </motion.div>
     </>

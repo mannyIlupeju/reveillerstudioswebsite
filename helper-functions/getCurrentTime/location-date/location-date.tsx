@@ -30,10 +30,6 @@ function LocationDate() {
 
   return (
     <div className="text-zinc-800">
-<<<<<<< HEAD
-      <p>Toronto</p>
-=======
->>>>>>> origin/main
       {timeState.currentTime}
     </div>
   )
