@@ -15,7 +15,7 @@ export default function Footer() {
 
   return (
      
-        <div className="flex flex-col md:flex-row gap-4 lg:gap-[15vw] text-zinc-100 text-lg p-4 footer-section">
+        <div className="flex flex-col md:flex-row justify-around lg:gap-[10vw] text-zinc-100 text-lg p-4 footer-section">
             <div className="flex flex-col md:flex-row gap-10 mt-4">
                 <div className="flex flex-col lg:gap-2 w-[250px] h-[250px]">
                     <Image 
@@ -28,8 +28,9 @@ export default function Footer() {
                     <span className="text-sm items-center">© {timeState.currentYear} Reveillerstudios</span>
                     <span className="text-xs">Designed in-house by machnmb</span>
                 </div>
+            </div>
 
-                <div className="flex flex-row lg:gap-20 w-max text-sm">
+            <div className="flex flex-row lg:gap-20 w-max text-sm mt-4">
                     <div className="flex flex-col gap-5">
                         <Link href='/contact'className="footer-link">About</Link>
                         <Link href=''className="footer-link">Privacy policy</Link>
@@ -60,11 +61,6 @@ export default function Footer() {
                     </div>
 
                 </div>
-
-
-
-
-            </div>
 
          
 

@@ -1001,9 +1001,6 @@ th, td {
   height: 22rem;
   background-color: yellow;
   font-family:'Switzer-Light', sans-serif;
-
-  
-  animation: floatDown 4s linear 1s;
 }
 
 .box3{
@@ -1057,21 +1054,7 @@ th, td {
   }
 }
 
-@keyframes floatDown {
-  0% {
-    transform: translateX(0)
-  }
 
-  50% {
-    transform: translate(50%, -50%)
-  }
-
-  100%{
-    transform: translate(50%, 80%);
-    position: absolute;
-    bottom: 5rem;
-  }
-}
 
 @keyframes ticker {
   0% {
@@ -1147,6 +1130,10 @@ th, td {
 
   .lg\:gap-\[15vw\] {
     gap: 15vw;
+  }
+
+  .lg\:gap-\[10vw\] {
+    gap: 10vw;
   }
 
   .lg\:p-4 {

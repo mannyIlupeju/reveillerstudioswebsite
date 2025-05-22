@@ -20,7 +20,7 @@ export default function Newsletter() {
           className='text-zinc-800 p-2 '
         />
       </div>
-      <button className='text-md mt-4'>SIGN UP</button>
+      <button className='text-md mt-8'>SIGN UP</button>
       <div>{}</div>
       <div className='mt-12'>
         <p className='text-sm'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -17,6 +17,9 @@ const ThreeSketch = () => {
   const { backgroundCanvasRef } = useCanvas()
   const modelRef = useRef<THREE.Group | null>(null);
   const constraintRef = useRef<HTMLDivElement>(null)
+
+  const [box1Pos, setBox1Pos] = useState({ x: 0, y: 0 });
+  const [box2Pos, setBox2Pos] = useState({ x: 0, y: 0 });
   
 
   
@@ -155,6 +158,10 @@ const ThreeSketch = () => {
           drag
           dragConstraints={backgroundCanvasRef}
           dragElastic={0.05}
+          onDragEnd={(e, info) => setBox2Pos({ x: info.point.x, y: info.point.y})}
+          initial={{ x: -100, y: -400 }}
+          animate={{ x: -10, y: 300}}
+          transition={{ duration: 2, ease: 'easeIn' }}
           className="box box1 flex  justify-center items-center relative cursor-pointer">
           <video autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             
@@ -173,6 +180,9 @@ const ThreeSketch = () => {
           drag
           dragConstraints={backgroundCanvasRef}
           dragElastic={0.05}
+          initial={{ x: 500, y: -500 }}
+          animate={{ x: 500, y: 300}}
+          transition={{ duration: 1, ease: 'easeIn' }}
           className="box box2 flex justify-center items-center cursor-pointer"  
         >
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
@@ -192,6 +202,7 @@ const ThreeSketch = () => {
           drag
           dragConstraints={backgroundCanvasRef}
           dragElastic={0.05}
+          transition={{ duration: 2, ease: 'easeIn' }}
           className="box box3 flex justify-center items-center cursor-pointer text-md">
           <p className="ticker-text">
           Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
