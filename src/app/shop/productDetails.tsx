@@ -51,7 +51,7 @@ const ProductDetails = ({products}:any) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 1,
           slidesToScroll: 2,
           initialSlide: 2,
           speed:2000,
@@ -78,10 +78,11 @@ const ProductDetails = ({products}:any) => {
 
 
   return (
-      <section className="relative">
-          <ProdDetailsConfiguration title={title} priceRange={priceRange} variants={variants} descriptionHtml={descriptionHtml} collections={collections} images={images} /> 
+      <section>
+        <div className="relative -z-10">
+        
            
-            <main className="mt-10 slider-container">
+          <main className="mt-10 slider-container">
               <Slider {...settings}>
                 {imageUrl.map((item:any, index:any) => {
                   return (
@@ -97,7 +98,17 @@ const ProductDetails = ({products}:any) => {
                   )
                 })}
               </Slider>
-            </main>
+          </main>
+
+          <ProdDetailsConfiguration 
+            title={title} 
+            priceRange={priceRange} 
+            variants={variants} 
+            descriptionHtml={descriptionHtml} 
+            collections={collections} 
+            images={images} 
+          /> 
+        </div>
       </section>
   )
 }

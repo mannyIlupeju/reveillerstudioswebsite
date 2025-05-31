@@ -51,11 +51,11 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
   };
   
   return (
-    <div className="grid grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
+
+    <div className="grid grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12 ps-8">
         {itemMaps?.map((values:any) => {
          const item = values.node
-       
-
+    
           const id = item.id
           const _id = id?.match(/\d+/g).join('') || id;
           

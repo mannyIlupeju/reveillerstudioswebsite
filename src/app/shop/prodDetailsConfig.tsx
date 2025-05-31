@@ -278,8 +278,8 @@ const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
 
 
   return (
-    <aside className='absolute z-10 p-3 ml-4 flex flex-col gap-5 font-bold cursor-pointer'>
-      <div className='prodDetailsOptionsBox p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black'>
+    <aside className='xl:absolute xl:z-10 xl:top-4 p-3 ml-4 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
+      <div className='prodDetailsOptionsBox p-3 text-xl flex gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
         <span>${productPrice}</span>
       </div>

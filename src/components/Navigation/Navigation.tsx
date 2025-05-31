@@ -47,7 +47,7 @@ const NavLink = ({ name, href }: NavLinkType) => {
       <Link href={href}>
         <span
           className={`${underlineVisible || isActive ? 'scale-x-100' : 'scale-x-0'}`}
-          data-original-text={name}
+          data-original-text={linkName}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -68,7 +68,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ links }) => (
 
 const Navigation = () => {
   const [isMenuOpen, setOpenMenu] = useState(false);
-  const navLinks = ['Shop', 'Archive', 'Journal'].map((name) => ({
+  const navLinks = ['Shop', 'Archive', 'About'].map((name) => ({
     name,
     href: `/${name.toLowerCase()}`,
   }));
@@ -78,7 +78,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="flex justify-between gap-4 mx-auto container nav-font">
+    <nav className="flex justify-between gap-4 mx-auto p-4 nav-font sticky z-50 top-0 bg-white shadow w-screen">
       <div className="flex justify-center items-center">
         <div className="flex lg:flex-row flex-col justify-start items-center">
           <div className="hidden lg:flex w-fit items-start">

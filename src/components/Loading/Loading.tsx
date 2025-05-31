@@ -1,9 +1,11 @@
 'use client'
 
 import React, {useState, useEffect, useRef} from 'react'
+import Image from 'next/image'
 import { useLoading } from '@/Context/context/LoadingContext'
 import {gsap} from "gsap"
 import { useGSAP } from '@gsap/react'
+
 
 
 const Loading:React.FC = () => {
@@ -61,7 +63,8 @@ const Loading:React.FC = () => {
             </div>
             <div>
                 <div className="flex justify-items-end gap-2">
-                    <span>Loading...</span>
+                   
+                    <Image src='/images/footerlogo.png' alt="Loading artwork of Reveillerstudios logo" width={200} height={200}/>
                     <div ref={counterElementRef} className="counter">{Math.floor(counter)}%</div>
                 </div>
                 {counter === 100 && <button onClick={()=> (setIsLoading(false))}>Enter</button>}

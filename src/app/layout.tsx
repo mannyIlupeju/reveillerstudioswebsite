@@ -1,9 +1,10 @@
 'use client'
 
 import React, {useContext} from 'react'
-
+import Image from 'next/image'
 import Navigation from '@/components/Navigation/Navigation'
 import Footer from '@/components/Footer/Footer'
+
 import { LoadingProvider } from '@/Context/context/LoadingContext';
 import { CanvasProvider } from '@/Context/context/CanvasContext';
 import { GlobalProvider } from '@/Context/GlobalContext';
@@ -25,7 +26,16 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Provider store={store}>
-          <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+          <PersistGate 
+          loading={
+            <section className="flex justify-center mt-20 items-center">
+            <Image 
+            src='/images/footerlogo.png' 
+            alt="Loading artwork of Reveillerstudios logo" 
+            width={800} height={800} />
+            </section>
+          } 
+          persistor={persistor}>
             <GlobalProvider>
               <LoadingProvider>
                 <CanvasProvider>

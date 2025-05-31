@@ -4,7 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
-import LocationDate from "../../../helper-functions/getCurrentTime/location-date/location-date";
+import Newsletter from "../Newsletter/Newsletter";
 import * as motion from "motion/react-client"
 
 type videoType = {
@@ -153,7 +153,7 @@ const ThreeSketch = () => {
 
   return (
     <>
-      <canvas ref={backgroundCanvasRef}/>
+      <canvas ref={backgroundCanvasRef} className="relative"/>
         <motion.div 
           drag
           dragConstraints={backgroundCanvasRef}
@@ -183,7 +183,7 @@ const ThreeSketch = () => {
           initial={{ x: 500, y: -500 }}
           animate={{ x: 500, y: 300}}
           transition={{ duration: 1, ease: 'easeIn' }}
-          className="box box2 flex justify-center items-center cursor-pointer"  
+          className="box box2 flex justify-center items-center relative cursor-pointer"  
         >
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             
@@ -192,22 +192,18 @@ const ThreeSketch = () => {
             />
           </video>
            {/* Overlay */}
-          <div className="absolute inset-0 bg-black/20 z-10"></div>
+          <div className="absolute inset-0 bg-black/20"></div>
 
           {/* Text */}
           <h1 className="z-20 text-white text-xl font-bold">About</h1>
 
         </motion.div>
-        <motion.div 
-          drag
-          dragConstraints={backgroundCanvasRef}
-          dragElastic={0.05}
-          transition={{ duration: 2, ease: 'easeIn' }}
-          className="box box3 flex justify-center items-center cursor-pointer text-md">
+        <div 
+          className="box3 absolute top-0 items-center cursor-pointer text-md">
           <p className="ticker-text">
           Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
           </p>
-        </motion.div>
+        </div>
     </>
   )
 };

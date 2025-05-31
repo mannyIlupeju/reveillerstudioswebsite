@@ -1,34 +1,99 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import Button from '../Button/Button'
 
 export default function Newsletter() {
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const hasShownModal = sessionStorage.getItem("hasSeenNewsletterPopup");
+
+    if (!hasShownModal) {
+      setShowModal(true);
+      sessionStorage.setItem("hasSeenNewsletterPopup", "true");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup on unmount
+    };
+  }, [showModal]);
+
+  if (!showModal) return null;
+ 
+
   return (
-    <div className='md:w-1/4 text-sm '>
-      <div>
-        <p>Subscribe to our newsletter</p>
-      </div>
-      <div className='flex flex-col lg:flex-row gap-4 mt-4 '>
-        <input
-          type='Full Name'
-          id='name'
-          placeholder='Enter your full name'
-          className='text-zinc-800 p-2'
-        />
-        <input
-          type='email'
-          id='email'
-          placeholder='Enter email address'
-          className='text-zinc-800 p-2 '
-        />
-      </div>
-      <button className='text-md mt-8'>SIGN UP</button>
-      <div>{}</div>
-      <div className='mt-12'>
-        <p className='text-sm'>
-          By clicking submit you agree to receive emails from Reveillerstudios
-          and accept our web terms of use and privacy and cookie apply. Terms
-          apply
-        </p>
-      </div>
-    </div>
-  );
+    <main className="fixed z-10 inset-0 flex items-center justify-center">
+        <div className="w-[32vw] bg-zinc-200 p-5 flex flex-col gap-10  ">
+           <div className="flex justify-end button">
+           <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                strokeWidth="1.5" 
+                stroke="currentColor" 
+                className="size-6 hover:rotate-45 transition-transform duration-300 w-10 h-10 cursor-pointer"
+                onClick={() => setShowModal(false)}
+            >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+           </div>
+           <h1 className="text-xl flex justify-center">Join the RVS community</h1>
+           <p>Be the first to know about exclusive drops, restocks and special offers - straight to your inbox</p>
+
+            <div className="flex flex-col gap-4">
+           <input 
+            type="name"
+            placeholder='Full Name'
+            className="p-2 border border-zinc-400 rounded-md"
+           />
+           <input 
+            type="email"
+            placeholder='Email Address'
+            className="p-2 border border-zinc-400 rounded-md"
+           />
+           <input 
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder='Phone number'
+            className="p-2 border border-zinc-400 rounded-md"
+           />
+           </div>
+
+           <form className="flex flex-col  gap-4">
+           <div className="flex justify-start gap-2">
+                <input
+                type="checkbox"
+                id="continueUpdate"
+                name="continueUpdate"
+                value="continueUpdate"
+                />
+                <label htmlFor="continueUpdate">
+                Keep me updated with the latest news and best offers
+                </label>
+            </div>
+            <div className="flex justify-start gap-2">
+                <input
+                type="checkbox"
+                id="privacyPolicyAgreement"
+                name="privacyPolicyAgreement"
+                value="privacyPolicyAgreed"
+                />
+                <label htmlFor="privacyPolicyAgreement">
+                I agree to the Privacy Policy and Cookie Policy
+                </label>
+            </div>
+           </form>
+
+           <button className="text-xl">Subscribe</button>
+        </div>
+    </main>
+  )
 }

@@ -23,12 +23,15 @@ const Page = async () => {
   
 
   return (
-    <section className="">
-      <ProductCategories collections={collections}/>
-      <main className="flex justify-end p-4 mb-24">
-       <ProductGrid items={products} isProductGrid={true} />
-      </main>
-    </section>
+    <main className="flex xl:flex-row flex-col gap-8 px-4">
+      <aside className="xl:block sticky xl:top-48 top-32 z-10 xl:z-0 xl:w-48 xl:self-start">
+        <ProductCategories collections={collections} />
+      </aside>
+      <section className="flex-1 p-10">
+        <ProductGrid items={products} isProductGrid={false} />
+      </section>
+     
+    </main>
   )
 }
 

@@ -52,7 +52,7 @@ body {
   margin: 0;
   padding:0;
   background-color: transparent;
-  font-family:'Switzer-Light', sans-serif;
+  font-family:'Satoshi-Light', sans-serif;
  
  
   /* position:relative */
@@ -181,10 +181,7 @@ th, td {
   font-size: 0.6rem;
 }
 
-.box {
-  position: absolute;
-  z-index: 99;
-}
+
 
 .box1{
   clip-path: circle(50% at 50% 50%);
@@ -202,11 +199,13 @@ th, td {
   height: 22rem;
   background-color: yellow;
   font-family:'Switzer-Light', sans-serif;
+  position: absolute;
+  right: 35rem;
 }
 
 .box3{
   width: 100%;
-  height: 60px;
+  padding: 0.4rem;
   background-color: rgb(241, 244, 241);
   overflow: hidden;
   white-space: nowrap;
@@ -227,6 +226,7 @@ th, td {
 }
 
 
+
 @keyframes underlineAnimation {
   0% {
     width: 0;
@@ -241,14 +241,6 @@ th, td {
     transform: translateX(0%);
   }
 
-  /* 50%{
-    transform: translateX(1.1em);
-  } */
-
-  
-  /* 80%{
-    transform: translateX(8.1em);
-  } */
 
   100%{
     transform: translateX(-100%)

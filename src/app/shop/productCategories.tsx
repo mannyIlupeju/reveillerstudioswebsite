@@ -62,15 +62,14 @@ function ProductCategories({ collections }: Props) {
   }
 
   return (
-      <aside className="xl:absolute xl:translate-y-64 lg:p-4">
-        <div className = "flex xl:flex-col justify-center mt-12 flex-row gap-5">
+    <aside className="flex xl:flex-col justify-center gap-5" >
         {breakdownCollections.map((item:any) => {
           const{id, title, handle} = item;
 
             return (
                 <Link 
                 key={id} 
-                href={`/shop/collections/${handle}`} 
+              href={`/shop/collections/${handle}`} 
                 className= "hover:text-yellow-600 text-zinc-800"
                 data-original-text={title}
                 onMouseEnter={(e) => handleMouseEnter(e, id, title)}
@@ -82,8 +81,8 @@ function ProductCategories({ collections }: Props) {
                 </Link>
             )
         })}
-        </div>
       </aside>
+       
   )
 }
 

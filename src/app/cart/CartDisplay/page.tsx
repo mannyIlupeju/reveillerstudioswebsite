@@ -157,7 +157,7 @@ export default function CartDisplay({cart}:CartProps){
                 })} 
                 </>
                 :
-                <div className="flex justify-center">
+                <div className="flex justify-center h-screen">
                     <h1>Cart is empty</h1>
                 </div>
             }
