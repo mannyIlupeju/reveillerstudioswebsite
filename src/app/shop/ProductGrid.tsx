@@ -66,8 +66,8 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                 {item.images.edges[0] && (
                   <Image
                     src={isImageHovered === _id ? item.images.edges[1]?.node.originalSrc :item.images.edges[0]?.node.originalSrc}
-                    width={450}
-                    height={450}
+                    width={500}
+                    height={500}
                     alt="Product Image"
                     className="flex items-center justify-center transform transition hover:scale-105 optimized"
                     loading='lazy'

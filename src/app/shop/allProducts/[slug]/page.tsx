@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { slug: string } }): Pr
 
   try {
     // Fetch product data using the slug
-    const {slug} = params;
+    const {slug} =  await params;
     const response = await client.request(productQuery, { variables: {handle: slug }});
     const product = response?.data?.productByHandle;
     

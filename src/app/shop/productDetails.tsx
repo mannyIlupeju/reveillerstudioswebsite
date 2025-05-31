@@ -91,7 +91,7 @@ const ProductDetails = ({products}:any) => {
                         src={item.originalSrc}
                         alt="Product images"
                         width={600}
-                        height={400}
+                        height={600}
                       />
                     </div>
                         

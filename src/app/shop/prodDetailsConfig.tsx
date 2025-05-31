@@ -78,20 +78,11 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const collectionItem = collectionItemSearch[0]
 
 
-
-
   const productVariants = variants.edges.map((item:any)=>{
     return item.node
   })
 
-
-  console.log(productVariants)
-
-
   const productPrice = priceRange.minVariantPrice.amount
-
-
-
 
   const productImages = images.edges.map((item:any) => item.node.originalSrc)
   const productImage = productImages[0]
@@ -122,7 +113,7 @@ const increaseAmt = (variantId: string, quantityAvailable: number|null) => {
       }
       return prev;
     });
-  }
+}
   
   const decreaseAmt = (variantId: string) => {
     setQuantity(prev => {

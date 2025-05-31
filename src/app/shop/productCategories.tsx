@@ -69,7 +69,7 @@ function ProductCategories({ collections }: Props) {
             return (
                 <Link 
                 key={id} 
-              href={`/shop/collections/${handle}`} 
+                href={`/shop/collections/${handle}`} 
                 className= "hover:text-yellow-600 text-zinc-800"
                 data-original-text={title}
                 onMouseEnter={(e) => handleMouseEnter(e, id, title)}
