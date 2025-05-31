@@ -1,9 +1,14 @@
+
+
 node_modules/
 .env
 .env.local
+
 build/
 dist/
 *.gz
 *.pack.gz.old
+
 .DS_Store
+
 fallback-build-manifest.json
