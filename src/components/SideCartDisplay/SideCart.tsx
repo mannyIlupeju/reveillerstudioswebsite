@@ -42,8 +42,8 @@ export default function SideCart() {
     async function fetchCartId(){
       const response = await fetch("/api/get-cart-id");
       const data = await response.json()
-      console.log(data)
       setCartId(data.cartId);
+      console.log(data.cartId)
     }
     fetchCartId();
   }, []);

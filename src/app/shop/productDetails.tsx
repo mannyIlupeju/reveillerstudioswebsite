@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Navigation from '@/components/Navigation/Navigation';
-import SideCart from '@/components/SideCartDisplay/SideCart';
+import SideCart from '../../components/SideCartDisplay/SideCart'
 import { useGlobalContext } from '@/Context/GlobalContext';
 
 
@@ -47,7 +47,7 @@ const ProductDetails = ({products}:any) => {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "25rem",
+   
     slidesToShow: 2,
     slidesToScroll: 1,
     speed:3000,
@@ -71,10 +71,10 @@ const ProductDetails = ({products}:any) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow:1,
+          slidesToScroll: 2,
           infinite: true,
-          centerPadding: "25rem",
+          centerPadding: "8rem",
           speed:2000,
           autoplay:true,
           autoplaySpeed: 4000,
@@ -84,8 +84,8 @@ const ProductDetails = ({products}:any) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow: 1,
+          slidesToScroll: 2,
           initialSlide: 2,
           speed:2000,
           autoplay:true,
@@ -111,46 +111,56 @@ const ProductDetails = ({products}:any) => {
 
 
   return (
-  <>
-    <Navigation />
+    <>
 
-    {/* Overlay when cart is open (does not cover SideCart) */}
-    {isCartOpen && (
-      <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-40"
-        onClick={() => setIsCartOpen(false)} // Clicking outside closes the cart
-      ></div>
-    )}
+          {/* Overlay when cart is open (does not cover SideCart) */}
+          {isCartOpen && (
+            <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setIsCartOpen(false)} // Clicking outside closes the cart
+            ></div>
+          )}
+        
+           
+          <section className={`relative ${isCartOpen ? "overflow-hidden" : "overflow-auto"}`}>
+            <div className="relative -z-10">
+              <main className="mt-10 slider-container">
+                  <Slider {...settings}>
+                    {imageUrl.map((item:any, index:any) => {
+                      return (
+                        <div key={index}>
+                          <Image
+                            src={item.originalSrc}
+                            alt="Product images"
+                            width={600}
+                            height={600}
+                          />
+                        </div>
+                            
+                      )
+                    })}
+                  </Slider>
+              </main>
 
-    <section className={`relative ${isCartOpen ? "overflow-hidden" : "overflow-auto"}`}>
-      <main className="mt-10 slider-container">
-        <Slider {...settings}>
-          {imageUrl.map((item: any, index: any) => (
-            <div key={index}>
-              <Image src={item.originalSrc} alt="Product images" width={600} height={400} />
-            </div>
-          ))}
-        </Slider>
-      </main>
+              <ProdDetailsConfiguration 
+                title={title} 
+                priceRange={priceRange} 
+                variants={variants} 
+                descriptionHtml={descriptionHtml} 
+                collections={collections} 
+                images={images} 
+              /> 
+          </div>
+      </section>
 
-      <ProdDetailsConfiguration
-        title={title}
-        priceRange={priceRange}
-        variants={variants}
-        descriptionHtml={descriptionHtml}
-        collections={collections}
-        images={images}
-      />
-    </section>
-
-    {/* SideCart - Keep it at higher z-index so overlay does not affect it */}
-    {isCartOpen && (
-      <div className="fixed top-0 right-0 z-50">
-        <SideCart />
-      </div>
-    )}
-  </>
-);
+       {/* SideCart - Keep it at higher z-index so overlay does not affect it */}
+        {isCartOpen && (
+          <div className="fixed top-0 right-0 z-50">
+            <SideCart />
+          </div>
+        )}
+    </>
+  )
 }
 
 export default ProductDetails

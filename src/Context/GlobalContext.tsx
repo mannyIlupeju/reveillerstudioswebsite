@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 // Define the shape of your global state
 type GlobalState = {
   currentTime: string;
+  currentYear: string;
 };
 
  type SelectedOption = {
@@ -37,6 +38,7 @@ type GlobalContextType = {
   setCartId:React.Dispatch<React.SetStateAction<string>>;
   timeState: GlobalState;
   setCurrentTime: (currentTime: string) => void;
+  setCurrentYear: (currentYear:string) => void;
   removeCart: (id:string) => void
   // quantity: number;
   // setQuantity: (quantity:number) => void
@@ -71,8 +73,8 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
   const [cartId, setCartId] = useState<string>("")
   const [timeState, setState] = useState<GlobalState>({
     currentTime: '',
+    currentYear:new Date().getFullYear().toString()
   });
-
   const [isHovered, setIsItemHovered] = useState<boolean | null>(null)
   const [isMenuOpen, setOpenMenu] = useState<boolean>(false)
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
@@ -103,6 +105,10 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
     setState((prevState) => ({ ...prevState, currentTime }));
   };
 
+  const setCurrentYear = (currentYear: string) => {
+    setState((prevState) => ({ ...prevState, currentYear }));
+  };
+
   return (
     <GlobalContext.Provider 
       value={{ 
@@ -110,6 +116,7 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         setCartId,
         timeState, 
         setCurrentTime,
+        setCurrentYear,
         isHovered,
         setIsItemHovered,
         isMenuOpen,

@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
-import LocationDate from "../../../helper-functions/getCurrentTime/location-date/location-date";
+import Newsletter from "../Newsletter/Newsletter";
+import * as motion from "motion/react-client"
 
 
 type videoType = {
@@ -17,8 +17,11 @@ type videoType = {
 const ThreeSketch = () => {
   const { backgroundCanvasRef } = useCanvas()
   const modelRef = useRef<THREE.Group | null>(null);
-  
-  const router = useRouter();
+  const constraintRef = useRef<HTMLDivElement>(null)
+
+  const [box1Pos, setBox1Pos] = useState({ x: 0, y: 0 });
+  const [box2Pos, setBox2Pos] = useState({ x: 0, y: 0 });
+
 
   
   useEffect(() => {
@@ -78,7 +81,7 @@ const ThreeSketch = () => {
     gltfLoader.setDRACOLoader(dracoLoader);
 
     gltfLoader.load(
-      "/models/GLTF/rvr3dmetallight.gltf",
+      "/models/GLTF/10rvr3dlogoMetal.gltf",
       (gltf) => {
         modelRef.current = gltf.scene;
         updateModelScale();
@@ -138,10 +141,6 @@ const ThreeSketch = () => {
 
             // Rotate the model if it's loaded
             modelGroup.rotation.y += 0.01;
-            
-
-           
-
             controls.update()
             renderer.render(scene, camera);
         };
@@ -155,15 +154,57 @@ const ThreeSketch = () => {
 
   return (
     <>
-      <canvas ref={backgroundCanvasRef}/>
-   
-      <button 
-      className="bg-zinc-800 absolute bottom-20 p-4 text-white w-48 rounded-lg text-lg"
-      onClick={() => router.push('/shop')}
-      >
-        Enter
-      </button>
-     
+      <canvas ref={backgroundCanvasRef} className="relative"/>
+        <motion.div 
+          drag
+          dragConstraints={backgroundCanvasRef}
+          dragElastic={0.05}
+          onDragEnd={(e, info) => setBox2Pos({ x: info.point.x, y: info.point.y})}
+          initial={{ x: -100, y: -400 }}
+          animate={{ x: -10, y: 300}}
+          transition={{ duration: 2, ease: 'easeIn' }}
+          className="box box1 flex  justify-center items-center relative cursor-pointer">
+          <video autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
+            
+            <source 
+            src="/videos/newreleases.MOV"
+            />
+          </video>
+           {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20 z-10"></div>
+
+          {/* Text */}
+          <h1 className="z-20 text-white text-xl font-bold">New Releases</h1>
+
+        </motion.div>
+        <motion.div 
+          drag
+          dragConstraints={backgroundCanvasRef}
+          dragElastic={0.05}
+          initial={{ x: 500, y: -500 }}
+          animate={{ x: 500, y: 300}}
+          transition={{ duration: 1, ease: 'easeIn' }}
+          className="box box2 flex justify-center items-center relative cursor-pointer"  
+        >
+          <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
+            
+            <source 
+            src="/videos/aboutvid1.mov"
+            />
+          </video>
+           {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20"></div>
+
+          {/* Text */}
+          <h1 className="z-20 text-white text-xl font-bold">About</h1>
+
+        </motion.div>
+        <div 
+          className="box3 absolute top-0 items-center cursor-pointer text-md">
+          <p className="ticker-text">
+          Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
+          </p>
+        </div>
     </>
   )
 };

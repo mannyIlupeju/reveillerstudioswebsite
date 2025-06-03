@@ -23,14 +23,16 @@ export default async function Page({params}: {params: { slug: string }}){
      
      const allCategories = await fetchCategories();
 
-
      return (
-      <section>
-       <ProductCategories collections={allCategories}/>
-       <main className="flex justify-center">
-        <ProductGrid items={collections} isProductGrid={false}/>
-       </main>
-      </section>
+        <main className="flex xl:flex-row flex-col gap-8 px-4">
+        <aside className="xl:block sticky xl:top-48 top-40 z-10 xl:z-0 xl:w-48 xl:self-start">
+          <ProductCategories collections={allCategories} />
+        </aside>
+        <section className="flex-1 p-8">
+          <ProductGrid items={collections} isProductGrid={true} />
+        </section>
+
+        </main>
      )
       
 

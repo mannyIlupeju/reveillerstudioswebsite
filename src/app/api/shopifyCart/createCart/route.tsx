@@ -5,8 +5,7 @@ export async function POST(req: Request) {
 
     try {
         const body = await req.json();
-        
-
+    
         const { variants, quantity } = body;
 
         if (!variants || !quantity) {

@@ -1,21 +1,26 @@
 import React from 'react'
 import { cookies } from 'next/headers'
-import CartDisplay from './CartDisplay/page'
+import CartDisplay from '../../components/CartDisplay/cartDisplay'
+import Link from 'next/link'
 
 
 
 export default async function Cart() {
 
-const fetchCookies = await cookies()
-const getCartId = fetchCookies.get('cartId')
-
-const cartId = getCartId?.value
-
+  const cookieStore = await cookies(); 
+  console.log(cookieStore)
+  const cartId = cookieStore.get('cartId')?.value;
+  console.log(cartId)
 
 
 
 if(!cartId){
-  return <p>No Items in cart</p>
+  return (
+    <main className="flex flex-col gap-8 justify-center items-center h-screen">
+      <p>What are you doing?? Let's run it up! Add an item! 👀😉</p>
+      <Link href="/shop">Continue Shopping</Link>   
+    </main>
+  )
 }
 
 try {
@@ -107,7 +112,6 @@ const query = `
         }
 
         const data:any  = await response.json();
-        // console.log("Full Shopify Response:", JSON.stringify(data, null, 2))
       
         const cart = data.data.cart
 

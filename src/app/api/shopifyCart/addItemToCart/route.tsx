@@ -9,12 +9,12 @@ export  async function POST(req: Request) {
 
         try {
             const body = await req.json()
-            console.log(body)
+           
             const {cartId, merchandiseId, quantity, size} = body
-            console.log(size)
+            
 
-             if (!cartId || !merchandiseId || !quantity) {
-            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+            if (!cartId || !merchandiseId || !quantity) {
+              return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
             }
 
             const lineItems = [{merchandiseId, quantity, attributes: [{key: "Size", value: size.value}]}]
@@ -88,8 +88,6 @@ export  async function POST(req: Request) {
             console.log("Shopify API response:", JSON.stringify(data, null, 2))
             
     
-
-            
 
             // Check if cartLinesAdd is available and has userErrors
         

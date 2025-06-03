@@ -75,8 +75,6 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const collectionItems = collectionItemSearch.filter((item:any) => item !== "All")
   console.log(collectionItems[0])
   const collectionItem = collectionItems[0]
-  // console.log(collectionItemSearch)
-
 
 
 
@@ -84,11 +82,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
     return item.node
   })
 
-
   const productPrice = priceRange.minVariantPrice.amount
-
-
-
 
   const productImages = images.edges.map((item:any) => item.node.originalSrc)
   const productImage = productImages[0]
@@ -96,7 +90,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
   function selectSize(e:React.MouseEvent, id:string){
     e.preventDefault();
-  
+    console.log("select size")
 
     const sizeExist = productVariants.find((item:any) => item.id === id);
 
@@ -119,7 +113,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
       }
       return prev;
     });
-  }
+}
   
   const decreaseAmt = (variantId: string) => {
     setQuantity(prev => {
@@ -305,10 +299,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
   return (
-    <>
-  
-    <aside className='absolute md:top-12 z-10 p-3 flex flex-col gap-5 font-bold cursor-pointer'>
-      <div className='prodDetailsOptionsBox p-3 text-xl flex flex-row gap-10 w-fit rounded-lg border-black'>
+    <aside className='xl:absolute xl:z-10 xl:top-4 p-3 ml-4 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
+      <div className='prodDetailsOptionsBox p-3 text-xl flex gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
         <span>${productPrice}</span>
       </div>
@@ -337,14 +329,14 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
 
-      {/* Remaining quantity available notifier */}
-      {quantityAvailable == null || quantityAvailable == 0 ? (
-        ""
-      ) : (
-        <div className='prodDetailsOptionsBox w-fit p-3'>
-          <p>{`Only ${quantityAvailable} item(s) remaining`}</p>
-        </div>
-      )}
+        {/* Remaining quantity available notifier */}
+        {quantityAvailable == null || quantityAvailable == 0 ? (
+          ""
+        ) : (
+          <div className='prodDetailsOptionsBox w-fit p-3'>
+            <p>{`Only ${quantityAvailable} item(s) remaining`}</p>
+          </div>
+        )}
 
 
 
@@ -356,58 +348,57 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
       )}
 
 
-      {/* Increase and Decrease quantity */}
-      {isButtonSelected && (
-        <div className='flex gap-5 w-fit mx-auto px-1 mt-2'>
-          <FaMinus 
-            className='flex self-center' 
-            onClick={() => decreaseAmt(isButtonSelected)} 
+        {/* Increase and Decrease quantity */}
+        {isButtonSelected && (
+          <div className='flex gap-5 w-fit mx-auto px-1 mt-2'>
+            <FaMinus 
+              className='flex self-center' 
+              onClick={() => decreaseAmt(isButtonSelected)} 
+            />
+            <span className='font-bold text-lg bg-gray-200 p-4'>
+              {quantity[isButtonSelected] || 1}
+            </span>
+            <FaPlus 
+              className='flex self-center' 
+              onClick={() => increaseAmt(isButtonSelected, quantityAvailable)} 
+            />
+          </div>
+        )}
+
+
+
+        {/* Add to Cart button */}
+        <button
+          disabled={quantityAvailable === null || quantityAvailable === 0}
+          className={`${
+            quantityAvailable === null || quantityAvailable === 0
+              ? `prodDetailsOptionsBox`
+              : `addToCartBox text-zinc-800 font-semibold text-xl cursor-pointer`
+          } p-4 rounded-lg`}
+          onClick={()=>{
+            if(quantityAvailable !== 0){
+              AddToCart({title, productImage, quantity, productPrice, variants, isButtonSelected})
+            }
+          }}
+        >
+          {isItemAddedToCart ? "Item added to Cart" : "Add to Cart"}
+        </button>
+
+
+
+        {/* Product information rendered by an accordion */}
+        {accordionData.map((data) => (
+          <Accordion
+            key={data.id}
+            data={data}
+            isActive={activeAccordionId === data.id}
+            toggleAccordion={() =>
+              setActiveAccordionId((previd) =>
+                previd === data.id ? null : data.id
+              )
+            }
           />
-          <span className='font-bold text-lg bg-gray-200 p-4'>
-            {quantity[isButtonSelected] || 1}
-          </span>
-          <FaPlus 
-            className='flex self-center' 
-            onClick={() => increaseAmt(isButtonSelected, quantityAvailable)} 
-          />
-        </div>
-      )}
-
-
-
-      {/* Add to Cart button */}
-      <button
-        disabled={quantityAvailable === null || quantityAvailable === 0}
-        className={`${
-          quantityAvailable === null || quantityAvailable === 0
-            ? `prodDetailsOptionsBox`
-            : `addToCartBox text-zinc-800 font-semibold text-xl cursor-pointer`
-        } p-4 rounded-lg`}
-        onClick={()=>{
-          if(quantityAvailable !== 0){
-            AddToCart({title, productImage, quantity, productPrice, variants, isButtonSelected})
-          }
-        }}
-      >
-        {isItemAddedToCart ? "Item added to Cart" : "Add to Cart"}
-      </button>
-
-
-
-      {/* Product information rendered by an accordion */}
-      {accordionData.map((data) => (
-        <Accordion
-          key={data.id}
-          data={data}
-          isActive={activeAccordionId === data.id}
-          toggleAccordion={() =>
-            setActiveAccordionId((previd) =>
-              previd === data.id ? null : data.id
-            )
-          }
-        />
-      ))}
+        ))}
     </aside>
-    </>
   )
 }

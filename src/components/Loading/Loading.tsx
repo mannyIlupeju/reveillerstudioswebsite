@@ -1,12 +1,15 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, {useState, useEffect, useRef} from 'react'
+import Image from 'next/image'
 import { useLoading } from '@/Context/context/LoadingContext'
 import { gsap } from "gsap"
 import { useGSAP } from '@gsap/react'
 
-const Loading: React.FC = () => {
-    const { setIsLoading } = useLoading()
+
+
+const Loading:React.FC = () => {
+    const {setIsLoading} = useLoading()
     const [counter, setCounter] = useState(0)
     const [canEnter, setCanEnter] = useState(false); // Track if 12 seconds have passed
     const counterRef = useRef({ value: counter })
@@ -42,39 +45,28 @@ const Loading: React.FC = () => {
         return () => clearTimeout(enterTimeout); // Cleanup timeout on unmount
     }, []);
 
-    useGSAP(() => {
-        if (counterElementRef.current) {
-            gsap.to(counterElementRef.current, {
-                duration: 3,
-                delay: 2,
-            });
-        }
-    }, [counter]);
-
-    return (
-        <div className="bg-black fixed z-2 flex h-screen w-screen text-white">
-            <div className="p-12">
-                <span className="text-9xl">Reveillerstudios</span>
-                <div className="flex justify-between gap-2 p-2">
-                    <div className="w-96 text-sm">
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer
-                            took a galley of type and scrambled it to make a type specimen book.
-                        </p>
-                    </div>
-                    <div>
-                        <div className="flex justify-items-end gap-2">
-                            <span>Loading...</span>
-                            <div ref={counterElementRef} className="counter">{Math.floor(counter)}%</div>
-                        </div>
-                        {counter === 100 && canEnter && (
-                            <button onClick={() => setIsLoading(false)}>Enter</button>
-                        )}
+    
+  return (
+    <div className="bg-black fixed z-2 flex h-screen w-screen text-white">
+        <div className="p-12">
+            <span className="text-9xl">Reveillerstudios</span>
+            <div className="flex justify-between gap-2 p-2">
+                <div className="w-96 text-sm">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                        Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer 
+                        took a galley of type and scrambled it to make a type specimen book.
+                    </p>
+                </div>
+                <div>
+                    <div className="flex justify-items-end gap-2">
+                    
+                        <Image src='/images/footerlogo.png' alt="Loading artwork of Reveillerstudios logo" width={200} height={200}/>
+                        <div ref={counterElementRef} className="counter">{Math.floor(counter)}%</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     )
 }
 

@@ -7,7 +7,6 @@ import {useSelector, useDispatch} from 'react-redux'
 import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "../../store/cartSlice";
 import {useEffect, useState} from 'react';
 import { RootState } from "../../store/store";
-import Footer from "@/components/Footer/Footer";
 import Navigation from "@/components/Navigation/Navigation";
 import {Dispatch} from "redux"
 

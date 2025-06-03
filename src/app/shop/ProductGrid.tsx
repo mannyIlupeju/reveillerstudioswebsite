@@ -52,12 +52,11 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
   };
   
   return (
-    
-    <div className="grid items-center justify-center p-24 grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12">
+
+    <div className="grid grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-x-12 gap-y-12 ps-8">
         {itemMaps?.map((values:any) => {
          const item = values.node
-       
-
+    
           const id = item.id
           const _id = id?.match(/\d+/g).join('') || id;
           
@@ -68,8 +67,8 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                 {item.images.edges[0] && (
                   <Image
                     src={isImageHovered === _id ? item.images.edges[1]?.node.originalSrc :item.images.edges[0]?.node.originalSrc}
-                    width={450}
-                    height={450}
+                    width={500}
+                    height={500}
                     alt="Product Image"
                     className="flex items-center justify-center transform transition hover:scale-105 optimized"
                     loading='lazy'

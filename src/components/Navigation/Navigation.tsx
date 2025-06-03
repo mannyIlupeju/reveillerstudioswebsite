@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
-import { useGlobalContext } from '@/Context/GlobalContext';
+import { useGlobalContext } from '../../Context/GlobalContext'
 
 type NavLinkType = {
   name: string;
@@ -56,7 +56,7 @@ const NavLink = ({ name, href }: NavLinkType) => {
       <Link href={href}>
         <span
           className={`${underlineVisible || isActive ? 'scale-x-100' : 'scale-x-0'}`}
-          data-original-text={name}
+          data-original-text={linkName}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -80,8 +80,9 @@ const Navigation = () => {
   const [cartQuantity, setCartQuantity]= useState<string | number>(0)
 
   const {setIsCartOpen} = useGlobalContext()
+
   
-  const navLinks = ['Shop', 'Archive', 'Journal'].map((name) => ({
+  const navLinks = ['Shop', 'Archive', 'About'].map((name) => ({
     name,
     href: `/${name.toLowerCase()}`,
   }));
@@ -103,10 +104,10 @@ const Navigation = () => {
   }, [cartQty]);
 
   return (
-    <nav className="flex justify-around gap-4 container nav-font">
-      <div className="hidden lg:flex justify-center items-center">
-        <div className="flex flex-row justify-start items-center">
-          <div className="lg:flex w-fit items-start">
+    <nav className="flex justify-between gap-4 mx-auto p-4 nav-font sticky z-50 top-0 bg-white shadow w-screen">
+      <div className="flex justify-center items-center">
+        <div className="flex lg:flex-row flex-col justify-start items-center">
+          <div className="hidden lg:flex w-fit items-start">
             <Image
               src="/images/rvrspinninglogo-unscreen2.gif"
               width={50}
