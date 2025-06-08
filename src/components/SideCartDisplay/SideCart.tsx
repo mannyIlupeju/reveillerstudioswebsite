@@ -51,7 +51,7 @@ export default function SideCart() {
  
 
   return (
-    <div className=" bg-gray-200 w-96 top-0 right-0 glassBox h-screen fixed flex flex-col">
+    <div className=" bg-gray-200 w-96 top-0 right-0 glassBox h-screen fixed  z-50 shadow-lg flex flex-col">
   
         <div className="flex m-5 border-black sticky top-0 bg-gray-200 z-10">
           <FaXmark onClick={closeCart} size={20}/>

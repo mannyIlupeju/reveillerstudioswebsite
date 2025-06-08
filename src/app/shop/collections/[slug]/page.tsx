@@ -12,10 +12,9 @@ export default async function Page({params}: {params: { slug: string }}){
    
    try {
      const response = await client.request(collectionQuery, {variables: { handle:slug }})
-
-  
+       
      const collection = response.data.collectionByHandle
-     console.log(collection)
+     
 
      const collections = collection.products.edges.map((item:any)=> {
       return item
