@@ -43,12 +43,12 @@ export default function SideCart() {
       const response = await fetch("/api/get-cart-id");
       const data = await response.json()
       setCartId(data.cartId);
-      console.log(data.cartId)
+      
     }
     fetchCartId();
   }, []);
 
-  console.log(cartId)
+ 
 
   return (
     <div className=" bg-gray-200 w-96 top-0 right-0 glassBox h-screen fixed flex flex-col">

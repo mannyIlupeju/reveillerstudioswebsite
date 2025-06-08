@@ -73,7 +73,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
   const collectionItemSearch = collections.edges.map((item:any) => item.node.title)
   const collectionItems = collectionItemSearch.filter((item:any) => item !== "All")
-  console.log(collectionItems[0])
+
   const collectionItem = collectionItems[0]
 
 
@@ -262,6 +262,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
             
             dispatch(setLoading(true));
 
+
             const response = await fetch('/api/shopifyCart/addItemToCart', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -319,7 +320,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               id={prices.id}
               onClick={(e) => selectSize(e, prices.id)}
               className={`
-                ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-300` : `bg-gray-300 `} rounded-xl p-3 glassBox`}
+                ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-300` : `bg-gray-300 `} rounded-xl p-3 glassBox cursor-pointer`}
             >
               {prices.selectedOptions[1].value}
             </button>

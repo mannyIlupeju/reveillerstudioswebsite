@@ -8,7 +8,6 @@ import Link from 'next/link'
 export default async function Cart() {
 
   const cookieStore = await cookies(); 
-  console.log(cookieStore)
   const cartId = cookieStore.get('cartId')?.value;
   console.log(cartId)
 

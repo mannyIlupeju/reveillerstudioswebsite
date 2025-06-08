@@ -6,7 +6,7 @@ export async function POST(req: Request){
      
     try {
         const body = await req.json()
-        console.log(body)
+    
         const {cartId, lineId} = body
 
         if(!cartId || !lineId) {
@@ -69,6 +69,7 @@ export async function POST(req: Request){
                 variables: { cartId, lineIds: [lineId] },
             }),
         });
+
 
 
         if (!response.ok) {

@@ -19,13 +19,6 @@ export default function Accordion({
   }) {
 
 
-
-
-    console.log(isActive)
-
-
-
-
   const CleanMarkUp = ({markUpText}: {markUpText: string}) => {
     const sanitizeDescription = DOMPurify.sanitize(markUpText);
     return <div dangerouslySetInnerHTML={{__html: sanitizeDescription}} />

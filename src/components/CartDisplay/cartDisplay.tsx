@@ -52,7 +52,7 @@ interface CartProps {
 
 
 export default function CartDisplay({cart}:CartProps){
-    console.log(cart)
+   
     
     const edges: LineEdge[] = cart.lines.edges
    
@@ -62,7 +62,6 @@ export default function CartDisplay({cart}:CartProps){
     const dispatch = useDispatch();
 
     const cartItems = useSelector((state: RootState) => state.cart.cart);
-    console.log(cartItems)
 
     const cartTotal = cartItems.reduce((total, item) => {
         return total + item.price * item.quantity;      
@@ -124,13 +123,10 @@ export default function CartDisplay({cart}:CartProps){
         fetchCartId();
     }, []);
 
-
-    console.log(cartItems)
     
     
      return (
         <section>
-        <Navigation/>
         <main className="flex flex-col gap-10 p-8 mx-auto min-h-screen">
             {cartItems.length > 0 ? (
                 <>
@@ -194,7 +190,6 @@ export default function CartDisplay({cart}:CartProps){
                 </div>
             )}
         </main>
-        <Footer/>
         </section>
     );
 }

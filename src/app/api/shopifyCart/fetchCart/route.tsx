@@ -1,15 +1,24 @@
 import fetch from 'node-fetch'
+
+
 import { NextResponse } from 'next/server';
 
 
 export async function POST(req: Request){
+  console.log("Incoming request method:", req.method)
+  
+  try {
+      const body = await req.json();
+    
+      console.log(body)
+    
+      const {cartId} = body
+      
+      if(!cartId) {
+        return
+      }
 
-    const body = await req.json();
 
-    const {cartId} = body
-    console.log(cartId)
-
-    try {
         const query = `
             query cartQuery($cartId: ID!) {
               cart(id: $cartId) {
@@ -84,8 +93,8 @@ export async function POST(req: Request){
         const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "X-Shopify-Storefront-Access-Token": `${process.env.SHOPIFY_PUBLIC}`,
+              "X-Shopify-Storefront-Access-Token": `${process.env.SHOPIFY_PUBLIC}`,
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 query,
@@ -100,15 +109,15 @@ export async function POST(req: Request){
         }
 
         const data:any = await response.json()
-        console.log(data)
+        const CartData = data.data.cart
 
-        if(!data || !data || !data.cart){
+        if(!CartData){
             return NextResponse.json({error: "Cart not found"}, {status: 404})
         }
         console.log("Cart data:", data)
         
 
-        return NextResponse.json({ success: true, cart: data.cart }, {status: 200});
+        return NextResponse.json({ success: true, cart: CartData}, {status: 200});
     } catch (error){
         console.error('Error fetching cart data:', error);
         return NextResponse.json({error: "Internal server error"}, {status: 500})

@@ -123,7 +123,7 @@ const ProductDetails = ({products}:any) => {
         
            
           <section className={`relative ${isCartOpen ? "overflow-hidden" : "overflow-auto"}`}>
-            <div className="relative -z-10">
+            <div className="relative">
               <main className="mt-10 slider-container">
                   <Slider {...settings}>
                     {imageUrl.map((item:any, index:any) => {

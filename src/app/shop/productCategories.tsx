@@ -21,6 +21,7 @@ type Props = {
 
 function ProductCategories({ collections }: Props) {
   
+  
   const breakdownCollections = collections.map((item)=> item.node)
   console.log(breakdownCollections)
   

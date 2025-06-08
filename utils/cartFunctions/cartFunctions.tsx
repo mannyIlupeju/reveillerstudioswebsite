@@ -7,7 +7,6 @@ import {useSelector, useDispatch} from 'react-redux'
 import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "../../store/cartSlice";
 import {useEffect, useState} from 'react';
 import { RootState } from "../../store/store";
-import Navigation from "@/components/Navigation/Navigation";
 import {Dispatch} from "redux"
 
 
@@ -15,6 +14,7 @@ import {Dispatch} from "redux"
 
   
 export async function removeCartItem(itemId: string, cartId: string, dispatch:Dispatch) {
+ 
   if(!cartId) return;
 
   try {
@@ -74,14 +74,17 @@ export async function updateCartQty(lineId: string, cartId:string | null, quanti
 }
 
 export async function refreshCart(cartId: string, dispatch:Dispatch) {
+  
   if (!cartId) return;
 
   try {
-    const response = await fetch(`/api/shopifyCart/fetchCart`, {
+    const response = await fetch("/api/shopifyCart/fetchCart", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cartId }),
     });
+
+    console.log(response)
 
     if (!response.ok) {
       const errorData = await response.json();
