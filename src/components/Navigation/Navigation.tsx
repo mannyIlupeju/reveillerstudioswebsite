@@ -118,10 +118,10 @@ const Navigation = () => {
           </div>
 
           <Link href="/">
-            <Image src="/images/rvrlogo-nav.png" height={250} width={250} alt="reveiller black logo" />
+            <Image src="/images/rvrlogo-nav.png" height={250} width={250} alt="reveiller black logo" className="-translate-x-10 lg:translate-x-0" />
           </Link>
 
-          <div className="p-2 flex justify-start items-center">
+          <div className="p-2 flex flex-col justify-start items-center">
             <span className="text-zinc-800 text-xs">
               Existence precedes Essence.
               <br />

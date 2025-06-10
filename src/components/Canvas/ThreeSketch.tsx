@@ -154,6 +154,15 @@ const ThreeSketch = () => {
 
   return (
     <>
+      <div 
+          className="box3 items-center cursor-pointer text-md">
+          <p className="ticker-text">
+          Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
+          </p>
+        </div>
+      
+
+       
       <canvas ref={backgroundCanvasRef} className="relative"/>
         <motion.div 
           drag
@@ -184,7 +193,7 @@ const ThreeSketch = () => {
           initial={{ x: 500, y: -500 }}
           animate={{ x: 500, y: 300}}
           transition={{ duration: 1, ease: 'easeIn' }}
-          className="box box2 flex justify-center items-center relative cursor-pointer"  
+          className="box box2 flex justify-center items-center relative cursor-pointer p-4"  
         >
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             
@@ -199,12 +208,9 @@ const ThreeSketch = () => {
           <h1 className="z-20 text-white text-xl font-bold">About</h1>
 
         </motion.div>
-        <div 
-          className="box3 absolute top-0 items-center cursor-pointer text-md">
-          <p className="ticker-text">
-          Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
-          </p>
-        </div>
+        
+       
+       
     </>
   )
 };

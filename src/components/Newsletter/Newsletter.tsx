@@ -29,23 +29,27 @@ export default function Newsletter() {
  
 
   return (
-    <main className="fixed z-10 inset-0 flex items-center justify-center">
-        <div className="w-[32vw] bg-zinc-200 p-5 flex flex-col gap-10  ">
+    <main className="fixed z-10 translate-y-50 inset-0 flex items-center justify-center xl:top-22 top-32 ">
+        <div className="xl:w-[28vw] lg:w-[80vw] bg-zinc-200 p-5 flex flex-col justify-center gap-10 text-sm  ">
            <div className="flex justify-end button">
-           <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                strokeWidth="1.5" 
-                stroke="currentColor" 
-                className="size-6 hover:rotate-45 transition-transform duration-300 w-10 h-10 cursor-pointer"
-                onClick={() => setShowModal(false)}
-            >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
+            <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  strokeWidth="1.5" 
+                  stroke="currentColor" 
+                  className="size-6 hover:rotate-45 transition-transform duration-300 w-10 h-10 cursor-pointer"
+                  onClick={() => setShowModal(false)}
+              >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
            </div>
-           <h1 className="text-xl flex justify-center">Join the RVS community</h1>
+
+          <div className="flex flex-col justify-center">
+           <h1 className="text-xl items-center">Join the RVS community</h1>
            <p>Be the first to know about exclusive drops, restocks and special offers - straight to your inbox</p>
+          </div>
+           
 
             <div className="flex flex-col gap-4">
            <input 

@@ -5,9 +5,14 @@ import Navigation from '@/components/Navigation/Navigation';
 import Footer from '@/components/Footer/Footer';
 import SideCart from '../components/SideCartDisplay/SideCart';
 import { useGlobalContext } from '@/Context/GlobalContext';
+import { usePathname } from 'next/navigation';
 
 export default function LayoutWithCart({ children }: { children: React.ReactNode }) {
   const { isCartOpen, setIsCartOpen } = useGlobalContext();
+  const pathname = usePathname();
+
+  const isCartPage = pathname === '/cart';
+
 
     useEffect(() => {
       if (isCartOpen) {
@@ -43,11 +48,7 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
       
       
       {/* SideCart - Keep it at higher z-index so overlay does not affect it */}
-      {isCartOpen && (
-         <div className="fixed top-0 right-0 z-50">
-            <SideCart />
-         </div>
-       )}
+      {isCartOpen && !isCartPage &&  <SideCart/>}
     </>
   );
 }

@@ -207,6 +207,8 @@ th {
     font-size: 14px;
     /* Medium screens */
   }
+
+  
 }
 
 @media screen and (max-width: 480px) {

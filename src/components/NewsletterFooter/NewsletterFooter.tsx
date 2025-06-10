@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Newsletter() {
+export default function NewsletterFooter() {
   return (
     <div className='text-sm xl:w-fit'>
       <div>

@@ -63,7 +63,7 @@ function ProductCategories({ collections }: Props) {
   }
 
   return (
-      <aside className="xl:absolute xl:translate-y-64 lg:p-4">
+      <aside className="lg:p-4">
         <div className = "flex xl:flex-col justify-center mt-12 flex-row gap-5">
         {breakdownCollections.map((item:any) => {
           const{id, title, handle} = item;

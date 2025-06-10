@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useGlobalContext } from '@/Context/GlobalContext'
-import Newsletter from '../NewsletterFooter/NewsletterFooter'
+import NewsletterFooter from '../NewsletterFooter/NewsletterFooter'
 
 
 
@@ -15,7 +15,7 @@ export default function Footer() {
 
   return (
      
-        <div className="flex flex-col-reverse xl:flex-row justify-around lg:gap-[10vw] text-zinc-100 text-lg p-4 footer-section">
+        <div className="flex flex-col-reverse lg:flex-row justify-around lg:gap-[10vw] text-zinc-100 text-lg p-8 w-screen footer-section ">
             <div className="flex flex-col md:flex-row gap-10 mt-4">
                 <div className="flex flex-col lg:gap-2 w-[250px] h-[250px]">
                     <Image 
@@ -64,7 +64,7 @@ export default function Footer() {
 
          
 
-          <Newsletter/>
+          <NewsletterFooter/>
         </div>
    
      
