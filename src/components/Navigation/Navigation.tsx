@@ -79,7 +79,7 @@ const Navigation = () => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [cartQuantity, setCartQuantity]= useState<string | number>(0)
 
-  const {setIsCartOpen} = useGlobalContext()
+  const {setIsCartOpen, toggleMenu} = useGlobalContext()
 
   
   const navLinks = ['Shop', 'Archive', 'About'].map((name) => ({
@@ -87,9 +87,7 @@ const Navigation = () => {
     href: `/${name.toLowerCase()}`,
   }));
 
-  const toggleMenu = () => {
-    setOpenMenu((prevState) => !prevState);
-  };
+
 
   const toggleCart = () => {
     console.log("open Cart")
@@ -118,7 +116,7 @@ const Navigation = () => {
           </div>
 
           <Link href="/">
-            <Image src="/images/rvrlogo-nav.png" height={250} width={250} alt="reveiller black logo" className="-translate-x-10 lg:translate-x-0" />
+            <Image src="/images/rvrlogo-nav.png" height={250} width={250} alt="reveiller black logo" className="-translate-x-10 lg:translate-x-0"/>
           </Link>
 
           <div className="p-2 flex flex-col justify-start items-center">
@@ -154,23 +152,6 @@ const Navigation = () => {
           alt="rvr spinning logo"
         />
       </div>
-
-     {isMenuOpen && 
-      <div className="lg:hidden flex items-center p-4">
-          <div className="flex flex-row gap-5 items-center">
-            <Link href='/'>Home</Link>
-            <Link href='/shop'>Shop</Link>
-            <Link href='/archive'>Archive</Link>
-            <Link href='/journal'>Journal</Link>
-             <div className="flex items-center">
-            <Link href="/cart" className="flex gap-1">
-              <h1>Cart</h1> 
-              <span>({cartQuantity})</span>
-            </Link>
-          </div>
-          </div>
-      </div>
-      }
       
     </nav>
   );

@@ -39,9 +39,8 @@ type GlobalContextType = {
   timeState: GlobalState;
   setCurrentTime: (currentTime: string) => void;
   setCurrentYear: (currentYear:string) => void;
-  removeCart: (id:string) => void
-  // quantity: number;
-  // setQuantity: (quantity:number) => void
+  removeCart: (id:string) => void;
+  toggleMenu: () => void;
   sizeInfo: SizeInfo;
   setSizeInfo:React.Dispatch<React.SetStateAction<SizeInfo>>;
   quantityAvailable: number | null;
@@ -53,10 +52,6 @@ type GlobalContextType = {
   isCartOpen: boolean;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
-
-
-
 
 
 
@@ -85,20 +80,11 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
 
 
 
-
-
-
-  
-
   const removeCart = (id:string) => {
     console.log("remove Item")
     dispatch(removeItem(id))
 
-
-
   }
-
-
 
   // Function to update the current time
   const setCurrentTime = (currentTime: string) => {
@@ -108,6 +94,14 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
   const setCurrentYear = (currentYear: string) => {
     setState((prevState) => ({ ...prevState, currentYear }));
   };
+
+  const toggleMenu = () => {
+    console.log("true")
+    setOpenMenu((prevState) => !prevState);
+  };
+
+
+
 
   return (
     <GlobalContext.Provider 
@@ -121,11 +115,10 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         setIsItemHovered,
         isMenuOpen,
         setOpenMenu,
+        toggleMenu,
         setIsCartOpen,
         isCartOpen,
         removeCart,
-        // quantity,
-        // setQuantity, 
         sizeInfo,
         setSizeInfo,
         quantityAvailable, 
