@@ -103,7 +103,7 @@ const ProductDetails = ({products}:any) => {
                   <Slider {...settings}>
                     {imageUrl.map((item:any, index:any) => {
                       return (
-                        <div key={index}>
+                        <div key={index} className="w-fit flex justify-center">
                           <Image
                             src={item.originalSrc}
                             alt="Product images"

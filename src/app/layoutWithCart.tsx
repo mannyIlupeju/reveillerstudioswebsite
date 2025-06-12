@@ -8,6 +8,7 @@ import SideCart from '../components/SideCartDisplay/SideCart';
 import { useGlobalContext } from '@/Context/GlobalContext';
 import { usePathname } from 'next/navigation';
 
+
 export default function LayoutWithCart({ children }: { children: React.ReactNode }) {
   const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu } = useGlobalContext();
   const pathname = usePathname();
@@ -30,26 +31,41 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
       };
     }, [isCartOpen]);
 
+
+    useEffect(() => {
+      const handleResize = () => {
+        if(window.innerWidth >= 768 && isMenuOpen){
+          toggleMenu();
+        }
+      }
+
+      window.addEventListener('resize', handleResize);
+
+      handleResize();
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, [isMenuOpen, toggleMenu]);
+
+
+
   return (
     <>
-
-    {/* Overlay when cart is open (does not cover SideCart) */}
-    {isCartOpen && !isCartPage && (
-         <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
-            onClick={() => setIsCartOpen(false)} // Clicking outside closes the cart
-        ></div>
-    )}
+      {isCartOpen && !isCartPage && (
+          <div
+              className="fixed inset-0 bg-black bg-opacity-50 z-40"
+              onClick={() => setIsCartOpen(false)} // Clicking outside closes the cart
+          ></div>
+      )}
 
       {isMenuOpen ? <SideNav/> :  <Navigation />}
-      <main className={`flex flex-col ${isMenuOpen ? 'h-screen overflow-y-hidden' : 'overflow-y-auto'}`}>
-        {children}
-      </main>
+        <main className={`flex flex-col ${isMenuOpen ? 'h-screen overflow-y-hidden' : 'overflow-y-auto'}`}>
+          {children}
+        </main>
       {!isMenuOpen && <Footer />}
 
       
-      
-      {/* SideCart - Keep it at higher z-index so overlay does not affect it */}
       {isCartOpen && !isCartPage &&  <SideCart/>}
     </>
   );

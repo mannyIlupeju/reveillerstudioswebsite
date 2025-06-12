@@ -63,14 +63,19 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
 
           return (
             <Link href={`/shop/allProducts/${item.handle}`} key={_id}>
-              <div key={item.id} onMouseEnter={()=> handleMouseEnter(_id)} onMouseLeave={handleMouseLeave}>
+              <div 
+                key={item.id} 
+                onMouseEnter={()=> handleMouseEnter(_id)} 
+                onMouseLeave={handleMouseLeave} 
+                className="flex items-center justify-center"
+              >
                 {item.images.edges[0] && (
                   <Image
                     src={isImageHovered === _id ? item.images.edges[1]?.node.originalSrc :item.images.edges[0]?.node.originalSrc}
                     width={500}
                     height={500}
                     alt="Product Image"
-                    className="flex items-center justify-center transform transition hover:scale-105 optimized"
+                    className="transform transition hover:scale-105 optimized"
                     loading='lazy'
                   />
                 )}

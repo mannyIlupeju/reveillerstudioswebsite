@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
+import NavLogo from './NavLogo/NavLogo';
 import { useGlobalContext } from '../../Context/GlobalContext'
 
 type NavLinkType = {
@@ -102,24 +103,22 @@ const Navigation = () => {
   }, [cartQty]);
 
   return (
-    <nav className="flex justify-between gap-4 mx-auto p-4 nav-font sticky z-50 top-0 bg-white shadow w-screen">
+    <nav className="flex justify-between gap-4 mx-auto p-2 nav-font sticky z-50 top-0 bg-white shadow ">
       <div className="flex justify-center items-center">
-        <div className="flex lg:flex-row flex-col justify-start items-center">
+        <div className="flex lg:flex-row gap-5 flex-col justify-start items-center">
           <div className="hidden lg:flex w-fit items-start">
             <Image
               src="/images/rvrspinninglogo-unscreen2.gif"
-              width={50}
-              height={50}
+              width={150}
+              height={150}
               alt="rvr spinning logo"
               priority
             />
           </div>
 
-          <Link href="/">
-            <Image src="/images/rvrlogo-nav.png" height={250} width={250} alt="reveiller black logo" className="-translate-x-10 lg:translate-x-0"/>
-          </Link>
+          <NavLogo/>
 
-          <div className="p-2 flex flex-col justify-start items-center">
+          <div className="p-2 flex flex-col justify-start items-center w-full">
             <span className="text-zinc-800 text-xs">
               Existence precedes Essence.
               <br />
