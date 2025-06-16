@@ -49,12 +49,19 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
     }, [isMenuOpen, toggleMenu]);
 
 
+    useEffect(()=>{
+      if(isCartOpen){
+        setIsCartOpen(false);
+      }
+    }, [pathname])
+
+
 
   return (
     <>
       {isCartOpen && !isCartPage && (
           <div
-              className="fixed inset-0 bg-black bg-opacity-50 z-40"
+              className="fixed inset-0 bg-black bg-opacity-60 z-10 blur-xl"
               onClick={() => setIsCartOpen(false)} // Clicking outside closes the cart
           ></div>
       )}

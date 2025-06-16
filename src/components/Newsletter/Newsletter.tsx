@@ -30,7 +30,7 @@ export default function Newsletter() {
 
   return (
     <main className="fixed z-10 translate-y-50 inset-0 flex items-center justify-center xl:top-22 top-32 ">
-        <div className="xl:w-[28vw] lg:w-[80vw] bg-zinc-200 p-5 flex flex-col justify-center gap-10 text-sm  ">
+        <div className="w-96 bg-zinc-200 p-5 flex flex-col justify-center gap-10 text-sm  ">
            <div className="flex justify-end button">
             <svg 
                   xmlns="http://www.w3.org/2000/svg" 
@@ -45,7 +45,7 @@ export default function Newsletter() {
               </svg>
            </div>
 
-          <div className="flex flex-col justify-center">
+          <div className="">
            <h1 className="text-xl items-center">Join the RVS community</h1>
            <p>Be the first to know about exclusive drops, restocks and special offers - straight to your inbox</p>
           </div>

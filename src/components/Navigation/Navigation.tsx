@@ -10,11 +10,14 @@ import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
 import NavLogo from './NavLogo/NavLogo';
 import { useGlobalContext } from '../../Context/GlobalContext'
+import { Router } from 'next/router';
 
 type NavLinkType = {
   name: string;
   href: string;
 };
+
+
 
 interface NavLinksProps {
   links: NavLinkType[];
@@ -25,6 +28,7 @@ const NavLink = ({ name, href }: NavLinkType) => {
   const [linkName, setLinkName] = useState(name);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
   const [isReversed, setIsReversed] = useState(false);
+  
   
   
   const pathName = usePathname();
@@ -49,6 +53,8 @@ const NavLink = ({ name, href }: NavLinkType) => {
     }
     setLinkName(name);
   };
+
+ 
 
  
 
@@ -82,6 +88,8 @@ const Navigation = () => {
 
   const {setIsCartOpen, toggleMenu} = useGlobalContext()
 
+  const router = useRouter()
+
   
   const navLinks = ['Shop', 'Archive', 'About'].map((name) => ({
     name,
@@ -102,8 +110,12 @@ const Navigation = () => {
     setCartQuantity(cartQty)
   }, [cartQty]);
 
+  const goHome = () => {
+    router.push('/home')
+  }
+
   return (
-    <nav className="flex justify-between gap-4 mx-auto p-2 nav-font sticky z-50 top-0 bg-white shadow ">
+    <nav className="flex justify-between gap-4 mx-auto p-2 nav-font xl:sticky z-10 top-0 bg-white shadow ">
       <div className="flex justify-center items-center">
         <div className="flex lg:flex-row gap-5 flex-col justify-start items-center">
           <div className="hidden lg:flex w-fit items-start">
@@ -117,7 +129,7 @@ const Navigation = () => {
           </div>
 
           <NavLogo/>
-
+         
           <div className="p-2 flex flex-col justify-start items-center w-full">
             <span className="text-zinc-800 text-xs">
               Existence precedes Essence.

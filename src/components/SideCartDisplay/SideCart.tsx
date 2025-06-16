@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/navigation';
 import { FaXmark } from "react-icons/fa6";
 import { FaMinus, FaPlus } from 'react-icons/fa';
+import * as motion from "motion/react-client"
 import Image from "next/image"
 import { useGlobalContext } from '@/Context/GlobalContext';
 import { RootState } from "../../../store/store";
@@ -51,9 +52,14 @@ export default function SideCart() {
  
 
   return (
-    <div className=" bg-gray-200 w-96 top-0 right-0 glassBox h-screen fixed z-10 shadow-lg flex flex-col">
+    <motion.div 
+    initial={{ x: '100%' }}
+    animate={{ x: 0 }}
+    exit={{ x: '100%' }}
+    transition={{ type: 'tween', duration: 0.15, ease: 'easeInOut' }}
+        className=" bg-gray-200 w-96 top-0 right-0 glassBox h-screen fixed z-20 shadow-lg flex flex-col ease-in-out transition">
   
-        <div className="flex m-5 border-black sticky top-0 bg-gray-200 z-10">
+        <div className="flex m-5 border-black sticky top-0 z-1 cursor-pointer">
           <FaXmark onClick={closeCart} size={20}/>
           <h1 className="mx-auto">Your Bag</h1>
         </div>
@@ -65,18 +71,18 @@ export default function SideCart() {
               >
                   <Image
                       src={item.image}
-                      width={120}
-                      height={50}
+                      width={150}
+                      height={120}
                       priority
                       alt={item.title}
                   />
           
                   <div className="flex flex-col justify-center">
-                      <span className="text-sm">{item.title}</span>
-                      <span className="text-sm"> Price: {Number.parseFloat(Number(item.price * item.quantity).toFixed(2))}
+                      <span className="text-md">{item.title}</span>
+                      <span className="text-md"> Price: {Number.parseFloat(Number(item.price * item.quantity).toFixed(2))}
                           {item.currencyCode}
                       </span>
-                      <span className="text-sm">Size: {item.size.value}</span>
+                      <span className="text-md">Size: {item.size.value}</span>
                     
                       <div className='flex w-fit mt-2 gap-2'>
                           <button 
@@ -106,7 +112,7 @@ export default function SideCart() {
           ))}
           <div className="mt-8 flex flex-col gap-4">
             <div className="flex justify-between">
-              <span className="text-xl">Sub Total:  </span>
+              <span className="text-lg">Sub Total:  </span>
               <span >${cartTotal} {cartItems[0]?.currencyCode || ''}</span>
             </div>
           <button 
@@ -127,7 +133,7 @@ export default function SideCart() {
         Continue to Checkout
       </button>
      
-    </div>
+    </motion.div>
   
   )
 }

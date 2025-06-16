@@ -7,6 +7,7 @@ import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
 import { IoClose } from "react-icons/io5";
 import NavLogo from '../Navigation/NavLogo/NavLogo';
+import * as motion from "motion/react-client"
 
 
 
@@ -28,11 +29,17 @@ const SideNav = () => {
 
 
   return (
-         <main className="lg:hidden flex-col flex justify-items-end p-4 bg-gray-200 h-screen absolute z-10  w-screen">
+         <motion.main 
+         initial={{ x: '100%' }}
+         animate={{ x: 0 }}
+         exit={{ x: '100%' }}
+         transition={{ type: 'tween', duration: 0.2, ease: 'easeInOut' }}
+         className="lg:hidden flex-col flex justify-items-end p-4 bg-gray-200 h-screen absolute z-50  w-screen">
 
             <div className="flex justify-between ">
                 <div className="flex items-center">
                     <div className="flex xl:flex-row gap-5 flex-col justify-start items-center">
+                        
                        <NavLogo/>
 
                         <div className="p-2 flex flex-col justify-start items-center">
@@ -68,7 +75,7 @@ const SideNav = () => {
                     </Link>
                 </div>
         </div>
-        </main>
+        </motion.main>
    
   )
 }

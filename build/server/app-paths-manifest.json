@@ -1,7 +1,8 @@
 {
-  "/shop/page": "app/shop/page.js",
-  "/cart/page": "app/cart/page.js",
-  "/page": "app/page.js",
+  "/api/get-cart-id/route": "app/api/get-cart-id/route.js",
   "/shop/collections/[slug]/page": "app/shop/collections/[slug]/page.js",
-  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js"
+  "/cart/page": "app/cart/page.js",
+  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js",
+  "/page": "app/page.js",
+  "/shop/page": "app/shop/page.js"
 }
