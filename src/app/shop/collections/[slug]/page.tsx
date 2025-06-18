@@ -1,8 +1,9 @@
 import React from 'react'
-import client from '../../../../../utils/shopify-client/shopify-client'
+import client from '../../../../lib/shopify/shopify-client/shopify-client'
 import { fetchCategories } from '../../../../../utils/fetchCategories/fetchCategories';
 import ProductGrid from '../../ProductGrid'
 import ProductCategories from '../../productCategories'
+import { collectionQuery, collectionParamQuery } from '@/lib/shopify/queries/queries';
 
 
 
@@ -59,56 +60,3 @@ export async function generateStaticParams() {
     }
 }
 
-const collectionParamQuery = `
-    query {
-        collections(first: 10) {
-            edges {
-                node {
-                    id
-                    title
-                    handle
-                    updatedAt
-                }
-                
-            }
-        }
-    }
-`
-
-
-const collectionQuery = `
-  query getCollectionsByHandle($handle: String!) {
-    collectionByHandle(handle: $handle) {
-      id
-      title
-      handle
-
-      products(first: 10, reverse: true) {
-
-        edges {
-          node {
-            id
-            handle
-            title
-            createdAt
-            priceRange{
-              minVariantPrice {
-                amount
-                currencyCode
-              }
-            }
-            images(first: 5) {
-              edges {
-                node {
-                  originalSrc
-                  altText
-                }
-              }
-            }
-
-          }
-        }
-      }
-    }
-  } 
-`

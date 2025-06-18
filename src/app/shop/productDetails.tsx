@@ -1,24 +1,29 @@
+// UI for each product slug
+
 'use client'
 
-import React, {useEffect} from 'react'
+import React from 'react'
+import Link from 'next/link'
 import ProdDetailsConfiguration from './prodDetailsConfig';
 import Image from 'next/image'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import Navigation from '@/components/Navigation/Navigation';
-import SideCart from '../../components/SideCartDisplay/SideCart'
-import { useGlobalContext } from '@/Context/GlobalContext';
 
 
 
 
-const ProductDetails = ({products}:any) => {
+
+const ProductDetails = ({products, recommendations}:any) => {
+  console.log(recommendations)
+
+  const recommendedlogs = recommendations.map((item) => item)
+  console.log(recommendedlogs)
 
   const {id, images, descriptionHtml, title, priceRange, variants, price, collections} = products
 
 
-  const {setIsCartOpen, isCartOpen} = useGlobalContext();
+
 
   //get images from product object
   const imageUrl = images.edges.map((item:any)=> {
@@ -97,7 +102,7 @@ const ProductDetails = ({products}:any) => {
 
 
   return (
-    <>     
+    <main className="overflow-x-hidden">     
             <div className="relative">
               <main className="mt-10 slider-container">
                   <Slider {...settings}>
@@ -126,7 +131,39 @@ const ProductDetails = ({products}:any) => {
                 images={images} 
               /> 
           </div>      
-    </>
+
+          <section className="p-3 ml-4">
+            {recommendedlogs && recommendedlogs.length > 0 && (
+              <section className="mt-10 px-4">
+                <h2 className="text-xl font-semibold mb-4">Recommended Products</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-fit ">
+                  {recommendedlogs.map((item:any, index:number) => (
+                    <div className="flex flex-col" key={item.id || index}>
+                      <div key={item.id || index} className="w-fit p-4 items-end">
+                        {item.featuredImage?.url && (
+                          <Link href={`/shop/allProducts/${item.handle}`} key={item.id}>
+                            <Image
+                              src={item.featuredImage.url}
+                              alt={item.featuredImage.altText || 'Product'}
+                              width={200}
+                              height={200}
+                              />
+                          </Link>
+                        )}
+                      </div>
+                      <div className="flex flex-col align-bottom">
+                        <h3 className="text-lg">{item.title}</h3>
+                        <p>
+                          {item.priceRange.minVariantPrice.amount} {item.priceRange.minVariantPrice.currencyCode}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+          </section>
+    </main>
   )
 }
 

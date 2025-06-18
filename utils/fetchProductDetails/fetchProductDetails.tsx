@@ -1,5 +1,5 @@
 
-import client from '../shopify-client/shopify-client';
+import client from '../../src/lib/shopify/shopify-client/shopify-client';
 
 export async function generateStaticParams() {
 

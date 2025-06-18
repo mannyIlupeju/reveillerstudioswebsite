@@ -34,7 +34,7 @@ const SideNav = () => {
          animate={{ x: 0 }}
          exit={{ x: '100%' }}
          transition={{ type: 'tween', duration: 0.2, ease: 'easeInOut' }}
-         className="lg:hidden flex-col flex justify-items-end p-4 bg-gray-200 h-screen absolute z-50  w-screen">
+         className="lg:hidden flex-col flex justify-items-end p-4 bg-gray-200 h-screen absolute z-50 w-screen">
 
             <div className="flex justify-between ">
                 <div className="flex items-center">

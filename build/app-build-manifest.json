@@ -6,10 +6,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
+    "/shop/allProducts/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/css/app/shop/allProducts/[slug]/page.css",
+      "static/chunks/app/shop/allProducts/[slug]/page.js"
     ],
     "/shop/page": [
       "static/chunks/webpack.js",
@@ -21,31 +22,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/shop/collections/[slug]/page.js"
     ],
-    "/shop/allProducts/[slug]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/shop/allProducts/[slug]/page.css",
-      "static/chunks/app/shop/allProducts/[slug]/page.js"
-    ],
-    "/api/get-cart-id/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/get-cart-id/route.js"
-    ],
-    "/cart/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/cart/page.js"
-    ],
-    "/api/checkout/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/checkout/route.js"
-    ],
-    "/api/shopifyCart/addItemToCart/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/shopifyCart/addItemToCart/route.js"
+      "static/chunks/app/page.js"
     ]
   }
 }

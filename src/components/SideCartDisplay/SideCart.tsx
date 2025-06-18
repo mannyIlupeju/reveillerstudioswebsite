@@ -57,14 +57,14 @@ export default function SideCart() {
     animate={{ x: 0 }}
     exit={{ x: '100%' }}
     transition={{ type: 'tween', duration: 0.15, ease: 'easeInOut' }}
-        className=" bg-gray-200 w-96 top-0 right-0 glassBox h-screen fixed z-20 shadow-lg flex flex-col ease-in-out transition">
+        className=" bg-gray-200 w-[30vw] top-0 right-0 glassBox h-screen fixed z-20 shadow-lg flex flex-col ease-in-out transition">
   
         <div className="flex m-5 border-black sticky top-0 z-1 cursor-pointer">
           <FaXmark onClick={closeCart} size={20}/>
           <h1 className="mx-auto">Your Bag</h1>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-3">
+        <div className="flex-1 overflow-y-auto p-6 cursor-pointer">
           {cartItems.map((item) => (
               <div key={item.id}
                   className='flex flex-row gap-4'
@@ -86,7 +86,7 @@ export default function SideCart() {
                     
                       <div className='flex w-fit mt-2 gap-2'>
                           <button 
-                            className='disabled:opacity-50'
+                            className='disabled:opacity-50 hover:bg-gray-100 p-2'
                             onClick={() => updateCartQty(item.id, cartId, Math.max(0, item.quantity - 1), dispatch)}
                           >
                             <FaMinus className='flex self-center' />
@@ -103,7 +103,7 @@ export default function SideCart() {
                       </div>
                       <button 
                           onClick={() => cartId && removeCartItem(item.id, cartId, dispatch)}
-                          className="flex items-start mt-2  py-2 text-zinc-800 rounded  hover:underline"
+                          className="flex items-start mt-2  py-2 text-zinc-800 rounded hover:underline"
                       >
                           Remove
                       </button>

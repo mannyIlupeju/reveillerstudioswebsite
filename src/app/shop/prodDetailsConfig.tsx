@@ -7,7 +7,7 @@ import Accordion from '@/components/Accordion/Accordion';
 import { getAccordionData  } from '../../../utils/AccordionDataObj/accordion';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import Cookies from 'js-cookie'
-import client from '../../../utils/shopify-client/shopify-client';
+import client from '../../lib/shopify/shopify-client/shopify-client';
 import { useGlobalContext } from '@/Context/GlobalContext';
 import { addItem, setLoading, setError } from '../../../store/cartSlice';
 import type { RootState } from '../../../store/store';
@@ -300,7 +300,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
   return (
-    <aside className='xl:absolute xl:z-10 xl:top-4 p-3 ml-4 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
+    <aside className='xl:absolute xl:z-1 xl:top-4 p-3 ml-4 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
       <div className='prodDetailsOptionsBox p-3 text-xl flex gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
         <span>${productPrice}</span>
