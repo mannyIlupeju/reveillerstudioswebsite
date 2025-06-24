@@ -30,8 +30,8 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="flex flex-row lg:gap-20 gap-10 w-max text-sm mt-4">
-                    <div className="flex flex-col gap-5">
+            <div className="flex xl:flex-row flex-col lg:gap-20 gap-10 w-max text-sm mt-4">
+                    <div className="flex flex-col xl:gap-5 gap-2">
                         <Link href='/contact'className="footer-link">About</Link>
                         <Link href=''className="footer-link">Privacy policy</Link>
                     </div>

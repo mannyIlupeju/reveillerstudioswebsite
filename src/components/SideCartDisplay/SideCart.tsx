@@ -9,7 +9,7 @@ import Image from "next/image"
 import { useGlobalContext } from '@/Context/GlobalContext';
 import { RootState } from "../../../store/store";
 import {useSelector, useDispatch} from 'react-redux'
-import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "../../../store/cartSlice";
+import { removeItem, setLoading, updateQuantity, setCartItems, setError, clearCart } from "../../../store/cartSlice";
 import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../../utils/cartFunctions/cartFunctions";
 
 export default function SideCart() {
@@ -22,7 +22,15 @@ export default function SideCart() {
   const {setIsCartOpen, isCartOpen} = useGlobalContext();
 
   const cartItems = useSelector((state: RootState) => state.cart.cart);
-  console.log(cartItems)
+  console.log("=== SIDE CART REDUX DATA ===");
+  console.log("Cart items from Redux:", cartItems);
+  cartItems.forEach((item, index) => {
+    console.log(`Item ${index}:`, {
+      id: item.id,
+      variantId: item.variantId,
+      title: item.title
+    });
+  });
 
   const cartTotal = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -87,7 +95,17 @@ export default function SideCart() {
                       <div className='flex w-fit mt-2 gap-2'>
                           <button 
                             className='disabled:opacity-50 hover:bg-gray-100 p-2'
-                            onClick={() => updateCartQty(item.id, cartId, Math.max(0, item.quantity - 1), dispatch)}
+                            onClick={() => {
+                             
+                              if (item.quantity - 1 <= 0) {
+                                // Remove the item from the cart
+                                cartId && removeCartItem(item.id, cartId, dispatch);
+                                closeCart()
+                              } else {
+                                // Update the quantity as usual
+                                updateCartQty(item.id, cartId, item.quantity - 1, dispatch);
+                              }
+                            }}
                           >
                             <FaMinus className='flex self-center' />
                           </button>
@@ -96,13 +114,23 @@ export default function SideCart() {
                           </span>
                           <button
                               className="p-2 hover:bg-gray-100 rounded"
-                              onClick={() => updateCartQty(item.id, cartId, item.quantity + 1, dispatch)}
+                              onClick={() => {
+                               
+                                updateCartQty(item.id, cartId, item.quantity + 1, dispatch);
+                              }}
                           >
                               <FaPlus className="w-4 h-4" />
                           </button>
                       </div>
                       <button 
-                          onClick={() => cartId && removeCartItem(item.id, cartId, dispatch)}
+                          onClick={() => {
+                          
+                            if (item.quantity < 1) {
+                              dispatch(clearCart());
+                            } else if (cartId) {
+                              removeCartItem(item.id, cartId, dispatch);
+                            }
+                          }}
                           className="flex items-start mt-2  py-2 text-zinc-800 rounded hover:underline"
                       >
                           Remove

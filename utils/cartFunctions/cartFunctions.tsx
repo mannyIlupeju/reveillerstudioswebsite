@@ -4,7 +4,7 @@ import { useGlobalContext } from "@/Context/GlobalContext";
 import Image from "next/image"
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import {useSelector, useDispatch} from 'react-redux'
-import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "../../store/cartSlice";
+import { removeItem, setLoading, updateQuantity, setCartItems, setError, clearCart } from "../../store/cartSlice";
 import {useEffect, useState} from 'react';
 import { RootState } from "../../store/store";
 import {Dispatch} from "redux"
@@ -14,9 +14,8 @@ import {Dispatch} from "redux"
 
   
 export async function removeCartItem(itemId: string, cartId: string, dispatch:Dispatch) {
- 
   if(!cartId) return;
-
+  dispatch(setLoading(true));
   try {
     const response = await fetch("/api/shopifyCart/removeItem", {
       method: "POST",
@@ -26,29 +25,26 @@ export async function removeCartItem(itemId: string, cartId: string, dispatch:Di
         lineId: itemId,
       }),
     });
-
     if (!response.ok) {
       throw new Error("Failed to remove item from cart");
     }
-
-    // Refresh cart after successful removal
+    // Only update Redux after refreshing cart from Shopify
     await refreshCart(cartId, dispatch);
   } catch (error) {
     console.error("Error removing item from cart:", error);
     await refreshCart(cartId, dispatch); // Refresh to ensure UI is in sync
-  } 
+  } finally {
+    dispatch(setLoading(false));
+  }
 }
 
 export async function updateCartQty(lineId: string, cartId:string | null, quantity: number, dispatch:Dispatch) {
-  if (!cartId) return;
-
+  if (!cartId) {
+    console.log("No cartId provided, skipping update");
+    return;
+  }
+  dispatch(setLoading(true));
   try {
-   
-    dispatch(setLoading(true));
-
-    // Optimistically update UI
-    dispatch(updateQuantity({ lineId, quantity }));
-
     const response = await fetch("/api/shopifyCart/updateQtyCart", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -58,12 +54,12 @@ export async function updateCartQty(lineId: string, cartId:string | null, quanti
         quantity,
       }),
     });
-
     if (!response.ok) {
-      throw new Error("Failed to update quantity");
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      console.error("Update quantity failed:", errorData);
+      throw new Error(`Failed to update quantity: ${errorData.error || errorData.message || response.statusText}`);
     }
-
-    // Refresh cart data
+    // Only update Redux after refreshing cart from Shopify
     await refreshCart(cartId, dispatch);
   } catch (error) {
     console.error("Error updating cart quantity:", error);
@@ -94,24 +90,38 @@ export async function refreshCart(cartId: string, dispatch:Dispatch) {
     const updatedCart = await response.json();
     console.log("Updated cart data:", updatedCart); // For debugging
 
+    console.log(updatedCart.cart.lines.edges)
     if (updatedCart?.cart?.lines?.edges) {
-      const mappedItems = updatedCart.cart.lines.edges.map((edge) => ({
-        id: edge.node.id,
-        quantity: edge.node.quantity,
-        title: edge.node.merchandise.product.title,
-        price: Number(edge.node.merchandise.priceV2.amount),
-        currencyCode: edge.node.merchandise.priceV2.currencyCode,
-        image: edge.node.merchandise.image.src,
-        size: {
-          name: "Size",
-          value:
-            edge.node.attributes.find((attr) => attr.key === "Size")?.value ||
-            "",
-        },
-        variantId: edge.node.merchandise.id,
-        merchandise: edge.node.merchandise,
-        attributes: edge.node.attributes,
-      }));
+      const mappedItems = updatedCart.cart.lines.edges.map((edge) => {
+
+        
+        const mappedItem = {
+          id: edge.node.id,
+          quantity: edge.node.quantity,
+          title: edge.node.merchandise.product.title,
+          price: Number(edge.node.merchandise.priceV2.amount),
+          currencyCode: edge.node.merchandise.priceV2.currencyCode,
+          image: edge.node.merchandise.image.src,
+          size: {
+            name: "Size",
+            value:
+              edge.node.attributes.find((attr) => attr.key === "Size")?.value ||
+              "",
+          },
+          variantId: edge.node.merchandise.id,
+          merchandise: edge.node.merchandise,
+          attributes: edge.node.attributes,
+        };
+        
+        console.log("Mapped item ID:", mappedItem.id);
+        console.log("Mapped item title:", mappedItem.title);
+        
+        return mappedItem;
+      });
+      
+      console.log("=== FINAL MAPPED ITEMS ===");
+      console.log("Mapped items:", mappedItems.map(item => ({ id: item.id, title: item.title })));
+      
       dispatch(setCartItems(mappedItems));
     }
   } catch (error) {

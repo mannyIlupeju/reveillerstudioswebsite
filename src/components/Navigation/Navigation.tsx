@@ -91,9 +91,9 @@ const Navigation = () => {
   const router = useRouter()
 
   
-  const navLinks = ['Shop', 'Archive', 'About'].map((name) => ({
+  const navLinks = ['Shop', 'Archive', 'About', 'Log In'].map((name) => ({
     name,
-    href: `/${name.toLowerCase()}`,
+    href: `/${name.toLowerCase().replace(/\s+/g, '')}`,
   }));
 
 

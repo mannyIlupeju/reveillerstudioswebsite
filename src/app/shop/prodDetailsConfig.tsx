@@ -12,6 +12,7 @@ import { useGlobalContext } from '@/Context/GlobalContext';
 import { addItem, setLoading, setError } from '../../../store/cartSlice';
 import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
+import { refreshCart } from '../../../utils/cartFunctions/cartFunctions';
 
 
 
@@ -206,89 +207,84 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
       async function addItemToCart(shopifyCartId:string, lineItems:LineItemTypes[]){
-        
         if(!shopifyCartId && lineItems.length === 0){
           return;
         }
-      
+        try {
+          const selectedQuantity = quantity[isButtonSelected!] || 1;
 
-          try {
-            const selectedQuantity = quantity[isButtonSelected!] || 1;
-
-
-           const cartItem: CartItem = {
+         const cartItem: CartItem = {
+           id: productVariantID,
+           title: title,
+           price: Number(productPrice),
+           quantity: selectedQuantity,
+           image: productImage,
+           currencyCode:
+             variants.edges[0]?.node.priceV2.currencyCode || "USD", // Get from variants
+           size: {
+             name: sizeDetails.name,
+             value: sizeDetails.value,
+           },
+           variantId: productVariantID,
+           merchandise: {
              id: productVariantID,
-             title: title,
-             price: Number(productPrice),
-             quantity: selectedQuantity,
-             image: productImage,
-             currencyCode:
-               variants.edges[0]?.node.priceV2.currencyCode || "USD", // Get from variants
-             size: {
-               name: sizeDetails.name,
+             image: {
+               src: productImage,
+               altText: null,
+             },
+             priceV2: {
+               amount: Number(productPrice),
+               currencyCode:
+                 variants.edges[0]?.node.priceV2.currencyCode || "USD",
+             },
+             product: {
+               title: title,
+               handle: variants.edges[0]?.node.product?.handle || "",
+               vendor: variants.edges[0]?.node.product?.vendor || "",
+             },
+           },
+           attributes: [
+             {
+               key: "Size",
                value: sizeDetails.value,
              },
-             variantId: productVariantID,
-             merchandise: {
-               id: productVariantID,
-               image: {
-                 src: productImage,
-                 altText: null,
-               },
-               priceV2: {
-                 amount: Number(productPrice),
-                 currencyCode:
-                   variants.edges[0]?.node.priceV2.currencyCode || "USD",
-               },
-               product: {
-                 title: title,
-                 handle: variants.edges[0]?.node.product?.handle || "",
-                 vendor: variants.edges[0]?.node.product?.vendor || "",
-               },
-             },
-             attributes: [
-               {
-                 key: "Size",
-                 value: sizeDetails.value,
-               },
-             ],
-           };
+           ]
+         };
 
-            if (!sizeDetails) {
-              throw new Error('Please select a size');
-            }
-            
-            dispatch(addItem(cartItem));
-            
-            dispatch(setLoading(true));
-
-
-            const response = await fetch('/api/shopifyCart/addItemToCart', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                cartId: shopifyCartId,
-                merchandiseId: productVariantID,
-                quantity: selectedQuantity,
-                size: sizeDetails
-              })
-            });
-            
-            
-            if (!response.ok) {
-              throw new Error('Failed to add item to cart');
-            }
-            
-            setIsItemAddedToCart(true)
-            setIsCartOpen(true)
-            console.log("Product added to cart successfully");
-          } catch(error) {
-            dispatch(setError(error instanceof Error ? error.message : 'Failed to add item'));
-            console.error("Error adding item to cart:", error)
-          } finally {
-            dispatch(setLoading(false));
+          if (!sizeDetails) {
+            throw new Error('Please select a size');
           }
-        
+          
+          dispatch(addItem(cartItem));
+          dispatch(setLoading(true));
+
+          const response = await fetch('/api/shopifyCart/addItemToCart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              cartId: shopifyCartId,
+              merchandiseId: productVariantID,
+              quantity: selectedQuantity,
+              size: sizeDetails
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to add item to cart');
+          }
+
+          // Always refresh cart after adding item to get correct CartLineIds
+          await refreshCart(shopifyCartId, dispatch);
+
+          setIsItemAddedToCart(true)
+          setIsCartOpen(true)
+          console.log("Product added to cart successfully");
+        } catch(error) {
+          dispatch(setError(error instanceof Error ? error.message : 'Failed to add item'));
+          console.error("Error adding item to cart:", error)
+        } finally {
+          dispatch(setLoading(false));
+        }
       }
     
   }
@@ -320,7 +316,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               id={prices.id}
               onClick={(e) => selectSize(e, prices.id)}
               className={`
-                ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-300` : `bg-gray-300 `} rounded-xl p-3 glassBox cursor-pointer`}
+                ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `addToCartBox` : `glassBox `} rounded-xl p-3 cursor-pointer`}
             >
               {prices.selectedOptions[1].value}
             </button>

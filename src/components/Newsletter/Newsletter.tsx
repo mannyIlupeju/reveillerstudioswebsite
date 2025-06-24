@@ -62,13 +62,6 @@ export default function Newsletter() {
             placeholder='Email Address'
             className="p-2 border border-zinc-400 rounded-md"
            />
-           <input 
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder='Phone number'
-            className="p-2 border border-zinc-400 rounded-md"
-           />
            </div>
 
            <form className="flex flex-col  gap-4">

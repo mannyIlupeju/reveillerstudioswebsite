@@ -32,6 +32,11 @@ type GlobalState = {
    
   }
 
+  type LoginState = {
+    loginClicked: boolean;
+    registerClicked: boolean;
+  }
+
 // Define the shape of the context, including state and update functions
 type GlobalContextType = {
   cartId: string;
@@ -51,6 +56,12 @@ type GlobalContextType = {
   setOpenMenu:  React.Dispatch<React.SetStateAction<boolean>>;
   isCartOpen: boolean;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoginClick:React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegisterClick:React.Dispatch<React.SetStateAction<boolean>>;
+  loginClicked:boolean;
+  registerClicked:boolean;
+  LoginHere:()=>void;
+  RegisterHere:()=>void;
 };
 
 
@@ -71,6 +82,8 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
     currentYear:new Date().getFullYear().toString()
   });
   const [isHovered, setIsItemHovered] = useState<boolean | null>(null)
+  const [loginClicked, setIsLoginClick] = useState<boolean>(false)
+  const [registerClicked, setIsRegisterClick] = useState<boolean>(false)
   const [isMenuOpen, setOpenMenu] = useState<boolean>(false)
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
   // const [quantity, setQuantity] = useState<number>(1)
@@ -78,6 +91,19 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
   const [sizeInfo, setSizeInfo] = useState<SizeInfo>({availableForSale:false, id:"", priceV2:{amount:"", currencyCode:""},quantityAvailable:0, title:"", selectedOptions:[]})
   const dispatch = useDispatch()
 
+
+
+  const LoginHere =() => {
+    console.log('clicked')
+    setIsLoginClick(prevState => !prevState)
+    setIsRegisterClick(false)
+  }
+
+  const RegisterHere = () => {
+    console.log('click register')
+    setIsRegisterClick(prevState => !prevState)
+    setIsLoginClick(false)
+  }
 
 
   const removeCart = (id:string) => {
@@ -122,7 +148,13 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         sizeInfo,
         setSizeInfo,
         quantityAvailable, 
-        setQuantityAvailable
+        setQuantityAvailable,
+        setIsLoginClick,
+        setIsRegisterClick,
+        loginClicked,
+        registerClicked,
+        LoginHere,
+        RegisterHere,
       }}>
       {children}
     </GlobalContext.Provider>

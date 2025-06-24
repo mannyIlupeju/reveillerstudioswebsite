@@ -87,7 +87,7 @@ const cartSlice = createSlice({
     },
     removeItem: (state, action: PayloadAction<string>) => {
       state.cart = state.cart.filter(
-        (item) => item.variantId !== action.payload
+        (item) => item.id !== action.payload
       );
       const totals = calculateTotals(state.cart);
       state.totalQuantity = totals.totalQuantity;
@@ -98,13 +98,24 @@ const cartSlice = createSlice({
       action: PayloadAction<{ lineId: string; quantity: number }>
     ) => {
       const { lineId, quantity } = action.payload;
-      const item = state.cart.find((item) => item.variantId === lineId);
+      
+      console.log("=== REDUX UPDATE QUANTITY REDUCER ===");
+      console.log("Received lineId:", lineId);
+      console.log("Received quantity:", quantity);
+      console.log("Current cart items:", state.cart.map(item => ({ id: item.id, title: item.title })));
+      
+      const item = state.cart.find((item) => item.id === lineId);
+      
+      console.log("Found item:", item ? { id: item.id, title: item.title, quantity: item.quantity } : "NOT FOUND");
 
       if (item) {
         item.quantity = quantity;
         const totals = calculateTotals(state.cart);
         state.totalQuantity = totals.totalQuantity;
         state.totalPrice = totals.totalPrice;
+        console.log("Item updated successfully");
+      } else {
+        console.log("Item not found in cart - lineId mismatch");
       }
     },
     setCartItems: (state, action: PayloadAction<CartItem[]>) => {
