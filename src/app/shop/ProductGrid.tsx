@@ -34,7 +34,7 @@ type Props = {
 
 
 export default function ProductGrid({items, isProductGrid = true}:Props) {
-
+  console.log(items)
   //filtering the values from the product object and collections object
   const itemMaps = items.flatMap((item:any)=>{
     return item
@@ -57,6 +57,7 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
         {itemMaps?.map((values:any) => {
          const item = values.node
     
+         console.log(item)
           const id = item.id
           const _id = id?.match(/\d+/g).join('') || id;
           
@@ -75,11 +76,20 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                     width={500}
                     height={500}
                     alt="Product Image"
-                    className="transform transition hover:scale-105 optimized"
+                    className={`transform transition hover:scale-105 optimized ${!item.variants.edges[0]?.node.availableForSale ? 'opacity-50' : ''}`}
                     loading='lazy'
                   />
                 )}
+
+                {/* Overlay if not available */}
+                {!item.variants.edges[0]?.node.availableForSale && (
+                  <div className="absolute bg-black p-4 bg-opacity-50 text-white flex items-center justify-center text-xl font-semibold">
+                    Sold Out
+                  </div>
+                )}
               </div>
+
+
 
               <div className="text-center flex justify-center gap-8 font-bold -mt-4 productTitleBox w-full p-2">
                 <h1>{item.title}</h1>

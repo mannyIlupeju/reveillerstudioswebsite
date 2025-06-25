@@ -40,7 +40,6 @@ export const productQuery = `
           amount
           currencyCode
         }
-        availableForSale
         selectedOptions {
             name
             value

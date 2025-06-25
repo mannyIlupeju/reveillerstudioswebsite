@@ -22,6 +22,14 @@ export const fetchProducts = async () => {
                 }
                 }
             }
+            variants(first: 10) {
+            edges {
+              node {
+                quantityAvailable
+                availableForSale
+              }
+            }
+          }
             priceRange {
                 minVariantPrice {
                 amount
