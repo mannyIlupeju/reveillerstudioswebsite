@@ -321,7 +321,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               id={prices.id}
               onClick={(e) => selectSize(e, prices.id)}
               className={`
-                ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `bg-green-300` : `bg-gray-300 `} rounded-xl p-3 glassBox cursor-pointer`}
+                ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `glassBox-green` : `glassBox`} rounded-xl p-3 cursor-pointer`}
             >
               {prices.selectedOptions[1].value}
             </button>
