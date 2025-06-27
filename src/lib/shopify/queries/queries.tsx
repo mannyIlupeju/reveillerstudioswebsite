@@ -36,9 +36,11 @@ export const productQuery = `
           id
           title
           sku
+          quantityAvailable
           priceV2 {
           amount
           currencyCode
+          
         }
         selectedOptions {
             name

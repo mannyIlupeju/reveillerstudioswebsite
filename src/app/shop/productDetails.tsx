@@ -9,7 +9,8 @@ import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
 
 const ProductDetails = ({ products, recommendations }: any) => {
-  const { images, descriptionHtml, title, priceRange, variants, collections } = products
+  console.log(products)
+  const { images, descriptionHtml, title, priceRange, variants, collections, totalInventory } = products
 
   const imageUrl = images.edges.map((item: any) => item.node)
   const [loadedImages, setLoadedImages] = useState<number[]>([])
@@ -68,7 +69,7 @@ const ProductDetails = ({ products, recommendations }: any) => {
         breakpoint: 1600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           infinite: true,
           centerPadding: "25rem",
           speed:2000,
