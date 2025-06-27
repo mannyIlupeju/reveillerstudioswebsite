@@ -133,6 +133,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
       console.error("No size selected")
       return;
     }
+
+    console.log(variants)
     
     const productAdded = {
       title,
@@ -218,7 +220,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
            const cartItem: CartItem = {
-             id: productVariantID,
+             id: `temp_${productVariantID}`, // Use temporary ID initially
              title: title,
              price: Number(productPrice),
              quantity: selectedQuantity,
@@ -279,6 +281,9 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
             if (!response.ok) {
               throw new Error('Failed to add item to cart');
             }
+            
+            // Refresh cart to get the correct line IDs from Shopify
+            await refreshCart(shopifyCartId, dispatch);
             
             setIsItemAddedToCart(true)
             setIsCartOpen(true)

@@ -123,12 +123,24 @@ export default function SideCart() {
                           </button>
                       </div>
                       <button 
-                          onClick={() => {
-                          
+                          onClick={async () => {
+                            console.log("=== REMOVE BUTTON CLICKED ===");
+                            console.log("item.id (lineId):", item.id);
+                            console.log("item.variantId:", item.variantId);
+                            console.log("cartId:", cartId);
+                            
                             if (item.quantity < 1) {
-                              dispatch(clearCart());
+                                dispatch(clearCart());
                             } else if (cartId) {
-                              removeCartItem(item.id, cartId, dispatch);
+                                try {
+                                    await removeCartItem(item.id, cartId, dispatch).then(()=> {
+                                      console.log("Remove successful");
+                                    }
+                                    );
+                                    await refreshCart()
+                                } catch (error) {
+                                    console.error("Remove failed:", error);
+                                }
                             }
                           }}
                           className="flex items-start mt-2  py-2 text-zinc-800 rounded hover:underline"

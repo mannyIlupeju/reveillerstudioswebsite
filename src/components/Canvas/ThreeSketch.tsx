@@ -172,7 +172,7 @@ const ThreeSketch = () => {
           initial={{ x: -100, y: -400 }}
           animate={{ x: -10, y: 300}}
           transition={{ duration: 2, ease: 'easeIn' }}
-          className="box box1 flex  justify-center items-center relative cursor-pointer">
+          className="box box1 flex  justify-center items-center relative cursor-grab">
           <video autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             
             <source 
@@ -193,7 +193,7 @@ const ThreeSketch = () => {
           initial={{ x: 500, y: -500 }}
           animate={{ x: 500, y: 300}}
           transition={{ duration: 1, ease: 'easeIn' }}
-          className="box box2 flex justify-center items-center relative cursor-pointer p-4"  
+          className="box box2 flex justify-center items-center relative cursor-grab p-4"  
         >
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             

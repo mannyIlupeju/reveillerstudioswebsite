@@ -3,14 +3,26 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request){
      console.log("Incoming request method:", req.method);
+     console.log("=== REMOVE ITEM API ROUTE ===");
+    console.log("Incoming request method:", req.method);
      
     try {
         const body = await req.json()
     
         const {cartId, lineId} = body
 
+        console.log("Received cartId:", cartId);
+        console.log("Received lineId:", lineId);
+        
+
+        console.log("=== REMOVE ITEM API ROUTE ===");
+        console.log("Incoming request method:", req.method);
+
         if(!cartId || !lineId) {
-            return
+            return NextResponse.json(
+                { error: "Missing cartId or lineId" },
+                { status: 400 }
+            );
         }
 
         const query = `

@@ -16,6 +16,8 @@ import {Dispatch} from "redux"
 export async function removeCartItem(itemId: string, cartId: string, dispatch:Dispatch) {
   if(!cartId) return;
   dispatch(setLoading(true));
+  console.log(itemId)
+
   try {
     const response = await fetch("/api/shopifyCart/removeItem", {
       method: "POST",
