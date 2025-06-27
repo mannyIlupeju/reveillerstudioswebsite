@@ -20,6 +20,8 @@ export default async function Page({params}: {params: { slug: string }}){
      const collections = collection.products.edges.map((item:any)=> {
       return item
      })
+
+     console.log(collections)
      
      const allCategories = await fetchCategories();
 

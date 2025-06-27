@@ -16,7 +16,7 @@ export default async function Cart() {
 if(!cartId){
   return (
     <main className="flex flex-col gap-8 justify-center items-center h-screen">
-      <p>What are you doing?? Let's run it up! Add an item! 👀😉</p>
+
       <Link href="/shop">Continue Shopping</Link>   
     </main>
   )

@@ -3,7 +3,7 @@ import client from "../../src/lib/shopify/shopify-client/shopify-client"
 export const fetchProducts = async () => {
     const productQuery = `
     query {
-        products(first: 10) {
+        products(first: 20) {
         edges {
             node {
             id
@@ -29,7 +29,7 @@ export const fetchProducts = async () => {
                 availableForSale
               }
             }
-          }
+            }
             priceRange {
                 minVariantPrice {
                 amount

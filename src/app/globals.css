@@ -423,18 +423,19 @@ th {
   0% {
     width: 0;
   }
+
   100% {
     width: 100%;
   }
 }
 
-@keyframes product-scroll{
+@keyframes product-scroll {
   0% {
     transform: translateX(0%);
   }
 
 
-  100%{
+  100% {
     transform: translateX(-100%)
   }
 }

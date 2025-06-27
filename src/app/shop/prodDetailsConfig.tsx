@@ -318,7 +318,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               className={`
                 ${isButtonSelected == prices.id && quantityAvailable !== 0 ? `addToCartBox` : `glassBox `} rounded-xl p-3 cursor-pointer`}
             >
-              {prices.selectedOptions[1].value}
+              {prices?.selectedOptions[1].value}
             </button>
           );
         })}

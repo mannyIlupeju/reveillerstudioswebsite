@@ -42,7 +42,7 @@ type ProductRecommendation = {
 
 type ProductRecommendationIntent = 'RELATED' | 'COMPLEMENTARY' | 'ALTERNATIVE';
 
-type RecommendationsVariables = {
+type Recommendation2sVariables = {
     productId: string;
     intent?: 'RELATED' | 'COMPLEMENTARY' | 'ALTERNATIVE';
 };

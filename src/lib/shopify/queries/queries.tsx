@@ -43,8 +43,7 @@ export const productQuery = `
         selectedOptions {
             name
             value
-        }
-        quantityAvailable        
+        } 
         }
       }
     }
@@ -94,8 +93,7 @@ export const collectionQuery = `
       title
       handle
 
-      products(first: 10, reverse: true) {
-
+      products(first: 20, reverse: true) {
         edges {
           node {
             id
@@ -115,6 +113,14 @@ export const collectionQuery = `
                   altText
                 }
               }
+            }
+            variants(first: 10) {
+            edges {
+              node {
+                quantityAvailable
+                availableForSale
+              }
+            }
             }
 
           }

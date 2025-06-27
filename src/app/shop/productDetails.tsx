@@ -64,6 +64,19 @@ const ProductDetails = ({ products, recommendations }: any) => {
     prevArrow: <PrevArrow />,
 
     responsive: [
+        {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          centerPadding: "25rem",
+          speed:2000,
+          autoplay:true,
+          autoplaySpeed: 4000,
+          cssEase: "linear",
+        }
+      },
       {
         breakpoint: 1600,
         settings: {
@@ -105,7 +118,7 @@ const ProductDetails = ({ products, recommendations }: any) => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           speed: 2000,
           autoplay: true,
@@ -117,15 +130,15 @@ const ProductDetails = ({ products, recommendations }: any) => {
   }
 
   return (
-    <main className="overflow-x-hidden">
+    <main className="overflow-x-hidden mb-24">
       <div className={`relative transition-opacity duration-700 ${allLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {/* Image Slider */}
-        <main className="mt-10 slider-container">
+        <main className="mt-10 slider-container min-h-[200px]">
           <Slider {...settings}>
             {imageUrl.map((item: any, index: number) => (
               <div key={index} className="w-fit flex justify-center">
                 {!loadedImages.includes(index) && (
-                  <div className="w-[600px] h-[600px] bg-gray-300 animate-pulse rounded-md" />
+                  <div className="w-[600px] bg-gray-300 animate-pulse rounded-md" />
                 )}
                 <Image
                   src={item.originalSrc}
@@ -154,7 +167,7 @@ const ProductDetails = ({ products, recommendations }: any) => {
       {/* Recommended Products */}
       <section className={`p-3 ml-4 transition-opacity duration-700 ${allLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {recommendations?.length > 0 && (
-          <section className="mt-10 px-4">
+          <section className="px-4">
             <h2 className="text-xl font-semibold mb-4">Recommended Products</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-fit">
               {recommendations.map((item: any, index: number) => (

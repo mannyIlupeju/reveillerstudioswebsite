@@ -76,13 +76,13 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                     width={500}
                     height={500}
                     alt="Product Image"
-                    className={`transform transition hover:scale-105 optimized ${!item.variants.edges[0]?.node.availableForSale ? 'opacity-50' : ''}`}
+                    className={`transform transition hover:scale-105 optimized ${!item.variants?.edges[0]?.node.availableForSale ? 'opacity-50' : ''}`}
                     loading='lazy'
                   />
                 )}
 
                 {/* Overlay if not available */}
-                {!item.variants.edges[0]?.node.availableForSale && (
+                {!item.variants?.edges[0]?.node.availableForSale && (
                   <div className="absolute bg-black p-4 bg-opacity-50 text-white flex items-center justify-center text-xl font-semibold">
                     Sold Out
                   </div>
