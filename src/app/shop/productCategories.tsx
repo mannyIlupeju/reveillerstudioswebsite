@@ -63,28 +63,27 @@ function ProductCategories({ collections }: Props) {
   }
 
   return (
-      <aside className="sticky top-20">
-        <div className = "flex xl:flex-col justify-center gap-8 ">
-        {breakdownCollections.map((item:any) => {
-          const{id, title, handle} = item;
+        <div className = "flex xl:flex-col justify-center gap-2 ">
+          {breakdownCollections.map((item:any) => {
+            const{id, title, handle} = item;
 
-            return (
-                <Link 
-                key={id} 
-                href={`/shop/collections/${handle}`} 
-                className= "hover:text-yellow-600 text-zinc-800"
-                data-original-text={title}
-                onMouseEnter={(e) => handleMouseEnter(e, id, title)}
-                onMouseLeave={handleMouseLeave}
-                >
-                  <span className="font-semibold uppercase">
-                    {hoveredID === id && reversedTitle ? reversedTitle : title}
-                  </span>
-                </Link>
-            )
-        })}
+              return (
+                  <Link 
+                  key={id} 
+                  href={`/shop/collections/${handle}`} 
+                  className= "hover:bg-orange-400 w-fit p-2 rounded-lg hover:text-zinc-900 text-zinc-800"
+                  data-original-text={title}
+                  onMouseEnter={(e) => handleMouseEnter(e, id, title)}
+                  onMouseLeave={handleMouseLeave}
+                  >
+                    <span className="font-semibold uppercase">
+                      {hoveredID === id && reversedTitle ? reversedTitle : title}
+                    </span>
+                  </Link>
+              )
+          })}
         </div>
-      </aside>
+     
   )
 }
 

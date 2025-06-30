@@ -1,9 +1,7 @@
 {
-  "/api/shopifyCart/removeItem/route": "app/api/shopifyCart/removeItem/route.js",
-  "/api/shopifyCart/fetchCart/route": "app/api/shopifyCart/fetchCart/route.js",
-  "/api/shopifyCart/addItemToCart/route": "app/api/shopifyCart/addItemToCart/route.js",
-  "/api/get-cart-id/route": "app/api/get-cart-id/route.js",
-  "/page": "app/page.js",
+  "/shop/collections/[slug]/page": "app/shop/collections/[slug]/page.js",
   "/shop/page": "app/shop/page.js",
-  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js"
+  "/account/page": "app/account/page.js",
+  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js",
+  "/page": "app/page.js"
 }

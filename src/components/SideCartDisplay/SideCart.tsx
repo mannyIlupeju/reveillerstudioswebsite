@@ -23,7 +23,7 @@ export default function SideCart() {
 
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   console.log("=== SIDE CART REDUX DATA ===");
-  console.log("Cart items from Redux:", cartItems);
+  console.log("Cart items from Redux:", cartItems.length);
   cartItems.forEach((item, index) => {
     console.log(`Item ${index}:`, {
       id: item.id,
@@ -73,7 +73,7 @@ export default function SideCart() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 cursor-pointer">
-          {cartItems.map((item) => (
+          {cartItems.length !== 0 ? cartItems.map((item) => (
               <div key={item.id}
                   className='flex flex-row gap-4'
               >
@@ -149,7 +149,7 @@ export default function SideCart() {
                       </button>
                   </div>
               </div>
-          ))}
+          )) : 'what are you waiting for ? '}
           <div className="mt-8 flex flex-col gap-4">
             <div className="flex justify-between">
               <span className="text-lg">Sub Total:  </span>

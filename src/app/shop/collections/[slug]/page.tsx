@@ -27,7 +27,7 @@ export default async function Page({params}: {params: { slug: string }}){
 
      return (
         <main className="flex xl:flex-row flex-col gap-8 px-4">
-          <aside className=" sticky xl:top-52 top-10 z-10 xl:w-48 xl:self-start">
+          <aside className="xl:sticky block xl:top-52 top-10 z-10 xl:w-48 xl:self-start">
             <ProductCategories collections={allCategories} />
           </aside>
           <section className="flex-1 p-8">

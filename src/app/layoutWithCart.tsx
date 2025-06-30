@@ -9,6 +9,7 @@ import { useGlobalContext } from '@/Context/GlobalContext';
 import { usePathname } from 'next/navigation';
 
 
+
 export default function LayoutWithCart({ children }: { children: React.ReactNode }) {
   const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu } = useGlobalContext();
   const pathname = usePathname();
@@ -66,11 +67,18 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
           ></div>
       )}
 
-      {isMenuOpen ? <SideNav/> :  <Navigation />}
-        <main className={`flex flex-col ${isMenuOpen ? 'h-screen overflow-y-hidden' : 'overflow-y-auto'}`}>
+     
+       <Navigation />
+       
+        <main className="flex flex-col">
           {children}
         </main>
-      {!isMenuOpen && <Footer />}
+      
+      <Footer />
+
+      <div className="lg:hidden fixed bottom-3 left-0 w-full z-50 flex justify-center">
+        <SideNav/>
+      </div>
 
       
       {isCartOpen && !isCartPage &&  <SideCart/>}

@@ -62,7 +62,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const [isButtonSelected, setSelectButton] = useState<string | null>(null)
   const [activeAccordionId, setActiveAccordionId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<{[key: string]: number}>({});
-  const [isItemAddedToCart, setIsItemAddedToCart] = useState<boolean>(false)
+  const [isItemAddedToCart, setIsItemAddedToCart] = useState<'default'| 'loading' | 'added'>('default')
+  // const [isLoading, setIsLoading] = useState<string>('Add to Cart')
   const dispatch = useDispatch()
   const cartState = useSelector((state: RootState) => state.cart)
 
@@ -201,7 +202,9 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
         })
       }]
 
+      setIsItemAddedToCart('loading')
       await addItemToCart(shopifyCartId, lineItems)
+
      } catch(error){
        console.error('Error creating cart:', error);
        return null;
@@ -285,7 +288,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
             // Refresh cart to get the correct line IDs from Shopify
             await refreshCart(shopifyCartId, dispatch);
             
-            setIsItemAddedToCart(true)
+            setIsItemAddedToCart('added')
             setIsCartOpen(true)
             console.log("Product added to cart successfully");
           } catch(error) {
@@ -355,18 +358,21 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
         {/* Increase and Decrease quantity */}
         {isButtonSelected && (
-          <div className='flex gap-5 w-fit mx-auto px-1 mt-2'>
-            <FaMinus 
-              className='flex self-center' 
-              onClick={() => decreaseAmt(isButtonSelected)} 
-            />
+          <div className='flex gap-5 w-fit mx-auto px-1 mt-2 '>
+            <div className="flex self-center hover:bg-orange-400 p-3 rounded-lg">
+              <FaMinus 
+                
+                onClick={() => decreaseAmt(isButtonSelected)} 
+                />
+            </div>
             <span className='font-bold text-lg bg-gray-200 p-4'>
               {quantity[isButtonSelected] || 1}
             </span>
+            <div className="flex self-center hover:bg-orange-400 p-3 rounded-lg">
             <FaPlus 
-              className='flex self-center' 
               onClick={() => increaseAmt(isButtonSelected, quantityAvailable)} 
-            />
+              />
+            </div>
           </div>
         )}
 
@@ -386,7 +392,9 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
             }
           }}
         >
-          {isItemAddedToCart ? "Item added to Cart" : "Add to Cart"}
+          {isItemAddedToCart === 'default' && "Add to Cart"}
+          {isItemAddedToCart === 'loading' && "Hol'up, wait a minute"}
+          {isItemAddedToCart === 'added' && "Item added to Cart"}
         </button>
 
 

@@ -139,13 +139,13 @@ const ProductDetails = ({ products, recommendations }: any) => {
             {imageUrl.map((item: any, index: number) => (
               <div key={index} className="w-fit flex justify-center">
                 {!loadedImages.includes(index) && (
-                  <div className="w-[600px] bg-gray-300 animate-pulse rounded-md" />
+                  <div className="w-[600px] h-fit bg-gray-300 animate-pulse rounded-md flex " />
                 )}
                 <Image
                   src={item.originalSrc}
                   alt={item.altText || 'Product image'}
-                  width={600}
-                  height={600}
+                  width={500}
+                  height={500}
                   className={`${!loadedImages.includes(index) ? 'hidden' : ''}`}
                   onLoadingComplete={() => handleImageLoad(index)}
                 />

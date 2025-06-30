@@ -7,6 +7,7 @@ import Cursor from '@/components/Cursor/cursor'
 // import Sketch from '@/components/Canvas/3dLanding'
 import ThreeSketch from '@/components/Canvas/ThreeSketch'
 import Newsletter from '@/components/Newsletter/Newsletter'
+import SideNav from '@/components/SideNavDisplay/SideNav'
 
 
 export default function Home() {
@@ -36,6 +37,8 @@ export default function Home() {
             <main className="flex items-center flex-col relative overflow-x-hidden min-h-200">
             <ThreeSketch/>
             <Newsletter/>
+
+          
             
             </main>   
            

@@ -190,6 +190,7 @@ body {
   padding: 0;
   background-color: transparent;
   font-family:'Satoshi-Light', sans-serif;
+  overflow-y: hidden;
  
  
   /* position:relative */

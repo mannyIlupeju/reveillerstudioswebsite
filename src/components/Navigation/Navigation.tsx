@@ -115,8 +115,8 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="flex justify-between gap-4 mx-auto p-2 nav-font xl:sticky z-10 top-0 bg-white shadow ">
-      <div className="flex justify-center items-center">
+    <nav className="flex xl:justify-between justify-center gap-4 mx-auto p-2 nav-font xl:sticky z-10 top-0 bg-white shadow ">
+      <div className="xl:flex hidden justify-between items-center">
         <div className="flex lg:flex-row gap-5 flex-col justify-start items-center">
           <div className="hidden lg:flex w-fit items-start">
             <Image
@@ -142,7 +142,7 @@ const Navigation = () => {
 
    
 
-      <div className="flex-row lg:flex hidden justify-end">
+      <div className="flex-row xl:flex hidden justify-end">
         <div className="flex gap-5">
           <NavLinks links={navLinks} />
           <div className="flex items-center">
@@ -155,7 +155,7 @@ const Navigation = () => {
       </div>
 
       {/* Responsive menu */}
-      <div className="lg:hidden flex justify-center cursor-pointer" onClick={toggleMenu}>
+      <div className="xl:hidden justify-center cursor-pointer">
         <Image
           src="/images/rvrspinninglogo-unscreen2.gif"
           width={50}

@@ -8,7 +8,7 @@ import { CartItem } from '../../../store/cartSlice';
 import { IoClose } from "react-icons/io5";
 import NavLogo from '../Navigation/NavLogo/NavLogo';
 import * as motion from "motion/react-client"
-
+import { usePathname } from 'next/navigation';   
 
 
 
@@ -16,6 +16,18 @@ import * as motion from "motion/react-client"
 const SideNav = () => {
 
   const [cartQuantity, setCartQuantity]= useState<string | number>(0)
+
+  const pathname = usePathname();
+
+  const linkClass = (path: string) =>
+    `rounded-md transition-colors duration-200 ${
+      pathname === path
+        ? 'bg-orange-400 text-white font-bold p-2'
+        : 'text-gray-600 hover:bg-orange-200 font-bold p-2'
+    }`;
+  
+
+
 
   const cartState = useSelector((state: RootState) => state.cart)
   const cartQty = Number(cartState.totalQuantity)
@@ -29,53 +41,21 @@ const SideNav = () => {
 
 
   return (
-         <motion.main 
-         initial={{ x: '100%' }}
-         animate={{ x: 0 }}
-         exit={{ x: '100%' }}
-         transition={{ type: 'tween', duration: 0.2, ease: 'easeInOut' }}
-         className="lg:hidden flex-col flex justify-items-end p-4 bg-gray-200 h-screen absolute z-50 w-screen">
-
-            <div className="flex justify-between ">
-                <div className="flex items-center">
-                    <div className="flex xl:flex-row gap-5 flex-col justify-start items-center">
-                        
-                       <NavLogo/>
-
-                        <div className="p-2 flex flex-col justify-start items-center">
-                            <span className="text-zinc-800 text-xs">
-                            Existence precedes Essence.
-                            <br />
-                            A Holistic and accessible approach to Functionality & Grunge.
-                            </span>
-                        </div>
+        <div className=" px-4 py-3 rounded-t-md glassBox items-center text-xs font-bold">
+                <div className="flex gap-7 justify-around uppercase">
+                    <Link href='/' className={linkClass('/')}>Home</Link>
+                    <Link href='/shop' className={linkClass('/shop')}>Shop</Link>
+                    <Link href='/archive' className={linkClass('/archive')}>Archive</Link>
+                    <Link href='/journal' className={linkClass('/journal')}>Journal</Link>
+                    <div className="flex items-center">
+                        <Link href="/cart" className={`flex gap-1 ${linkClass('/cart')}`}>
+                            <h1>Cart</h1> 
+                            <span>({cartQuantity})</span>
+                        </Link>
                     </div>
                 </div>
-
-                <div>
-                    <IoClose 
-                        size={50}
-                        className="cursor-pointer "
-                        onClick={toggleMenu}
-                    />
-                </div>
-            
-            </div>
-
-
-            <div className="flex flex-col gap-12 translate-y-1/2 items-start text-xl" onClick={toggleMenu}>
-                <Link href='/'>Home</Link>
-                <Link href='/shop'>Shop</Link>
-                <Link href='/archive'>Archive</Link>
-                <Link href='/journal'>Journal</Link>
-                <div className="flex items-center">
-                    <Link href="/cart" className="flex gap-1">
-                        <h1>Cart</h1> 
-                        <span>({cartQuantity})</span>
-                    </Link>
-                </div>
         </div>
-        </motion.main>
+     
    
   )
 }
