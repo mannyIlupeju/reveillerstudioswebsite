@@ -33,7 +33,7 @@ const SideNav = () => {
   const cartState = useSelector((state: RootState) => state.cart)
   const cartQty = Number(cartState.totalQuantity)
 
-  const {isMenuOpen, setOpenMenu, toggleMenu, openCart, toggleCart} = useGlobalContext()
+  const {isMenuOpen, setOpenMenu, toggleMenu, openCart, toggleCart, isCartOpen} = useGlobalContext()
   
   useEffect(() => {
     setCartQuantity(cartQty)
@@ -50,7 +50,7 @@ const SideNav = () => {
                     <Link href='/journal' className={linkClass('/journal')}>Journal</Link>
 
                     <div className="flex items-center" >
-                        <div className={`flex gap-1 ${linkClass('/cart')}`} onClick={toggleCart}>
+                        <div className={`flex gap-1 ${isCartOpen ? 'bg-zinc-400 text-white font-bold p-2' : 'text-gray-600 hover:bg-orange-200 font-bold p-2'} rounded-md transition-colors duration-200`} onClick={toggleCart}>
                             <h1>Cart</h1> 
                             <span>({cartQuantity})</span>
                         </div>

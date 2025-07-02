@@ -39,6 +39,24 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
   const itemMaps = items.flatMap((item:any)=>{
     return item
   })
+
+  const sortedProduct = items.map(x => x.node).map(product => ({...product, totalQuantity: product.variants.edges.reduce((sum, variant) => {
+      return sum + (variant.node.quantityAvailable || 0)
+    },0)
+  })).sort((a, b)=> {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+
+    if(dateA === dateB){
+      return b.totalQuantity - a.totalQuantity;
+    }
+
+    return dateB - dateA
+  })
+
+  console.log(sortedProduct)  
+
+
   
 
   const [isImageHovered, setIsImageHovered] = useState<string | (null)>(null)
@@ -54,16 +72,20 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
   return (
 
     <div className="grid grid-cols-1 2xl:grid-cols-3 md:grid-cols-2 gap-x-12 gap-y-12 ps-8">
-        {itemMaps?.map((values:any) => {
-         const item = values.node
-    
+        {sortedProduct?.map((item:any) => {
          console.log(item)
+         
+
+         
+         
+         
           const id = item.id
           const _id = id?.match(/\d+/g).join('') || id;
           
 
           return (
-            <Link href={`/shop/allProducts/${item.handle}`} key={_id}>
+           
+            <Link href={`/shop/allProducts/${sortedProduct.handle}`} key={_id}>
               <div 
                 key={item.id} 
                 onMouseEnter={()=> handleMouseEnter(_id)} 
@@ -77,7 +99,7 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                     else setIsImageHovered(_id);
                   }
                 }}
-                className="relative w-full aspect-[4/5]"
+                className="relative w-full aspect-[3/4]"
               >
                 {item.images.edges[0] && (
                   <Image

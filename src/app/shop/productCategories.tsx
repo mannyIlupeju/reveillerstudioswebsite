@@ -23,7 +23,6 @@ function ProductCategories({ collections }: Props) {
   
   
   const breakdownCollections = collections.map((item)=> item.node)
-  console.log(breakdownCollections)
   
 
   // const [name, setName] = useState<string[]>(titleArray)
