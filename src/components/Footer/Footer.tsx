@@ -15,7 +15,7 @@ export default function Footer() {
 
   return (
      
-        <div className="flex flex-col-reverse lg:flex-row justify-around lg:gap-[10vw] text-zinc-100 text-lg p-8 w-screen footer-section ">
+        <div className="flex flex-col-reverse lg:flex-row justify-around lg:gap-[10vw] pb-24 text-zinc-100 text-lg p-8 w-screen footer-section ">
             <div className="flex flex-col md:flex-row gap-10 mt-4">
                 <div className="flex flex-col lg:gap-2 w-[250px] h-[250px]">
                     <Image 
@@ -30,7 +30,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="flex xl:flex-row flex-col lg:gap-20 gap-10 w-max text-sm mt-4">
+            <div className="grid grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-5 w-max text-sm mt-4">
                     <div className="flex flex-col xl:gap-5 gap-2">
                         <Link href='/contact'className="footer-link">About</Link>
                         <Link href=''className="footer-link">Privacy policy</Link>
@@ -48,13 +48,13 @@ export default function Footer() {
                             <p className="xl:w-32">Connect with us!</p>
                             <ul className="flex gap-2 mt-4">
                             <li>
-                                <Image src="/images/tiktokpng.webp" alt="tiktok logo" width={30} height={30}/>
+                                <Image src="/images/tiktokpng.webp" alt="tiktok logo" width={60} height={60}/>
                             </li>
                             <li>
-                                <Image src="/images/instagramlogo.webp" alt="instagram logo" width={30} height={30}/>
+                                <Image src="/images/instagramlogo.webp" alt="instagram logo" width={60} height={60}/>
                             </li>
                             <li>
-                                <Image src="/images/pinterestlogo.png" alt="pinterest logo" width={30} height={30}/>
+                                <Image src="/images/pinterestlogo.png" alt="pinterest logo" width={60} height={60}/>
                             </li>
                             </ul>
                         </div>

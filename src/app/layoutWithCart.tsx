@@ -7,11 +7,12 @@ import SideNav from '@/components/SideNavDisplay/SideNav';
 import SideCart from '../components/SideCartDisplay/SideCart';
 import { useGlobalContext } from '@/Context/GlobalContext';
 import { usePathname } from 'next/navigation';
+import {AnimatePresence} from 'framer-motion'
 
 
 
 export default function LayoutWithCart({ children }: { children: React.ReactNode }) {
-  const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu } = useGlobalContext();
+  const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu, setOpenSideCart, isOpenSideCart, openCart } = useGlobalContext();
   const pathname = usePathname();
 
   const isCartPage = pathname === '/cart';
@@ -60,9 +61,15 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
 
   return (
     <>
+     <div 
+          className="box3 items-center cursor-pointer xl:text-md text-xs">
+          <p className="ticker-text">
+          Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
+          </p>
+        </div>
       {isCartOpen && !isCartPage && (
           <div
-              className="fixed inset-0 bg-black bg-opacity-60 z-10 blur-xl"
+              className="fixed inset-0 bg-black bg-opacity-60 z-30 blur-xl"
               onClick={() => setIsCartOpen(false)} // Clicking outside closes the cart
           ></div>
       )}
@@ -76,12 +83,22 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
       
       <Footer />
 
-      <div className="lg:hidden fixed bottom-3 left-0 w-full z-50 flex justify-center">
+
+    
+      <div className="xl:hidden">
         <SideNav/>
-      </div>
+      </div>)
+      
 
       
       {isCartOpen && !isCartPage &&  <SideCart/>}
+  
+{/* 
+      {isOpenSideCart && (
+        <div>
+          <SideCart/>
+        </div>
+      )} */}
     </>
   );
 }

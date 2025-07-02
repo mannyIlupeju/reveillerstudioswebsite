@@ -55,6 +55,10 @@ const NavLink = ({ name, href }: NavLinkType) => {
   };
 
  
+  const toggleCart = () => {
+    console.log("open Cart")
+    setIsCartOpen(true)
+  }
 
  
 
@@ -86,7 +90,7 @@ const Navigation = () => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [cartQuantity, setCartQuantity]= useState<string | number>(0)
 
-  const {setIsCartOpen, toggleMenu} = useGlobalContext()
+  const {setIsCartOpen, toggleMenu, openCart} = useGlobalContext()
 
   const router = useRouter()
 
@@ -100,7 +104,7 @@ const Navigation = () => {
 
   const toggleCart = () => {
     console.log("open Cart")
-    setIsCartOpen(true)
+    setIsCartOpen(prevState => !prevState)
   }
 
   const cartState = useSelector((state: RootState) => state.cart)
@@ -115,7 +119,7 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="flex xl:justify-between justify-center gap-4 mx-auto p-2 nav-font xl:sticky z-10 top-0 bg-white shadow ">
+    <nav className="flex xl:justify-between justify-center gap-4 mx-auto p-2 nav-font xl:sticky z-20 top-0 shadow-lg bg-white">
       <div className="xl:flex hidden justify-between items-center">
         <div className="flex lg:flex-row gap-5 flex-col justify-start items-center">
           <div className="hidden lg:flex w-fit items-start">
@@ -156,12 +160,14 @@ const Navigation = () => {
 
       {/* Responsive menu */}
       <div className="xl:hidden justify-center cursor-pointer">
-        <Image
-          src="/images/rvrspinninglogo-unscreen2.gif"
-          width={50}
-          height={50}
-          alt="rvr spinning logo"
-        />
+        <Link href="/">
+          <Image
+            src="/images/rvrspinninglogo-unscreen2.gif"
+            width={50}
+            height={50}
+            alt="rvr spinning logo"
+          />
+        </Link>
       </div>
       
     </nav>

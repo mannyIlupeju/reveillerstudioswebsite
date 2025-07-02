@@ -309,7 +309,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
   return (
-    <aside className='xl:absolute xl:z-1 xl:top-4 p-3 ml-4 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
+    <aside className='xl:absolute xl:z-1 xl:top-4 p-3 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
       <div className='prodDetailsOptionsBox p-3 text-xl flex gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
         <span>${productPrice}</span>

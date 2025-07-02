@@ -1,12 +1,15 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import ProdDetailsConfiguration from './prodDetailsConfig'
 import Image from 'next/image'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
+import ProductImage from '@/components/ProductImage'
+
+
 
 const ProductDetails = ({ products, recommendations }: any) => {
   console.log(products)
@@ -57,9 +60,9 @@ const ProductDetails = ({ products, recommendations }: any) => {
     infinite: true,
     slidesToShow: 2,
     slidesToScroll: 1,
-    speed: 3000,
-    autoplay: true,
-    autoplaySpeed: 2000,
+    speed:0,
+    autoplay: false,
+    autoplaySpeed:0,
     cssEase: "linear",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -94,10 +97,10 @@ const ProductDetails = ({ products, recommendations }: any) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 2,
           infinite: true,
-          centerPadding: "2rem",
+          centerPadding: "25rem",
           speed: 2000,
           autoplay: true,
           autoplaySpeed: 4000,
@@ -110,20 +113,22 @@ const ProductDetails = ({ products, recommendations }: any) => {
           slidesToShow: 1,
           slidesToScroll: 2,
           initialSlide: Math.min(2, imageUrl.length - 1),
-          speed: 2000,
-          autoplay: true,
-          autoplaySpeed: 4000,
+          speed: 500,
+          autoplay: false,
+          centerPadding: "1px",
+          autoplaySpeed: 0,
           cssEase: "linear",
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
+          centerPadding: "1px",
           speed: 2000,
           autoplay: true,
-          autoplaySpeed: 4000,
+          autoplaySpeed:0,
           cssEase: "linear",
         },
       },
@@ -137,19 +142,19 @@ const ProductDetails = ({ products, recommendations }: any) => {
         <main className="mt-10 slider-container min-h-[200px]">
           <Slider {...settings}>
             {imageUrl.map((item: any, index: number) => (
-              <div key={index} className="w-fit flex justify-center">
-                {!loadedImages.includes(index) && (
-                  <div className="w-[600px] h-fit bg-gray-300 animate-pulse rounded-md flex " />
-                )}
-                <Image
-                  src={item.originalSrc}
-                  alt={item.altText || 'Product image'}
-                  width={500}
-                  height={500}
-                  className={`${!loadedImages.includes(index) ? 'hidden' : ''}`}
-                  onLoadingComplete={() => handleImageLoad(index)}
-                />
-              </div>
+             <div key={index} className="w-fit flex justify-center">
+             {!loadedImages.includes(index) && (
+               <div className="w-[600px] h-fit bg-gray-300 animate-pulse rounded-md flex " />
+             )}
+             <Image
+               src={item.originalSrc}
+               alt={item.altText || 'Product image'}
+               width={500}
+               height={500}
+               className={`${!loadedImages.includes(index) ? 'hidden' : ''}`}
+               onLoadingComplete={() => handleImageLoad(index)}
+             />
+           </div>
             ))}
           </Slider>
         </main>

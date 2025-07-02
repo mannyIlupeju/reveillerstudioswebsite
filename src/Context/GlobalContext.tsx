@@ -62,6 +62,7 @@ type GlobalContextType = {
   registerClicked:boolean;
   LoginHere:()=>void;
   RegisterHere:()=>void;
+  
 };
 
 
@@ -86,6 +87,7 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
   const [registerClicked, setIsRegisterClick] = useState<boolean>(false)
   const [isMenuOpen, setOpenMenu] = useState<boolean>(false)
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
+  const [isOpenSideCart, setOpenSideCart] = useState<boolean>(false)
   // const [quantity, setQuantity] = useState<number>(1)
   const [quantityAvailable, setQuantityAvailable] = useState<number | null>(null)
   const [sizeInfo, setSizeInfo] = useState<SizeInfo>({availableForSale:false, id:"", priceV2:{amount:"", currencyCode:""},quantityAvailable:0, title:"", selectedOptions:[]})
@@ -112,6 +114,11 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
 
   }
 
+  const openCart = () => {
+    console.log('open Cart')
+    setOpenSideCart(prevState => !prevState)
+  }
+
   // Function to update the current time
   const setCurrentTime = (currentTime: string) => {
     setState((prevState) => ({ ...prevState, currentTime }));
@@ -126,6 +133,10 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
     setOpenMenu((prevState) => !prevState);
   };
 
+
+  const toggleCart = () => {
+    setIsCartOpen((prevState) => !prevState)
+  }
 
 
 
@@ -155,6 +166,10 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         registerClicked,
         LoginHere,
         RegisterHere,
+        isOpenSideCart,
+        setOpenSideCart,
+        openCart,
+        toggleCart
       }}>
       {children}
     </GlobalContext.Provider>

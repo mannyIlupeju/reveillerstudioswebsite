@@ -11,6 +11,7 @@ import { RootState } from "../../../store/store";
 import {useSelector, useDispatch} from 'react-redux'
 import { removeItem, setLoading, updateQuantity, setCartItems, setError, clearCart } from "../../../store/cartSlice";
 import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../../utils/cartFunctions/cartFunctions";
+import useIsMobile from '../../../hooks/useIsMobile';
 
 export default function SideCart() {
 
@@ -57,33 +58,52 @@ export default function SideCart() {
     fetchCartId();
   }, []);
 
+  const isMobile = useIsMobile();
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) return null;
+
+  console.log(isMobile)
+
+  console.log("isMobile:", isMobile, "window.innerWidth:", typeof window !== "undefined" ? window.innerWidth : "SSR");
  
 
   return (
     <motion.div 
-    initial={{ x: '100%' }}
-    animate={{ x: 0 }}
-    exit={{ x: '100%' }}
+    initial={isMobile ? {y: '100%'} : { x: '100%' }}
+    animate={isMobile ? {y:0} : { x: 0}}
+    exit={isMobile ? {y: '100%'} : { x: '100%' }}
     transition={{ type: 'tween', duration: 0.15, ease: 'easeInOut' }}
-        className=" bg-gray-200 w-[30vw] top-0 right-0 glassBox h-screen fixed z-20 shadow-lg flex flex-col ease-in-out transition">
+    className={`
+      fixed z-30 shadow-lg flex flex-col glassBox transition
+      ${isMobile ? 'bottom-16 left-50 w-full max-h-[60vh]' : 'top-0 right-0 xl:w-[35vw]  h-screen'}
+      bg-gray-200
+    `}
+    >
   
         <div className="flex m-5 border-black sticky top-0 z-1 cursor-pointer">
           <FaXmark onClick={closeCart} size={20}/>
           <h1 className="mx-auto">Your Bag</h1>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 cursor-pointer">
+        <div className="flex-1 overflow-y-auto p-6 cursor-pointer justify-center">
           {cartItems.length !== 0 ? cartItems.map((item) => (
               <div key={item.id}
-                  className='flex flex-row gap-4'
+                  className='flex flex-row'
               >
+                 <div className="w-48 relative ">
                   <Image
                       src={item.image}
-                      width={150}
-                      height={120}
+                      fill
                       priority
                       alt={item.title}
+                      className="xl:object-contain xl:aspect-ratio[4/5] aspect-ratio[2/3] object-contain w-fit flex justify-end"
                   />
+                  </div>
           
                   <div className="flex flex-col justify-center">
                       <span className="text-md">{item.title}</span>
@@ -135,9 +155,8 @@ export default function SideCart() {
                                 try {
                                     await removeCartItem(item.id, cartId, dispatch).then(()=> {
                                       console.log("Remove successful");
-                                    }
-                                    );
-                                    await refreshCart()
+                                    });
+                                    await refreshCart(cartId, dispatch);
                                 } catch (error) {
                                     console.error("Remove failed:", error);
                                 }

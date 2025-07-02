@@ -25,10 +25,10 @@ const Page = async () => {
 
   return (
     <main className="flex xl:flex-row flex-col gap-8 px-4">
-      <aside className="block xl:sticky xl:top-20 top-32 z-10 xl:z-0 xl:w-48">
+      <aside className="xl:sticky block xl:top-52 top-10 z-10 xl:w-48 xl:self-start">
         <ProductCategories collections={collections} />
       </aside>
-      <section className="flex-1 p-10">
+      <section className="flex-1 p-8">
         <ProductGrid items={products} isProductGrid={false} />
       </section>
      

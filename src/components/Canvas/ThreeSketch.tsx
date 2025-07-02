@@ -154,15 +154,8 @@ const ThreeSketch = () => {
 
   return (
     <>
-      <div 
-          className="box3 items-center cursor-pointer text-md">
-          <p className="ticker-text">
-          Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
-          </p>
-        </div>
-      
-
-       
+ 
+          
       <canvas ref={backgroundCanvasRef} className="relative"/>
         <motion.div 
           drag
