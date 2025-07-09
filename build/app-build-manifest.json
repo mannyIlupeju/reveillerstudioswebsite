@@ -1,15 +1,30 @@
 {
   "pages": {
-    "/api/get-cart-id/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/get-cart-id/route.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/api/registerSubscriber/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/registerSubscriber/route.js"
+    ],
+    "/api/get-cart-id/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/get-cart-id/route.js"
+    ],
+    "/cart/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/cart/page.js"
     ],
     "/shop/page": [
       "static/chunks/webpack.js",
@@ -22,15 +37,35 @@
       "static/css/app/shop/allProducts/[slug]/page.css",
       "static/chunks/app/shop/allProducts/[slug]/page.js"
     ],
-    "/page": [
+    "/api/shopifyCart/createCart/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/api/shopifyCart/createCart/route.js"
     ],
-    "/shop/collections/[slug]/page": [
+    "/api/shopifyCart/addItemToCart/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/shop/collections/[slug]/page.js"
+      "static/chunks/app/api/shopifyCart/addItemToCart/route.js"
+    ],
+    "/api/shopifyCart/fetchCart/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/shopifyCart/fetchCart/route.js"
+    ],
+    "/api/shopifyCart/removeItem/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/shopifyCart/removeItem/route.js"
+    ],
+    "/account/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/account/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

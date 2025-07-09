@@ -152,3 +152,23 @@ export const recommendationQuery = `
     }
   }
 `
+
+
+export const createCustomerQuery = `
+  mutation createCustomer($input: CustomerCreateInput!) {
+    customerCreate(input: $input) {
+      customer {
+        id
+        firstName
+        lastName
+        email
+        phone
+        tags
+      }
+      customerUserErrors {
+        field
+        message
+      }
+    }
+  }
+`;   

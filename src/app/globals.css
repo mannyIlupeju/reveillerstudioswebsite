@@ -11,6 +11,15 @@
   font-display: swap;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Satoshi-Black';
+   src: url('/WEB/fonts/Satoshi-Black.woff2') format('woff2'),
+        url('/WEB/fonts/Satoshi-Black.woff') format('woff'),
+        url('/WEB/fonts/Satoshi-Black.ttf') format('truetype');
+   font-weight: 900;
+   font-display: swap;
+   font-style: normal; 
+ }
 
 @font-face {
   font-family: 'Switzer-Light';
@@ -21,6 +30,8 @@
   font-display: swap;
   font-style: normal;
 }
+
+
 
 /* @font-face {
   font-family: 'Satoshi-light';
@@ -218,6 +229,18 @@ canvas {
 }
 
 
+.orange-hover:hover{
+  /* From https://css.glass */
+background: rgba(235, 120, 22, 0.4);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(7.2px);
+-webkit-backdrop-filter: blur(7.2px);
+border: 1px solid rgba(235, 120, 22, 0.3);
+  /* Orange-500 */
+  animation: 0.5s ease-in-out forwards;
+}
+
 /*  */
 
 .footer-section {
@@ -312,7 +335,7 @@ canvas {
 }
 
 .productTitleBox {
-  background: rgba(190, 188, 188, 0.45);
+  background: rgba(176, 175, 175, 0.184);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.4px);

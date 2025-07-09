@@ -2,7 +2,7 @@
 import React, {useState} from "react"
 import Link from 'next/link'
 import Image from 'next/image'
-import Navigation from "@/components/Navigation/Navigation"
+
 
 type Item = {
   id: string;
@@ -25,6 +25,10 @@ type Item = {
   };
 };
 
+type ProductNode = {
+  node: Item;
+}
+
 type Props = {
   items: Item[],
   isProductGrid?: boolean;
@@ -34,11 +38,8 @@ type Props = {
 
 
 export default function ProductGrid({items, isProductGrid = true}:Props) {
-  console.log(items)
-  //filtering the values from the product object and collections object
-  const itemMaps = items.flatMap((item:any)=>{
-    return item
-  })
+  
+
 
   const sortedProduct = items.map(x => x.node).map(product => ({...product, totalQuantity: product.variants.edges.reduce((sum, variant) => {
       return sum + (variant.node.quantityAvailable || 0)
@@ -73,19 +74,16 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
 
     <div className="grid grid-cols-1 2xl:grid-cols-3 md:grid-cols-2 gap-x-12 gap-y-12 ps-8">
         {sortedProduct?.map((item:any) => {
-         console.log(item)
-         
+         console.log(item.handle)
 
-         
-         
-         
           const id = item.id
           const _id = id?.match(/\d+/g).join('') || id;
+          console.log(id)
           
 
           return (
            
-            <Link href={`/shop/allProducts/${sortedProduct.handle}`} key={_id}>
+            <Link href={`/shop/allProducts/${item.handle}`} key={_id}>
               <div 
                 key={item.id} 
                 onMouseEnter={()=> handleMouseEnter(_id)} 
@@ -108,6 +106,7 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
                     alt="Product Image"
                     className={`transform transition hover:scale-105 optimized ${!item.variants?.edges[0]?.node.availableForSale ? 'opacity-50' : ''}`}
                     loading='lazy'
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 )}
 
@@ -121,7 +120,7 @@ export default function ProductGrid({items, isProductGrid = true}:Props) {
 
 
 
-              <div className="text-center xl:text-lg text-xs flex flex-col justify-center gap-2 font-bold -mt-4 productTitleBox w-full p-2">
+              <div className="text-center xl:text-lg text-xs font-satoshi flex flex-col justify-center gap-2 font-light -mt-4 productTitleBox w-full p-2">
                 <h1>{item.title}</h1>
                 <span>${item.priceRange.minVariantPrice.amount}</span>
               </div>

@@ -9,11 +9,11 @@ export default function Login() {
             <input 
             type="loginEmail"
             placeholder='Email Address'
-            className="p-2 border border-zinc-400 rounded-md w-96"
+            className="p-2 border border-zinc-400 rounded-md min-w-96"
             />
             <input type='text'
             placeholder='Password'
-            className='p-2 border border-zinc-400 rounded-md w-96'
+            className='p-2 border border-zinc-400 rounded-md min-w-96'
             />
         </div>
         <button className="bg-zinc-400 p-4 h-10 text-white w-48 flex justify-center items-center">

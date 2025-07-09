@@ -4,15 +4,16 @@ import React, {useState} from 'react'
 import { useGlobalContext } from '@/Context/GlobalContext'
 import Register from './register/page'
 import Login from './login/page'
+import useIsMobile from '../../../hooks/useIsMobile'
 
 export default function LoginSignUp() {
   const{loginClicked, setIsLoginClick, registerClicked, setIsRegisterClick, LoginHere, RegisterHere} = useGlobalContext()
 
-
+ 
 
   return (
-    <section className={`${loginClicked || registerClicked ? 'justify-evenly' : 'justify-center'} xl:mt-24 mb-24 flex xl:flex-row gap-10 flex-col p-12`}>
-        <section className=" flex justify-items-start">
+    <section className={`lg:justify-center xl:mt-24 mb-24 flex xl:flex-row gap-10 flex-col xl:p-12 p-5`}>
+        <section className=" flex lg:justify-center justify-items-start">
           <div className=" flex flex-col gap-10">
             <div className="flex flex-col gap-3">
             <h1 className="text-md capitalize">Enjoy a tailored Experience.</h1>
@@ -30,7 +31,7 @@ export default function LoginSignUp() {
           </div>
         </section>
 
-        <section className="flex xl:justify-center justify-items-start">
+        <section className="flex lg:justify-center justify-items-start">
         {loginClicked && <Login/>}
 
         {registerClicked && <Register/>}

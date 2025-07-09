@@ -9,6 +9,7 @@ type Collection = {
   title: string;
   handle: string;
   updatedAt: string;
+  node: string[];
 }
 
 type Props = {
@@ -21,7 +22,7 @@ type Props = {
 
 function ProductCategories({ collections }: Props) {
   
-  
+
   const breakdownCollections = collections.map((item)=> item.node)
   
 
@@ -70,7 +71,7 @@ function ProductCategories({ collections }: Props) {
                   <Link 
                   key={id} 
                   href={`/shop/collections/${handle}`} 
-                  className= "hover:bg-orange-400 w-fit p-2 rounded-lg hover:text-zinc-900 text-zinc-800"
+                  className= "orange-hover w-fit p-2 rounded-lg hover:text-zinc-900 text-zinc-800"
                   data-original-text={title}
                   onMouseEnter={(e) => handleMouseEnter(e, id, title)}
                   onMouseLeave={handleMouseLeave}

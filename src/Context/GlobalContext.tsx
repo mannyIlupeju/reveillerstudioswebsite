@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { removeItem } from '../../store/cartSlice';
-import { useDispatch, UseDispatch } from 'react-redux';
-import { cookies } from 'next/headers';
+import { useDispatch } from 'react-redux';
 
 // Define the shape of your global state
 type GlobalState = {
@@ -13,7 +12,6 @@ type GlobalState = {
     name: string;
     value: string;
   };
-
 
  type SizeInfo = {
     availableForSale: boolean;
@@ -37,6 +35,11 @@ type GlobalState = {
     registerClicked: boolean;
   }
 
+  type confirmationMessage = {
+    showMessage: boolean;
+    setShowMessage: () => void
+  }
+
 // Define the shape of the context, including state and update functions
 type GlobalContextType = {
   cartId: string;
@@ -56,12 +59,17 @@ type GlobalContextType = {
   setOpenMenu:  React.Dispatch<React.SetStateAction<boolean>>;
   isCartOpen: boolean;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenSideCart: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleCart:()=>void;
   setIsLoginClick:React.Dispatch<React.SetStateAction<boolean>>;
   setIsRegisterClick:React.Dispatch<React.SetStateAction<boolean>>;
+  openCart:()=>void;
   loginClicked:boolean;
   registerClicked:boolean;
   LoginHere:()=>void;
   RegisterHere:()=>void;
+  showMessage: boolean;
+  setShowMessage: () => void
   
 };
 
@@ -87,11 +95,12 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
   const [registerClicked, setIsRegisterClick] = useState<boolean>(false)
   const [isMenuOpen, setOpenMenu] = useState<boolean>(false)
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
-  const [isOpenSideCart, setOpenSideCart] = useState<boolean>(false)
+  const [openSideCart, setOpenSideCart] = useState<boolean>(false);
   // const [quantity, setQuantity] = useState<number>(1)
   const [quantityAvailable, setQuantityAvailable] = useState<number | null>(null)
   const [sizeInfo, setSizeInfo] = useState<SizeInfo>({availableForSale:false, id:"", priceV2:{amount:"", currencyCode:""},quantityAvailable:0, title:"", selectedOptions:[]})
   const dispatch = useDispatch()
+  const [showMessage, setShowMessage] = useState<boolean>(false);
 
 
 
@@ -138,6 +147,13 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
     setIsCartOpen((prevState) => !prevState)
   }
 
+  const showConfirmationMessage = () => {
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3000); // Hide after 3 seconds
+  };
+
 
 
   return (
@@ -153,6 +169,7 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         isMenuOpen,
         setOpenMenu,
         toggleMenu,
+        setOpenSideCart,
         setIsCartOpen,
         isCartOpen,
         removeCart,
@@ -166,10 +183,11 @@ export const GlobalProvider: React.FC<ProviderProps> = ({ children }) => {
         registerClicked,
         LoginHere,
         RegisterHere,
-        isOpenSideCart,
-        setOpenSideCart,
         openCart,
-        toggleCart
+        toggleCart,
+        showMessage,
+        setShowMessage: showConfirmationMessage,
+        showConfirmationMessage
       }}>
       {children}
     </GlobalContext.Provider>

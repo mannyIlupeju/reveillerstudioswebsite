@@ -57,7 +57,7 @@ export async function updateCartQty(lineId: string, cartId:string | null, quanti
       }),
     });
     if (!response.ok) {
-      // const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
       // console.error("Update quantity failed:", errorData);
       throw new Error(`Failed to update quantity: ${errorData.error || errorData.message || response.statusText}`);
     }

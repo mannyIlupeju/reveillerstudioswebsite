@@ -4,7 +4,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { useCanvas } from '@/Context/context/CanvasContext';
-import Newsletter from "../Newsletter/Newsletter";
 import * as motion from "motion/react-client"
 
 
@@ -48,26 +47,7 @@ const ThreeSketch = () => {
     scene.add(camera);
     camera.position.z = 5;
 
-    //Video background but actually Video model
-    // const videoGroup = new THREE.Group();
-    // scene.add(videoGroup)
 
-    // const video = document.createElement("video");
-    // video.src="/rvryulcal.mp4"
-    // video.loop= true;
-    // video.muted=true;
-    // video.play();
-
-    // const videoTexture = new THREE.VideoTexture(video);
-    // videoTexture.minFilter = THREE.LinearFilter;
-    // videoTexture.magFilter = THREE.LinearFilter;
-    // videoTexture.generateMipmaps = false;
-
-    // const videoGeometry = new THREE.PlaneGeometry(90, 60);
-    // const videoMaterial = new THREE.MeshBasicMaterial({map: videoTexture});
-    // const videoMesh = new THREE.Mesh(videoGeometry, videoMaterial);
-    // videoMesh.position.set(0,0,-10);
-    // videoGroup.add(videoMesh);
   
     
     const modelGroup = new THREE.Group()
@@ -76,7 +56,7 @@ const ThreeSketch = () => {
     
 
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
+    dracoLoader.setDecoderPath("/three/examples/jsm/libs/draco/");
     const gltfLoader = new GLTFLoader();
     gltfLoader.setDRACOLoader(dracoLoader);
 
@@ -167,9 +147,8 @@ const ThreeSketch = () => {
           transition={{ duration: 2, ease: 'easeIn' }}
           className="box box1 flex  justify-center items-center relative cursor-grab">
           <video autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
-            
             <source 
-            src="/videos/newreleases.MOV"
+            src="/videos/TANKREEL1.mp4"
             />
           </video>
            {/* Overlay */}
@@ -191,7 +170,7 @@ const ThreeSketch = () => {
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             
             <source 
-            src="/videos/aboutvid1.mov"
+            src="/videos/rvryulcal.mp4"
             />
           </video>
            {/* Overlay */}

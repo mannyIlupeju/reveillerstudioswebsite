@@ -23,6 +23,11 @@ const Page = async () => {
   const collections = await fetchCategories();
   
 
+
+
+ 
+  
+
   return (
     <main className="flex xl:flex-row flex-col gap-8 px-4">
       <aside className="xl:sticky block xl:top-52 top-10 z-10 xl:w-48 xl:self-start">

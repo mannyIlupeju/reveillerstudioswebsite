@@ -12,7 +12,8 @@ import {AnimatePresence} from 'framer-motion'
 
 
 export default function LayoutWithCart({ children }: { children: React.ReactNode }) {
-  const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu, setOpenSideCart, isOpenSideCart, openCart } = useGlobalContext();
+  const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu } = useGlobalContext();
+
   const pathname = usePathname();
 
   const isCartPage = pathname === '/cart';
@@ -61,7 +62,7 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
 
   return (
     <>
-     <div 
+       <div 
           className="box3 items-center cursor-pointer xl:text-md text-xs">
           <p className="ticker-text">
           Stay tuned for New releases coming soon. Sign up for our newsletter and get 10% off
@@ -87,18 +88,12 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
     
       <div className="xl:hidden">
         <SideNav/>
-      </div>)
+      </div>
       
 
       
       {isCartOpen && !isCartPage &&  <SideCart/>}
   
-{/* 
-      {isOpenSideCart && (
-        <div>
-          <SideCart/>
-        </div>
-      )} */}
     </>
   );
 }

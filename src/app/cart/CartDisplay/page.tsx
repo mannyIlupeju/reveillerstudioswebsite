@@ -197,15 +197,20 @@ export default function CartDisplay({cart}:CartProps){
                 });
                 
                 if (!response.ok) {
-                    const errorData = await response.json();
+                    let errorData;
+                    try {
+                        errorData = await response.json();
+                    } catch {
+                        errorData = { message: 'Unknown error' };
+                    }
                     throw new Error(errorData.message || 'Failed to fetch updated cart');
                 }
 
                 const updatedCart = await response.json();
                 console.log('Updated cart data:', updatedCart); // For debugging
 
-                if (updatedCart?.cart?.lines?.edges) {
-                    const mappedItems = updatedCart.cart.lines.edges.map(edge => ({
+                if (updatedCart?.cart?.lines?.edges && Array.isArray(updatedCart.cart.lines.edges)) {
+                    const mappedItems = (updatedCart.cart.lines.edges as LineEdge[]).map(edge => ({
                         id: edge.node.id,
                         quantity: edge.node.quantity,
                         title: edge.node.merchandise.product.title,
@@ -217,10 +222,27 @@ export default function CartDisplay({cart}:CartProps){
                             value: edge.node.attributes.find(attr => attr.key === 'Size')?.value || ''
                         },
                         variantId: edge.node.merchandise.id,
-                        merchandise: edge.node.merchandise,
+                        merchandise: {
+                            id: edge.node.merchandise.id,
+                            image: {
+                                src: edge.node.merchandise.image.src,
+                                altText: edge.node.merchandise.image.altText
+                            },
+                            priceV2: {
+                                amount: Number(edge.node.merchandise.priceV2.amount), // <-- FIXED
+                                currencyCode: edge.node.merchandise.priceV2.currencyCode
+                            },
+                            product: {
+                                title: edge.node.merchandise.product.title,
+                                handle: edge.node.merchandise.product.handle,
+                                vendor: edge.node.merchandise.product.vendor
+                            }
+                        },
                         attributes: edge.node.attributes
                     }));
                     dispatch(setCartItems(mappedItems));
+                } else {
+                    dispatch(setCartItems([])); // Clear cart if no items
                 }
             } catch (error) {
                 console.error('Error refreshing cart:', error);

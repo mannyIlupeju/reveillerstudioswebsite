@@ -3,6 +3,12 @@ import React, {useState, useEffect} from 'react'
 
 export default function Newsletter() {
   const [showModal, setShowModal] = useState(false);
+  const [userData, setUserData] = useState({
+    fullName: '',
+    email: '',
+    requestUpdate: false,
+    termsAgreed: false,
+  });
 
   useEffect(() => {
     const hasShownModal = sessionStorage.getItem("hasSeenNewsletterPopup");
@@ -26,6 +32,53 @@ export default function Newsletter() {
   }, [showModal]);
 
   if (!showModal) return null;
+
+
+
+
+  async function submitRegistration() {
+   
+    console.log(userData)
+    
+    if(!userData.termsAgreed){
+      alert("Please agree to the Terms of Service & Privacy Policy");
+      return;
+    }
+
+
+    try {
+      console.log("Submitting:", userData)
+      
+      const res = await fetch('/api/registerSubscriber', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      });
+
+      console.log(res)
+      
+      const data = await res.json()
+      console.log(data)
+
+      if(!res.ok) {
+        console.error("Registration failed:", res);
+        alert(data.error || `Registration failed with status: ${res.status}`);
+      } else {
+        console.log("User registered:", data)
+        alert("Registration successful!")
+      }
+
+    } catch (error){
+      console.error("Unexpected error:", error)
+      alert("Something went wrong. Please try again.");
+
+    }
+  
+  }
+
+  
  
 
   return (
@@ -54,11 +107,21 @@ export default function Newsletter() {
             <div className="flex flex-col gap-4">
            <input 
             type="name"
+            id="fullName"
+            name="fullName"
+            value={userData.fullName}
+            onChange={(e) => setUserData({...userData, fullName: e.target.value})}
+            required
             placeholder='Full Name'
             className="p-2 border border-zinc-400 rounded-md"
            />
            <input 
             type="email"
+            id="email"  
+            name="email"
+            value={userData.email}  
+            onChange={(e) => setUserData({...userData, email: e.target.value})}
+            required
             placeholder='Email Address'
             className="p-2 border border-zinc-400 rounded-md"
            />
@@ -68,9 +131,11 @@ export default function Newsletter() {
            <div className="flex justify-start gap-2">
                 <input
                 type="checkbox"
-                id="continueUpdate"
-                name="continueUpdate"
-                value="continueUpdate"
+                id="requestUpdate" 
+                onChange={(e) => setUserData({...userData, requestUpdate: e.target.checked})}
+                checked={userData.requestUpdate} 
+                name="requestUpdate"
+                value="requestUpdate"
                 />
                 <label htmlFor="continueUpdate">
                 Keep me updated with the latest news and best offers
@@ -79,9 +144,11 @@ export default function Newsletter() {
             <div className="flex justify-start gap-2">
                 <input
                 type="checkbox"
-                id="privacyPolicyAgreement"
-                name="privacyPolicyAgreement"
-                value="privacyPolicyAgreed"
+                id="termsAgreed"
+                name="termsAgreed"
+                onChange={(e) => setUserData({...userData, termsAgreed: e.target.checked})}     
+                checked={userData.termsAgreed}
+                value="termsAgreed"
                 />
                 <label htmlFor="privacyPolicyAgreement">
                 I agree to the Privacy Policy and Cookie Policy
@@ -89,7 +156,7 @@ export default function Newsletter() {
             </div>
            </form>
 
-           <button className="text-xl">Subscribe</button>
+           <button className="text-xl" onClick={submitRegistration}>Subscribe</button>
         </div>
     </main>
   )

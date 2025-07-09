@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import DOMPurify from 'isomorphic-dompurify';
 import { useSelector, useDispatch} from 'react-redux'
 import Accordion from '@/components/Accordion/Accordion';
@@ -127,9 +127,25 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
     });
   }
 
+  useEffect(() => {
+    setSelectButton(null);
+    setQuantityAvailable(null);
+    setSizeInfo({
+      availableForSale: false,
+      id: "",
+      priceV2: { amount: "", currencyCode: "" },
+      quantityAvailable: 0,
+      title: "",
+      selectedOptions: [],
+    });
+    setIsItemAddedToCart('default'); // or false, depending on your state
+    setQuantity({});
+  }, [id]);
+
 
   
   async function AddToCart({title, productImage, quantities, productPrice, variants}:any){
+    if (isItemAddedToCart === 'loading') return; // Prevent double add
     if(!isButtonSelected){
       console.error("No size selected")
       return;
@@ -264,7 +280,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               throw new Error('Please select a size');
             }
             
-            dispatch(addItem(cartItem));
+            // Do NOT do this:
+            // dispatch(addItem(cartItem));
             
             dispatch(setLoading(true));
 
@@ -380,21 +397,37 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
         {/* Add to Cart button */}
         <button
-          disabled={quantityAvailable === null || quantityAvailable === 0}
-          className={`${
-            quantityAvailable === null || quantityAvailable === 0
-              ? `prodDetailsOptionsBox`
-              : `addToCartBox text-zinc-800 font-semibold text-xl cursor-pointer`
-          } p-4 rounded-lg`}
-          onClick={()=>{
-            if(quantityAvailable !== 0){
-              AddToCart({title, productImage, quantity, productPrice, variants, isButtonSelected})
+          disabled={
+            quantityAvailable === null ||
+            quantityAvailable === 0 ||
+            isItemAddedToCart === 'loading'
+          }
+          className={
+            (quantityAvailable === null || quantityAvailable === 0 || isItemAddedToCart === 'loading'
+              ? 'prodDetailsOptionsBox'
+              : 'addToCartBox text-zinc-800 font-semibold text-xl cursor-pointer') + ' p-4 rounded-lg'
+          }
+          onClick={() => {
+            if (
+              quantityAvailable !== 0 &&
+              isItemAddedToCart !== 'loading'
+            ) {
+              // Only pass the selected variant's quantity
+              AddToCart({
+                title,
+                productImage,
+                quantities: quantity[isButtonSelected] || 1,
+                productPrice,
+                variants,
+                isButtonSelected,
+              });
             }
           }}
         >
-          {isItemAddedToCart === 'default' && "Add to Cart"}
-          {isItemAddedToCart === 'loading' && "Hol'up, wait a minute"}
-          {isItemAddedToCart === 'added' && "Item added to Cart"}
+          {isItemAddedToCart === 'default' && 'Add to Cart'}
+          {isItemAddedToCart === 'loading' && 
+            (<>Hol'up, wait a minute</>)}
+          {isItemAddedToCart === 'added' && 'Item added to Cart'}
         </button>
 
 

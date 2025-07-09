@@ -55,12 +55,6 @@ const NavLink = ({ name, href }: NavLinkType) => {
   };
 
  
-  const toggleCart = () => {
-    console.log("open Cart")
-    setIsCartOpen(true)
-  }
-
- 
 
   return (
     <div className="group">
@@ -90,22 +84,18 @@ const Navigation = () => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [cartQuantity, setCartQuantity]= useState<string | number>(0)
 
-  const {setIsCartOpen, toggleMenu, openCart} = useGlobalContext()
+  const {setIsCartOpen, toggleMenu, openCart, toggleCart} = useGlobalContext()
 
   const router = useRouter()
 
   
-  const navLinks = ['Shop', 'Archive', 'About', 'Log In'].map((name) => ({
+  const navLinks = ['Shop', 'Archive', 'About', 'Account'].map((name) => ({
     name,
     href: `/${name.toLowerCase().replace(/\s+/g, '')}`,
   }));
 
 
 
-  const toggleCart = () => {
-    console.log("open Cart")
-    setIsCartOpen(prevState => !prevState)
-  }
 
   const cartState = useSelector((state: RootState) => state.cart)
   const cartQty = Number(cartState.totalQuantity)
@@ -119,7 +109,7 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="flex xl:justify-between justify-center gap-4 mx-auto p-2 nav-font xl:sticky z-20 top-0 shadow-lg bg-white">
+    <nav className="flex xl:justify-between justify-center gap-4 mx-auto p-2 nav-font xl:sticky z-20 top-0 glassBox">
       <div className="xl:flex hidden justify-between items-center">
         <div className="flex lg:flex-row gap-5 flex-col justify-start items-center">
           <div className="hidden lg:flex w-fit items-start">
@@ -148,7 +138,7 @@ const Navigation = () => {
 
       <div className="flex-row xl:flex hidden justify-end">
         <div className="flex gap-5">
-          <NavLinks links={navLinks} />
+          <NavLinks links={navLinks}/>
           <div className="flex items-center">
             <button onClick={toggleCart} className="flex gap-1">
               <h1>Cart</h1> 

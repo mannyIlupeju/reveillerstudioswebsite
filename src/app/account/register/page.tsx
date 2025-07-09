@@ -11,16 +11,16 @@ function Register() {
     phone: string | undefined;
     email:string;
     password:string;
-    termsAgreements: boolean;
-    SignUpForEmails: boolean
+    termsAgreed: boolean;
+    acceptsMarketing: boolean
   }>({ 
     firstName: '', 
     lastName: '', 
     phone:'', 
     email: '', 
     password: '', 
-    termsAgreements:false, 
-    SignUpForEmails:false
+    termsAgreed:false, 
+    acceptsMarketing:false
   });
 
   console.log(userData)
@@ -31,7 +31,7 @@ function Register() {
    
     console.log(userData)
     
-    if(!userData.termsAgreements){
+    if(!userData.termsAgreed){
       alert("Please agree to the Terms of Service & Privacy Policy");
       return;
     }
@@ -51,9 +51,10 @@ function Register() {
       console.log(res)
       
       const data = await res.json()
+      console.log(data)
 
       if(!res.ok) {
-        console.error("Registration failed:", data);
+        console.error("Registration failed:", res);
         alert(data.error || `Registration failed with status: ${res.status}`);
       } else {
         console.log("User registered:", data)
@@ -90,7 +91,7 @@ function Register() {
               setUserData({...userData, email:e.target.value})
             }}
             placeholder='Email Address'
-            className="p-2 border border-zinc-400 rounded-md w-96"
+            className="p-2 border border-zinc-400 rounded-md min-w-72"
             required
           />
 
@@ -116,17 +117,17 @@ function Register() {
               setUserData({ ...userData, password: e.target.value })
             }} 
             required 
-            className='p-2 border border-zinc-400 rounded-md w-96'
+            className='p-2 border border-zinc-400 rounded-md min-w-48'
           />
 
 
-          <div className="flex gap-4">
+          <div className="flex flex-col xl:flex-row gap-4">
             <div className="flex flex-col">
               <label htmlFor="name">First Name</label>
               <input 
                 type='text'
                 placeholder='Name'
-                className='p-2 border border-zinc-400 rounded-md w-48'
+                className='p-2 border border-zinc-400 rounded-md min-w-72'
                 value={userData.firstName}
                 onChange={(e) => {
                   setUserData({...userData, firstName: e.target.value})
@@ -139,7 +140,7 @@ function Register() {
               <input 
                 type='text'
                 placeholder='Name'
-                className='p-2 border border-zinc-400 rounded-md w-48'
+                className='p-2 border border-zinc-400 rounded-md min-w-72'
                 value={userData.lastName}
                 onChange={(e) => {
                   setUserData({...userData, lastName: e.target.value})
@@ -153,28 +154,28 @@ function Register() {
         <div className="flex gap-2">
           <input 
           type="checkbox" 
-          id="termsAgreements" 
-          name='termsAgreements'
-          checked={userData.termsAgreements}
+          id="termsAgreed" 
+          name='termsAgreed'
+          checked={userData.termsAgreed}
           onChange={handleChange}
           required
           />
-          <label htmlFor="termsAgreements">I agree to the Terms of Service and Privacy Policy</label>
+          <label htmlFor="termsAgreed">I agree to the Terms of Service and Privacy Policy</label>
         </div>
         <div className="flex gap-2">
           <input 
+
           type="checkbox" 
-          id="SignUpForEmails" 
-          name='SignUpForEmails'
-          checked={userData.SignUpForEmails}
+          id="acceptsMarketing" 
+          name='acceptsMarketing'
+          checked={userData.acceptsMarketing}
           onChange={handleChange}
           />
-          <label htmlFor="SignUpForEmails">Sign up for emails on Products and events</label>
+          <label htmlFor="acceptsMarketing">Sign up for emails on Products and events</label>
           </div>
         </div>
 
         <button 
-        type="submit" 
         onClick={submitRegistration}
         className="bg-zinc-400 p-4 mt-3 h-10 text-white w-48 flex justify-center items-center"
         >
