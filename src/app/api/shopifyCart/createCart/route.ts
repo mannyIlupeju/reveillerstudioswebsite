@@ -6,18 +6,17 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
     
-        const { variants, quantity } = body;
-
-        if (!variants || !quantity) {
+        // Accept lines array with attributes for first add
+        const { lines } = body;
+        let lineItems;
+        if (lines && Array.isArray(lines)) {
+            lineItems = lines;
+        } else if (body.variants && body.quantity) {
+            // fallback for old payload
+            lineItems = [{ merchandiseId: body.variants, quantity: body.quantity }];
+        } else {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
-
-        // Ensure variants is a string (single ID)
-        if (typeof variants !== "string") {
-            return NextResponse.json({ error: "Invalid variant ID format" }, { status: 400 });
-        }
-
-        const lineItems = [{ merchandiseId: variants, quantity }];
 
         const query = `
             mutation createCart($lines: [CartLineInput!]!) {

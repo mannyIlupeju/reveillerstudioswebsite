@@ -71,32 +71,21 @@ export async function updateCartQty(lineId: string, cartId:string | null, quanti
   }
 }
 
-export async function refreshCart(cartId: string, dispatch:Dispatch) {
-  
+export async function refreshCart(cartId: string, dispatch:Dispatch): Promise<any[] | undefined> {
   if (!cartId) return;
-
   try {
     const response = await fetch("/api/shopifyCart/fetchCart", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cartId }),
     });
-
-    console.log(response)
-
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || "Failed to fetch updated cart");
     }
-
     const updatedCart = await response.json();
-    console.log("Updated cart data:", updatedCart); // For debugging
-
-    console.log(updatedCart.cart.lines.edges)
     if (updatedCart?.cart?.lines?.edges) {
       const mappedItems = updatedCart.cart.lines.edges.map((edge) => {
-
-        
         const mappedItem = {
           id: edge.node.id,
           quantity: edge.node.quantity,
@@ -114,21 +103,15 @@ export async function refreshCart(cartId: string, dispatch:Dispatch) {
           merchandise: edge.node.merchandise,
           attributes: edge.node.attributes,
         };
-        
-        console.log("Mapped item ID:", mappedItem.id);
-        console.log("Mapped item title:", mappedItem.title);
-        
         return mappedItem;
       });
-      
-      console.log("=== FINAL MAPPED ITEMS ===");
-      console.log("Mapped items:", mappedItems.map(item => ({ id: item.id, title: item.title })));
-      
       dispatch(setCartItems(mappedItems));
+      return mappedItems;
     }
   } catch (error) {
     console.error("Error refreshing cart:", error);
     dispatch(setError("Failed to refresh cart"));
+    return undefined;
   }
 }
 

@@ -63,6 +63,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const [activeAccordionId, setActiveAccordionId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<{[key: string]: number}>({});
   const [isItemAddedToCart, setIsItemAddedToCart] = useState<'default'| 'loading' | 'added'>('default')
+  const [isCartLoading, setIsCartLoading] = useState(false);
+  const [cartError, setCartError] = useState<string | null>(null);
   // const [isLoading, setIsLoading] = useState<string>('Add to Cart')
   const dispatch = useDispatch()
   const cartState = useSelector((state: RootState) => state.cart)
@@ -175,36 +177,36 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
       }
 
       let shopifyCartId: string | undefined = Cookies.get('cartId');
+      let cartJustCreated = false;
 
       if (!shopifyCartId) {
         const response = await fetch('/api/shopifyCart/createCart', {
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({
-            variants: productVariantID, 
-            quantity: selectedQuantity,
+            lines: [{
+              merchandiseId: productVariantID,
+              quantity: selectedQuantity,
+              attributes: [
+                { key: 'Size', value: sizeDetails.value }
+              ]
+            }]
           })
         });
-
-        
 
         if (!response.ok) {
           throw new Error('Failed to add product to cart')
         }
-        
         const cartData:ShopifyCartResponse = await response.json();
-        
-          if(cartData.cart.id){
-            shopifyCartId = cartData.cart.id;
-            Cookies.set('cartId', shopifyCartId as string, { expires: 7 });
-            setCartId(shopifyCartId)
-          
-          } else {
-            
+        if(cartData.cart.id){
+          shopifyCartId = cartData.cart.id;
+          Cookies.set('cartId', shopifyCartId as string, { expires: 7 });
+          setCartId(shopifyCartId)
+          cartJustCreated = true;
+        } else {
           console.error("Cart ID not found in response:", cartData);
           return;
         }
-
       } else {
         setCartId(shopifyCartId)
       }
@@ -219,7 +221,29 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
       }]
 
       setIsItemAddedToCart('loading')
-      await addItemToCart(shopifyCartId, lineItems)
+      setIsCartLoading(true);
+      setCartError(null);
+      if (cartJustCreated) {
+        // Only refresh cart, do NOT add item again
+        const mappedCart = await refreshCart(shopifyCartId, dispatch);
+        // Check if the expected item and quantity are present
+        const found = mappedCart?.find(
+          item => item.variantId === productVariantID && item.quantity === selectedQuantity
+        );
+        if (found) {
+          setIsItemAddedToCart('added');
+          setIsCartOpen(true);
+          setCartError(null);
+          console.log("Product added to cart successfully (cart created)");
+        } else {
+          setIsItemAddedToCart('default');
+          setCartError('There was a problem adding the item to your cart. Please try again.');
+        }
+        setIsCartLoading(false);
+      } else {
+        await addItemToCart(shopifyCartId, lineItems)
+        setIsCartLoading(false);
+      }
 
      } catch(error){
        console.error('Error creating cart:', error);
@@ -430,6 +454,13 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
           {isItemAddedToCart === 'added' && 'Item added to Cart'}
         </button>
 
+        {/* Loader and error UI */}
+        {isCartLoading && (
+          <div className="cart-loader">Adding to cart...</div>
+        )}
+        {cartError && (
+          <div className="cart-error text-red-600 font-bold">{cartError}</div>
+        )}
 
 
         {/* Product information rendered by an accordion */}
