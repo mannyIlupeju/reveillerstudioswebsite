@@ -49,7 +49,7 @@ export default async function Page({params}: {params: Promise<{ slug: string }> 
 
 export async function generateStaticParams() {
   try {
-    const res = await client.request(collectionQuery);
+    const res = await client.request(collectionParamQuery);
 
     const collections = res?.data?.collections?.edges || [];
 
