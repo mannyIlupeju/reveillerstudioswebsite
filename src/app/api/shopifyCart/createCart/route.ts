@@ -78,7 +78,7 @@ export  async function POST(req: Request) {
             const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
                 method: "POST",
                 headers: {
-                    'X-Shopify-Storefront-Access-Token': `${process.env.SHOPIFY_PUBLIC}`,
+                    'X-Shopify-Storefront-Access-Token': `${process.env.NEXT_SHOPIFY_PUBLIC}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
