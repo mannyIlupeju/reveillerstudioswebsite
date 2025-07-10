@@ -1,43 +1,23 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { fetchCategories } from '@/utils/fetchCategories/fetchCategories';
 
-type Collection = {
+export type Collection = {
   id: string;
   title: string;
   handle: string;
   updatedAt: string;
 };
 
-function ProductCategories() {
-  const [collections, setCollections] = useState<Collection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface ProductCategoriesProps {
+  collections: Collection[];
+}
+
+const ProductCategories: React.FC<ProductCategoriesProps> = ({ collections }) => {
   const [reversedTitle, setReversedTitle] = useState<string | null>(null);
   const [hoveredID, setHoveredID] = useState<string | null>(null);
   const [intervalID, setIntervalID] = useState<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const loadCategories = async () => {
-      try {
-        const data = await fetchCategories();
-        if (!data || data.length === 0) {
-          setError('No categories found.');
-        } else {
-          setCollections(data);
-        }
-      } catch (err) {
-        console.error('Error loading categories:', err);
-        setError('Something went wrong while loading categories.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadCategories();
-  }, []);
 
   function handleMouseEnter(e: React.MouseEvent<HTMLAnchorElement>, id: string, title: string) {
     e.preventDefault();
@@ -64,22 +44,8 @@ function ProductCategories() {
     setReversedTitle(null);
   };
 
-  // 🟡 Loading state
-  if (loading) {
-    return (
-      <div className="text-sm text-gray-500 animate-pulse">
-        Loading categories...
-      </div>
-    );
-  }
-
-  // 🔴 Error or fallback state
-  if (error || collections.length === 0) {
-    return (
-      <div className="text-sm text-red-500">
-        {error || 'No categories to display.'}
-      </div>
-    );
+  if (!collections || collections.length === 0) {
+    return <div className="text-sm text-red-500">No categories to display.</div>;
   }
 
   // ✅ Main render
@@ -105,6 +71,6 @@ function ProductCategories() {
       })}
     </div>
   );
-}
+};
 
 export default ProductCategories;
