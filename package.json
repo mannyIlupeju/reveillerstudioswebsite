@@ -38,6 +38,7 @@
     "react-slick": "^0.30.3",
     "redux-persist": "^6.0.0",
     "sanity": "^2.36.6",
+    "slick-carousel": "^1.8.1",
     "three": "^0.169.0",
     "uuid": "^11.1.0",
     "validator": "^13.15.15"

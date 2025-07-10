@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @font-face {
   font-family: 'Satoshi-Light';
   src: url('/WEB/fonts/Satoshi-Light.woff2') format('woff2'),
@@ -483,3 +484,7 @@ th {
 
 
 }
+
+/* Importing slick-carousel CSS files */
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
