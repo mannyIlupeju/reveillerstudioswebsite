@@ -50,7 +50,7 @@ const ProductCategories: React.FC<ProductCategoriesProps> = ({ collections }) =>
 
   // ✅ Main render
   return (
-    <div className="flex xl:flex-col justify-center gap-2">
+    <div className="flex xl:flex-col justify-center lg:gap-2 ">
       {collections.map((item) => {
         const { id, title, handle } = item;
 
@@ -58,7 +58,7 @@ const ProductCategories: React.FC<ProductCategoriesProps> = ({ collections }) =>
           <Link
             key={id}
             href={`/shop/collections/${handle}`}
-            className="orange-hover w-fit p-2 rounded-lg hover:text-zinc-900 text-zinc-800"
+            className="orange-hover w-fit p-2 rounded-lg xl:text-lg text-xs hover:text-zinc-900 text-zinc-800"
             data-original-text={title}
             onMouseEnter={(e) => handleMouseEnter(e, id, title)}
             onMouseLeave={handleMouseLeave}

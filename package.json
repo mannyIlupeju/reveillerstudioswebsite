@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "git lfs install && git lfs fetch && git lfs checkout",
     "vercel-build": "git lfs install && git lfs pull && next build"
 
   },
