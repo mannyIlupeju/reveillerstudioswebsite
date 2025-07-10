@@ -6,11 +6,11 @@ import Image from "next/image"
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import {useSelector, useDispatch} from 'react-redux'
 import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "../../../store/cartSlice";
-import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../../utils/cartFunctions/cartFunctions";
+import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../utils/cartFunctions/cartFunctions";
 import {useEffect, useState} from 'react';
 import { RootState } from "../../../store/store";
-import { useCurrency } from '../../Context/context/CurrencyContext';
-import { formatMoney } from '../../../utils/formatMoney';
+import { useCurrency } from '../../Context/CurrencyContext';
+import { formatMoney } from '../../utils/formatMoney';   
 
 type LineEdge = {
     node: {
