@@ -189,7 +189,6 @@ const ThreeSketch = () => {
           className="box box2 flex justify-center items-center relative cursor-grab p-4"  
         >
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
-            
             <source 
             src="/videos/rvryulcal.mp4"
             />
