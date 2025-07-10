@@ -1,5 +1,5 @@
 {
-  "/page": "app/page.js",
-  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js",
+  "/api/detectCountry/route": "app/api/detectCountry/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/shop/page": "app/shop/page.js"
 }
