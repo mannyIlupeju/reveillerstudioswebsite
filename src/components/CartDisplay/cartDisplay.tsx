@@ -9,7 +9,7 @@ import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "
 import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../utils/cartFunctions/cartFunctions";
 import {useEffect, useState} from 'react';
 import { RootState } from "../../../store/store";
-import { useCurrency } from '../../Context/CurrencyContext';
+import { useCurrency } from '../../Context/context/CurrencyContext';
 import { formatMoney } from '../../utils/formatMoney';   
 
 type LineEdge = {
