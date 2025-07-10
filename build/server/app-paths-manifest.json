@@ -1,10 +1,4 @@
 {
-  "/api/shopifyCart/addItemToCart/route": "app/api/shopifyCart/addItemToCart/route.js",
-  "/api/detectCountry/route": "app/api/detectCountry/route.js",
-  "/api/shopifyCart/updateQtyCart/route": "app/api/shopifyCart/updateQtyCart/route.js",
-  "/api/shopifyCart/fetchCart/route": "app/api/shopifyCart/fetchCart/route.js",
-  "/api/get-cart-id/route": "app/api/get-cart-id/route.js",
-  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js",
   "/shop/page": "app/shop/page.js",
   "/page": "app/page.js"
 }

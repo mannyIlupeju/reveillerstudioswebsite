@@ -57,6 +57,11 @@ const ThreeSketch = () => {
 
     // Load the model (try .gltf first, then fallback to .glb)
     function loadModel(path: string) {
+      if (!path.endsWith('.gltf')) {
+        console.warn(`Expected a .gltf file but got: ${path}`);
+        return;
+      }
+    
       gltfLoader.load(
         path,
         (gltf) => {
@@ -66,27 +71,7 @@ const ThreeSketch = () => {
         },
         undefined,
         (error) => {
-          console.error(`Failed to load ${path}:`, error);
-          // Attempt fallback between .gltf and .glb
-          let fallbackPath: string;
-          if (path.endsWith('.gltf')) {
-            fallbackPath = path.replace(/\.gltf$/, '.glb');
-          } else if (path.endsWith('.glb')) {
-            fallbackPath = path.replace(/\.glb$/, '.gltf');
-          } else {
-            return;
-          }
-          console.log(`Attempting fallback load: ${fallbackPath}`);
-          gltfLoader.load(
-            fallbackPath,
-            (gltf) => {
-              modelRef.current = gltf.scene;
-              updateModelScale();
-              modelGroup.add(modelRef.current as THREE.Object3D);
-            },
-            undefined,
-            (err2) => console.error(`Failed to load fallback ${fallbackPath}:`, err2)
-          );
+          console.error(`❌ Failed to load .gltf at ${path}:`, error);
         }
       );
     }
