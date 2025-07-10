@@ -143,7 +143,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
     });
     setIsItemAddedToCart('default'); // or false, depending on your state
     setQuantity({});
-  }, [id]);
+  }, [id, setQuantityAvailable, setSizeInfo]);
 
 
   
