@@ -24,6 +24,8 @@ export default function SideCart() {
 
   const {setIsCartOpen, isCartOpen} = useGlobalContext();
 
+  console.log(isCartOpen)
+
   const { currency } = useCurrency();
 
   const cartItems = useSelector((state: RootState) => state.cart.cart);

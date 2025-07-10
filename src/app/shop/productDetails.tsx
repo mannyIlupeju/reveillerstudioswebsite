@@ -12,7 +12,7 @@ import { formatMoney } from '../../utils/formatMoney'
 
 
 const ProductDetails = ({ products, recommendations }: any) => {
-  console.log(products)
+  
   const { images, descriptionHtml, title, priceRange, variants, collections, totalInventory } = products
   const {currency } = useCurrency();
 

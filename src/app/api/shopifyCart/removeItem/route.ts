@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import shopifyFetch from '../../../../utils/ShopifyFetchUtils/shopifyFetchUtils';
 
 export async function POST(req: Request) {
   console.log("=== REMOVE ITEM API ROUTE ===");
@@ -52,15 +51,33 @@ export async function POST(req: Request) {
       }
     `;
 
-    const data = await shopifyFetch(query, {
-      cartId,
-      lineIds: [lineId],
-      country,
-    });
+    const response = await fetch(
+      `https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": process.env.NEXT_PUBLIC_SHOPIFY_PUBLIC!,
+        },
+        body: JSON.stringify({
+          query,
+          variables: {
+            cartId,
+            lineIds: [lineId],
+            country,
+          },
+        }),
+      }
+    );
 
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Shopify API. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
     console.log("Shopify API response:", data);
 
-    const userErrors = data?.cartLinesRemove?.userErrors;
+    const userErrors = data?.data?.cartLinesRemove?.userErrors;
     if (userErrors?.length > 0) {
       console.warn("Shopify user errors:", userErrors);
       return NextResponse.json(
@@ -69,7 +86,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const cart = data?.cartLinesRemove?.cart;
+    const cart = data?.data?.cartLinesRemove?.cart;
     if (!cart) {
       return NextResponse.json(
         { error: "Cart not found after item removal" },

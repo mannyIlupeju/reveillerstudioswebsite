@@ -15,6 +15,10 @@ export default async function CartPage() {
 
     const country = userCountry === 'CA' ? 'CA' : 'US';
 
+    console.log("Cart ID:", cartId);
+    console.log("User Country:", userCountry);
+    console.log("Country variable passed:", country);
+
     if (!cartId) {
       return (
         <main className="flex flex-col gap-8 justify-center items-center h-screen">
@@ -104,7 +108,7 @@ export default async function CartPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_PUBLIC!,
+          'X-Shopify-Storefront-Access-Token': process.env.NEXT_SHOPIFY_PUBLIC!,
         },
         body: JSON.stringify({
           query,
@@ -117,11 +121,17 @@ export default async function CartPage() {
       }
     );
 
+    console.log("Response status:", response);
+
+    
+
     if (!response.ok) {
+      console.error("Failed to fetch cart. Response:", response);
       throw new Error('Failed to fetch cart');
     }
 
     const json = await response.json();
+    console.log("Cart data received:", json);
     const cart = json?.data?.cart;
 
     if (!cart) {

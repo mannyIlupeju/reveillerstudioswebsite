@@ -8,6 +8,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { cartId } = body;
 
+    console.log("Received cartId:", cartId);
+
     if (!cartId) {
       return NextResponse.json({ error: "Missing cartId" }, { status: 400 });
     }
@@ -79,7 +81,7 @@ export async function POST(req: Request) {
       {
         method: "POST",
         headers: {
-          "X-Shopify-Storefront-Access-Token": `${process.env.SHOPIFY_PUBLIC}`,
+          "X-Shopify-Storefront-Access-Token": `${process.env.NEXT_PUBLIC_SHOPIFY_PUBLIC}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

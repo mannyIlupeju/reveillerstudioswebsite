@@ -41,26 +41,27 @@ export default function LayoutWithCart({ children, detectedCountry }: Props) {
 
     useEffect(() => {
       const handleResize = () => {
-        if(window.innerWidth >= 768 && isMenuOpen){
+        if (window.innerWidth >= 768 && isMenuOpen) {
           toggleMenu();
         }
-      }
+      };
 
       window.addEventListener('resize', handleResize);
 
+      // Initial check on mount
       handleResize();
-      
+
       return () => {
         window.removeEventListener('resize', handleResize);
       };
     }, [isMenuOpen, toggleMenu]);
 
 
-    useEffect(()=>{
-      if(isCartOpen){
+    useEffect(() => {
+      if (pathname === '/cart') {
         setIsCartOpen(false);
       }
-    }, [pathname, isCartOpen, setIsCartOpen])
+    }, [pathname, setIsCartOpen]);
 
 
 

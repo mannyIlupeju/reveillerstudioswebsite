@@ -23,7 +23,7 @@ export async function POST(req: Request) {
         console.log("=== ENVIRONMENT VARIABLES ===");
         console.log("SHOPIFY_DOMAIN:", process.env.SHOPIFY_DOMAIN ? "Set" : "Missing");
         console.log("SHOPIFY_API_VERSION:", process.env.SHOPIFY_API_VERSION ? "Set" : "Missing");
-        console.log("SHOPIFY_PUBLIC:", process.env.SHOPIFY_PUBLIC ? "Set" : "Missing");
+        console.log("SHOPIFY_PUBLIC:", process.env.NEXT_PUBLIC_SHOPIFY_PUBLIC ? "Set" : "Missing");
 
         if (!cartId || !lineId || !quantity) {
             console.log('Missing required fields:', { cartId, lineId, quantity });
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-Shopify-Storefront-Access-Token": `${process.env.SHOPIFY_PUBLIC}`,
+                "X-Shopify-Storefront-Access-Token": `${process.env.NEXT_PUBLIC_SHOPIFY_PUBLIC}`,
             },
             body: JSON.stringify({
                 query,

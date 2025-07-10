@@ -1,99 +1,111 @@
-import { NextResponse } from 'next/server';
+import fetch from 'node-fetch';
 
-export async function POST(req: Request) {
-  console.log("Incoming request method:", req.method);
+import { NextResponse } from 'next/server'
 
-  try {
-    const body = await req.json();
 
-    // ✅ Accept new lines payload or fallback to legacy
-    const { lines } = body;
-    let lineItems;
 
-    if (lines && Array.isArray(lines)) {
-      lineItems = lines;
-    } else if (body.variants && body.quantity) {
-      lineItems = [{
-        merchandiseId: body.variants,
-        quantity: body.quantity,
-      }];
-    } else {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-    }
+export  async function POST(req: Request) {
+    console.log("Incoming request method:", req.method)
 
-    // ✅ Detect country from IP headers
-    const countryHeader = req.headers.get('x-vercel-ip-country');
-    const country = countryHeader === 'CA' ? 'CA' : 'US';
+        try {
+            const body = await req.json()
+           
+            const {cartId, merchandiseId, quantity, size} = body
+            
 
-    console.log("Creating cart with country:", country);
-
-    // ✅ Add @inContext(country: $country)
-    const query = `
-      mutation createCart($lines: [CartLineInput!]!, $country: CountryCode)
-      @inContext(country: $country) {
-        cartCreate(input: { lines: $lines }) {
-          cart {
-            id
-            checkoutUrl
-            lines(first: 10) {
-              edges {
-                node {
-                  id
-                  merchandise {
-                    ... on ProductVariant {
-                      id
-                    }
-                  }
-                }
-              }
+            if (!cartId || !merchandiseId || !quantity) {
+              return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
             }
-          }
-          userErrors {
-            field
-            message
-          }
+
+            const lineItems = [{merchandiseId, quantity, attributes: [{key: "Size", value: size.value}]}]
+
+            console.log(cartId, lineItems)
+
+            const countryHeader = req.headers.get('x-vercel-ip-country');
+            const country = countryHeader === 'CA' ? 'CA' : 'US'; // default to US
+
+
+            const query = `
+                mutation addCartLines($cartId: ID!, $lines: [CartLineInput!]!, $country: CountryCode) 
+                @inContext(country: $country) {
+                cartLinesAdd(cartId: $cartId, lines: $lines) {
+                    cart {
+                    id
+                    lines(first: 10) {
+                        edges {
+                        node {
+                            id
+                            attributes { 
+                            key
+                            value
+                            }
+                            merchandise {
+                            ... on ProductVariant {
+                                id
+                            }
+                            }
+                        }
+                        }
+                    }
+                    cost {
+                        totalAmount {
+                        amount
+                        currencyCode
+                        }
+                        subtotalAmount {
+                        amount
+                        currencyCode
+                        }
+                        totalTaxAmount {
+                        amount
+                        currencyCode
+                        }
+                        totalDutyAmount {
+                        amount
+                        currencyCode
+                        }
+                    }
+                    }
+                    userErrors {
+                    field
+                    message
+                    }
+                }
+                }
+
+            `
+
+            const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
+                method: "POST",
+                headers: {
+                    'X-Shopify-Storefront-Access-Token': `${process.env.SHOPIFY_PUBLIC}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    query,
+                    variables: { cartId, lines: lineItems },
+                    country
+                })
+            })
+
+            
+            
+            const data:any = await response.json();
+            console.log("Shopify API response:", JSON.stringify(data, null, 2))
+            
+    
+
+            // Check if cartLinesAdd is available and has userErrors
+        
+                if (data?.cartLinesAdd?.userErrors.length > 0) {
+                    console.error('User errors:', data.cartLinesAdd.userErrors);
+                    return NextResponse.json({error: "Shopify error", details: data.cartLinesAdd.userErrors }, { status: 400 })
+                }
+            
+            return NextResponse.json({ success: true, cart: data.data.cartLinesAdd.cart });
+        } catch (error) {
+            console.error(error);
+            return NextResponse.json({ error: 'Error adding items to cart' })
         }
-      }
-    `;
-
-    const response = await fetch(
-      `https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": `${process.env.SHOPIFY_PUBLIC}`,
-        },
-        body: JSON.stringify({
-          query,
-          variables: {
-            lines: lineItems,
-            country,
-          },
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const newData = await response.json();
-
-    if (newData.data?.cartCreate?.userErrors?.length > 0) {
-      console.error("Shopify User Errors:", newData.data.cartCreate.userErrors);
-      return NextResponse.json({
-        error: "Shopify API Error",
-        details: newData.data.cartCreate.userErrors,
-      }, { status: 400 });
-    }
-
-    return NextResponse.json({ success: true, cart: newData.data.cartCreate.cart });
-  } catch (error: any) {
-    console.error("Error creating cart:", error);
-    return NextResponse.json({
-      error: "Error creating cart",
-      details: error.message || "Unexpected server error",
-    }, { status: 500 });
-  }
+    
 }

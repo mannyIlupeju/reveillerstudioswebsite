@@ -3,7 +3,7 @@
 import React, {useState, useEffect} from 'react'
 import DOMPurify from 'isomorphic-dompurify';
 import { useSelector, useDispatch} from 'react-redux'
-import Accordion from '@/components/Accordion/Accordion';
+import Accordion from '../../components/Accordion/Accordion';
 import { getAccordionData  } from '../../utils/AccordionDataObj/accordion';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import Cookies from 'js-cookie'
@@ -143,7 +143,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
     });
     setIsItemAddedToCart('default'); // or false, depending on your state
     setQuantity({});
-  }, [id, setQuantityAvailable, setSizeInfo]);
+  }, [id]);
 
 
   
@@ -453,7 +453,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
         >
           {isItemAddedToCart === 'default' && 'Add to Cart'}
           {isItemAddedToCart === 'loading' && 
-            (<>Hol&apos;up, wait a minute</>)}
+            (<>Hol'up, wait a minute</>)}
           {isItemAddedToCart === 'added' && 'Item added to Cart'}
         </button>
 
