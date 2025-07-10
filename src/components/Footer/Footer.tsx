@@ -19,7 +19,7 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row gap-10 mt-4">
                 <div className="flex flex-col lg:gap-2 w-[250px] h-[250px]">
                     <Image 
-                    src='/images/footerlogo.PNG'
+                    src='/images/footerlogo.png'
                     alt="footer logo"
                     width={250}
                     height={250}
