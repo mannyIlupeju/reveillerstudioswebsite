@@ -1,5 +1,5 @@
 export const productQuery = `
-  query getProductByHandle($handle: String!) {
+  query getProductByHandle($handle: String!, $country: CountryCode) @inContext(country: $country) {
     productByHandle(handle: $handle) {
       id
       title
@@ -89,7 +89,7 @@ export const collectionParamQuery = `
 
 
 export const collectionQuery = `
-  query getCollectionsByHandle($handle: String!) {
+  query getCollectionsByHandle($handle: String!, $country: CountryCode) @inContext(country: $country) {
     collectionByHandle(handle: $handle) {
       id
       title
@@ -134,7 +134,7 @@ export const collectionQuery = `
 
 
 export const recommendationQuery = `
-  query getRecommendations($productId: ID!, $intent: ProductRecommendationIntent) {
+  query getRecommendations($productId: ID!, $intent: ProductRecommendationIntent, $country: CountryCode) @inContext(country: $country) {
     productRecommendations(productId: $productId, intent: $intent) {
       id
       title

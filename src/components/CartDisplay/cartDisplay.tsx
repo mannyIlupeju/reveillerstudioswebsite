@@ -9,9 +9,8 @@ import { removeItem, setLoading, updateQuantity, setCartItems, setError } from "
 import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../../utils/cartFunctions/cartFunctions";
 import {useEffect, useState} from 'react';
 import { RootState } from "../../../store/store";
-import Footer from "@/components/Footer/Footer";
-import Navigation from "@/components/Navigation/Navigation";
-
+import { useCurrency } from '../../Context/context/CurrencyContext';
+import { formatMoney } from '../../../utils/formatMoney';
 
 type LineEdge = {
     node: {
@@ -45,11 +44,10 @@ type LineEdge = {
 interface CartProps {
   cart: {
     lines: {
-      edges: LineEdge[]
-    }
-  }
+      edges: LineEdge[];
+    };
+  };
 }
-
 
 export default function CartDisplay({cart}:CartProps){
    
@@ -62,6 +60,8 @@ export default function CartDisplay({cart}:CartProps){
     const dispatch = useDispatch();
 
     const cartItems = useSelector((state: RootState) => state.cart.cart);
+
+    const { currency } = useCurrency();
 
     const cartTotal = cartItems.reduce((total, item) => {
         return total + item.price * item.quantity;      
@@ -144,8 +144,8 @@ export default function CartDisplay({cart}:CartProps){
 
                             <div className="flex flex-col justify-center">
                                 <h1>{item.title}</h1>
-                                <p> Price: {Number.parseFloat(Number(item.price * item.quantity).toFixed(2))}
-                                     {item.currencyCode}
+                                <p> 
+                                    Price: {formatMoney(Number(item.price * item.quantity), currency.code)}
                                 </p>
                                 <p>Size: {item.size.value}</p>
                                 <p className='font-bold text-lg'>
@@ -175,7 +175,7 @@ export default function CartDisplay({cart}:CartProps){
                         </div>
                     ))}
 
-                    <p className="text-xl mx-auto">Total: ${cartTotal} {cartItems[0]?.currencyCode || ''} </p>
+                    <p className="text-xl mx-auto">Total: {currency.code} {formatMoney(Number(cartTotal), currency.code)} </p>
 
                     <button 
                     className="bg-zinc-800 w-fit text-white p-4 mx-auto"

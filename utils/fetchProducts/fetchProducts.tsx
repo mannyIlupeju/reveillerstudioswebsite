@@ -1,8 +1,8 @@
 import client from "../../src/lib/shopify/shopify-client/shopify-client"
 
-export const fetchProducts = async () => {
+export const fetchProducts = async (country: string = 'US') => {
     const productQuery = `
-    query {
+    query getProducts($country: CountryCode) @inContext(country: $country)  {
         products(first: 30) {
         edges {
             node {
@@ -42,7 +42,7 @@ export const fetchProducts = async () => {
         }
     }`
 
-    const {data,errors} = await client.request(productQuery)
+    const {data,errors} = await client.request(productQuery, { variables: { country } })
     
     if (errors){
         console.error("Error fetching data from shopify")

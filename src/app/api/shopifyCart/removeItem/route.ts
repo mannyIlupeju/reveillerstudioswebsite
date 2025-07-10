@@ -1,109 +1,88 @@
 import { NextResponse } from "next/server";
+import shopifyFetch from '../../../../../utils/ShopifyFetchUtils/shopifyFetchUtils';
 
+export async function POST(req: Request) {
+  console.log("=== REMOVE ITEM API ROUTE ===");
 
-export async function POST(req: Request){
-     console.log("Incoming request method:", req.method);
-     console.log("=== REMOVE ITEM API ROUTE ===");
-    console.log("Incoming request method:", req.method);
-     
-    try {
-        const body = await req.json()
-    
-        const {cartId, lineId} = body
+  try {
+    const body = await req.json();
+    const { cartId, lineId } = body;
 
-        console.log("Received cartId:", cartId);
-        console.log("Received lineId:", lineId);
-        
+    console.log("Received cartId:", cartId);
+    console.log("Received lineId:", lineId);
 
-        console.log("=== REMOVE ITEM API ROUTE ===");
-        console.log("Incoming request method:", req.method);
-
-        if(!cartId || !lineId) {
-            return NextResponse.json(
-                { error: "Missing cartId or lineId" },
-                { status: 400 }
-            );
-        }
-
-        const query = `
-            mutation removeCartLines($cartId: ID!, $lineIds: [ID!]!) {
-                cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
-                    cart {
-                    id
-                    lines(first: 10){
-                        edges
-                        {
-                        node{
-                            quantity
-                            merchandise{
-                            ... on ProductVariant {
-                                id
-                            }
-                            }
-                        }
-                        }
-                    }
-                    cost {
-                        totalAmount {
-                        amount
-                        currencyCode
-                        }
-                        subtotalAmount {
-                        amount
-                        currencyCode
-                        }
-                        totalTaxAmount {
-                        amount
-                        currencyCode
-                        }
-                        totalDutyAmount {
-                        amount
-                        currencyCode
-                        }
-                    }
-                    }
-                    
-                    userErrors {
-                    field
-                    message
-                    }
-                }
-            }        
-        `
-        const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-Shopify-Storefront-Access-Token": `${process.env.SHOPIFY_PUBLIC}`,
-            },
-            body: JSON.stringify({
-                query,
-                variables: { cartId, lineIds: [lineId] },
-            }),
-        });
-
-
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json()
-
-         if (data.errors) {
-            return NextResponse.json(
-                { error: data.errors[0].message },
-                { status: 400 }
-            )
-        }
-
-        return NextResponse.json(data)
-        
-    } catch(error){
-        console.error("Error getting cart:", error)
-        return NextResponse.json(
-            { error: "Failed to remove item from cart" },
-            { status: 500 }
-        )
+    if (!cartId || !lineId) {
+      return NextResponse.json(
+        { error: "Missing cartId or lineId" },
+        { status: 400 }
+      );
     }
+
+    const country = req.headers.get('x-vercel-ip-country') || 'US';
+
+    const query = `
+      mutation removeCartLines($cartId: ID!, $lineIds: [ID!]!, $country: CountryCode!) @inContext(country: $country) {
+        cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+          cart {
+            id
+            lines(first: 10) {
+              edges {
+                node {
+                  quantity
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                    }
+                  }
+                }
+              }
+            }
+            cost {
+              totalAmount { amount currencyCode }
+              subtotalAmount { amount currencyCode }
+              totalTaxAmount { amount currencyCode }
+              totalDutyAmount { amount currencyCode }
+            }
+          }
+          userErrors {
+            field
+            message
+          }
+        }
+      }
+    `;
+
+    const data = await shopifyFetch(query, {
+      cartId,
+      lineIds: [lineId],
+      country,
+    });
+
+    console.log("Shopify API response:", data);
+
+    const userErrors = data?.cartLinesRemove?.userErrors;
+    if (userErrors?.length > 0) {
+      console.warn("Shopify user errors:", userErrors);
+      return NextResponse.json(
+        { error: "Shopify user error", details: userErrors },
+        { status: 400 }
+      );
+    }
+
+    const cart = data?.cartLinesRemove?.cart;
+    if (!cart) {
+      return NextResponse.json(
+        { error: "Cart not found after item removal" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true, cart });
+  } catch (error: any) {
+    console.error("Unexpected error removing item from cart:", error);
+    return NextResponse.json(
+      { error: "Internal server error", details: error.message },
+      { status: 500 }
+    );
+  }
 }

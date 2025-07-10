@@ -7,12 +7,13 @@ import Accordion from '@/components/Accordion/Accordion';
 import { getAccordionData  } from '../../../utils/AccordionDataObj/accordion';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import Cookies from 'js-cookie'
-import client from '../../lib/shopify/shopify-client/shopify-client';
-import { useGlobalContext } from '@/Context/GlobalContext';
-import { addItem, setLoading, setError } from '../../../store/cartSlice';
+import { useGlobalContext } from '../../Context/GlobalContext';
+import { setLoading, setError } from '../../../store/cartSlice';
 import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
 import { refreshCart } from '../../../utils/cartFunctions/cartFunctions';
+import { useCurrency } from '../../Context/context/CurrencyContext';
+import { formatMoney } from '../../../utils/formatMoney';
 
 
 
@@ -69,7 +70,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
   const dispatch = useDispatch()
   const cartState = useSelector((state: RootState) => state.cart)
 
-
+  const { currency } = useCurrency();
 
   const {quantityAvailable, setQuantityAvailable, sizeInfo, setSizeInfo, cartId, setCartId, setIsCartOpen}= useGlobalContext()
 
@@ -353,7 +354,9 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
     <aside className='xl:absolute xl:z-1 xl:top-4 p-3 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
       <div className='prodDetailsOptionsBox p-3 text-xl flex gap-10 w-fit rounded-lg border-black'>
         <span className=''>{title}</span>
-        <span>${productPrice}</span>
+        {/* <span>${productPrice}</span> */}
+        <span>{currency.code} {formatMoney(Number(productPrice), currency.code)}</span>
+
       </div>
 
 
@@ -440,7 +443,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               AddToCart({
                 title,
                 productImage,
-                quantities: quantity[isButtonSelected] || 1,
+                quantities: isButtonSelected ? quantity[isButtonSelected] || 1 : 1,
                 productPrice,
                 variants,
                 isButtonSelected,

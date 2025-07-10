@@ -1,6 +1,6 @@
 import validator from "validator";
 
-export async function POST(req){
+export async function POST(req:any){
     console.log("=== REGISTER API ROUTE CALLED ===");
 
     const body = await req.json()
@@ -11,20 +11,6 @@ export async function POST(req){
     if (!validator.isEmail(email)) {
         return new Response(JSON.stringify({ error: "Invalid email format" }), { status: 400 });
     }
-
-    // Check for allowed providers
-    // const allowedProviders = [
-    //     "gmail.com",
-    //     "yahoo.com",
-    //     "outlook.com",
-    //     "hotmail.com",
-    //     "icloud.com",
-    //     "aol.com"
-    // ];
-    // const domain = email.split("@")[1]?.toLowerCase();
-    // if (!domain || !allowedProviders.includes(domain)) {
-    //     return new Response(JSON.stringify({ error: "Please use a valid email provider (Gmail, Yahoo, Outlook, etc.)" }), { status: 400 });
-    // }
 
     try {
         const query = `
@@ -76,7 +62,8 @@ export async function POST(req){
 
     } catch (error) {
         console.error("Error creating customer:", error);
-        return new Response(JSON.stringify({ error: "Error creating customer", details: error.message }), { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        return new Response(JSON.stringify({ error: "Error creating customer", details: errorMessage }), { status: 500 });
     }
 }
 

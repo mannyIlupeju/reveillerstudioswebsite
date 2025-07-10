@@ -1,15 +1,7 @@
 'use client'
 
-import { useGlobalContext } from "@/Context/GlobalContext";
-import Image from "next/image"
-import { FaMinus, FaPlus } from 'react-icons/fa';
-import {useSelector, useDispatch} from 'react-redux'
-import { removeItem, setLoading, updateQuantity, setCartItems, setError, clearCart } from "../../store/cartSlice";
-import {useEffect, useState} from 'react';
-import { RootState } from "../../store/store";
+import { setLoading, setCartItems, setError } from "../../store/cartSlice";
 import {Dispatch} from "redux"
-
-
 
 
   
@@ -85,7 +77,17 @@ export async function refreshCart(cartId: string, dispatch:Dispatch): Promise<an
     }
     const updatedCart = await response.json();
     if (updatedCart?.cart?.lines?.edges) {
-      const mappedItems = updatedCart.cart.lines.edges.map((edge) => {
+      const mappedItems = updatedCart.cart.lines.edges.map((edge: { node: {
+        id: string;
+        quantity: number;
+        merchandise: {
+          product: { title: string };
+          priceV2: { amount: string; currencyCode: string };
+          image: { src: string };
+          id: string;
+        };
+        attributes: { key: string; value: string }[];
+      } }) => {
         const mappedItem = {
           id: edge.node.id,
           quantity: edge.node.quantity,
