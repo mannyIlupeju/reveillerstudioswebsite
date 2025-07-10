@@ -90,7 +90,7 @@ export default function ProductGrid({ items, isProductGrid = true }: Props) {
                   setHoveredId(isHovered ? null : id);
                 }
               }}
-              className="relative w-full aspect-[3/4]"
+              className="relative w-full aspect-[2/3]"
             >
               {primaryImage && (
                 <Image

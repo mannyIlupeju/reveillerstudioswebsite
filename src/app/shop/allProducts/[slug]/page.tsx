@@ -5,15 +5,11 @@ import { paramQuery, productQuery } from '@/lib/shopify/queries/queries';
 import { getProductRecommendations } from '../../prodRecommendations';
 import { cookies, headers } from 'next/headers';
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
+
 
 // Define the Page Component
 
-export default async function Page({ params }: PageProps): Promise<JSX.Element> {
+export default async function Page({params}: { params: { slug: string } }): Promise<JSX.Element> {
   const { slug } = params;
 
   try {
