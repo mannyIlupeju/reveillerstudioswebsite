@@ -50,22 +50,49 @@ const ThreeSketch = () => {
     
 
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath("/three/examples/jsm/libs/draco/");
+        // Point to public/draco/ where the Draco decoder files are located
+    dracoLoader.setDecoderPath("/draco/");
     const gltfLoader = new GLTFLoader();
     gltfLoader.setDRACOLoader(dracoLoader);
 
-    gltfLoader.load(
-      "/models/GLTF/10rvr3dlogoMetal.gltf",
-      (gltf) => {
-        modelRef.current = gltf.scene;
-        updateModelScale();
-        modelGroup.add(modelRef.current);
-      },
-      undefined,
-      (error) => {
-        console.error("An error occurred while loading the model:", error);
-      }
-    );
+    // Load the model (try .gltf first, then fallback to .glb)
+    function loadModel(path: string) {
+      gltfLoader.load(
+        path,
+        (gltf) => {
+          modelRef.current = gltf.scene;
+          updateModelScale();
+          modelGroup.add(modelRef.current as THREE.Object3D);
+        },
+        undefined,
+        (error) => {
+          console.error(`Failed to load ${path}:`, error);
+          // Attempt fallback between .gltf and .glb
+          let fallbackPath: string;
+          if (path.endsWith('.gltf')) {
+            fallbackPath = path.replace(/\.gltf$/, '.glb');
+          } else if (path.endsWith('.glb')) {
+            fallbackPath = path.replace(/\.glb$/, '.gltf');
+          } else {
+            return;
+          }
+          console.log(`Attempting fallback load: ${fallbackPath}`);
+          gltfLoader.load(
+            fallbackPath,
+            (gltf) => {
+              modelRef.current = gltf.scene;
+              updateModelScale();
+              modelGroup.add(modelRef.current as THREE.Object3D);
+            },
+            undefined,
+            (err2) => console.error(`Failed to load fallback ${fallbackPath}:`, err2)
+          );
+        }
+      );
+    }
+
+    // Replace existing gltfLoader.load call with loadModel
+    loadModel("/models/GLTF/10rvr3dlogoMetal.gltf");
 
     const controls = new OrbitControls(camera, canvas);
    
