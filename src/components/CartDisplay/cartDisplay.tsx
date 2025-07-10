@@ -168,7 +168,7 @@ export default function CartDisplay({cart}:CartProps){
                                 </div>
                                 <button 
                                     onClick={() => cartId && removeCartItem(item.id, cartId, dispatch)}
-                                    className="flex items-start mt-2  py-2 text-zinc-800 rounded  hover:underline"
+                                    className="flex items-start mt-2  py-2 text-zinc-900 rounded  hover:underline"
                                 >
                                     Remove
                                 </button>
