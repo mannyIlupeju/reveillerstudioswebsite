@@ -34,7 +34,7 @@ const CountrySwitchModal = ({ detectedCountry }: Props) => {
       <div className="bg-white p-6 rounded-xl text-center max-w-md shadow-lg">
         <h2 className="text-lg font-semibold mb-2">Switch Store?</h2>
         <p className="mb-4">
-          You're browsing from <strong>{detectedCountry}</strong>. Would you like to switch to the {detectedCountry} store?
+          You&apos;re browsing from <strong>{detectedCountry}</strong>. Would you like to switch to the {detectedCountry} store?
         </p>
         <div className="flex gap-4 justify-center">
           <button

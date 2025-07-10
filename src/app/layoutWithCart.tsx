@@ -60,7 +60,7 @@ export default function LayoutWithCart({ children, detectedCountry }: Props) {
       if(isCartOpen){
         setIsCartOpen(false);
       }
-    }, [pathname])
+    }, [pathname, isCartOpen, setIsCartOpen])
 
 
 
