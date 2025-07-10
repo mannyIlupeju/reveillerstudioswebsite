@@ -453,7 +453,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
         >
           {isItemAddedToCart === 'default' && 'Add to Cart'}
           {isItemAddedToCart === 'loading' && 
-            (<>Hol'up, wait a minute</>)}
+            (<>Hol&apos;up, wait a minute</>)}
           {isItemAddedToCart === 'added' && 'Item added to Cart'}
         </button>
 

@@ -103,7 +103,7 @@ export default function PrivacyPolicy() {
         those sites.
       </p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-2">9. Children's Privacy</h2>
+      <h2 className="text-xl font-semibold mt-8 mb-2">9. Children&apos;s Privacy</h2>
       <p className="mb-4">
         Our services are not directed to individuals under 13. We do not knowingly collect personal data from
         children.
