@@ -169,9 +169,10 @@ const ThreeSketch = () => {
           className="box box1 flex  justify-center items-center relative cursor-grab">
           <video autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             <source 
-            src="/videos/TANKREEL1.mp4"
+            src="https://res.cloudinary.com/dnlk9ni2i/video/upload/v1752161010/TANKREEL1_srw8nk.mov"
             />
           </video>
+         
            {/* Overlay */}
           <div className="absolute inset-0 bg-black/20 z-10"></div>
 
@@ -190,7 +191,7 @@ const ThreeSketch = () => {
         >
           <video width="300" height="auto" autoPlay loop muted className="videoOverlay absolute inset-0 w-full h-full object-cover z-9">
             <source 
-            src="/videos/rvryulcal.mp4"
+            src="https://res.cloudinary.com/dnlk9ni2i/video/upload/v1752160913/aboutvid1_nufcct.mp4"
             />
           </video>
            {/* Overlay */}

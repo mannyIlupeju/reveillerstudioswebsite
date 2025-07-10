@@ -11,21 +11,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/shop/page.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/api/detectCountry/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/detectCountry/route.js"
-    ],
-    "/shop/allProducts/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/shop/allProducts/[slug]/page.css",
-      "static/chunks/app/shop/allProducts/[slug]/page.js"
-    ],
-    "/shop/collections/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/shop/collections/[slug]/page.js"
     ]
   }
 }
