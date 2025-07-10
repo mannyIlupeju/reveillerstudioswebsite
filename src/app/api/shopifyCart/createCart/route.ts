@@ -1,111 +1,84 @@
-import fetch from 'node-fetch';
-
 import { NextResponse } from 'next/server'
 
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { lines } = body;
 
+    if (!lines || !Array.isArray(lines) || lines.length === 0) {
+      return NextResponse.json({ error: "Missing or invalid line items" }, { status: 400 });
+    }
 
-export  async function POST(req: Request) {
-    console.log("Incoming request method:", req.method)
+    const countryHeader = req.headers.get('x-vercel-ip-country');
+    const country = countryHeader === 'CA' ? 'CA' : 'US'; // default fallback
+    const language = country === 'CA' ? 'EN' : 'EN'; // Adjust if needed
 
-        try {
-            const body = await req.json()
-           
-            const {cartId, merchandiseId, quantity, size} = body
-            
-
-            if (!cartId || !merchandiseId || !quantity) {
-              return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    const query = `
+      mutation cartCreate($cartInput: CartInput!, $country: CountryCode, $language: LanguageCode) 
+      @inContext(country: $country, language: $language) {
+        cartCreate(input: $cartInput) {
+          cart {
+            id
+            checkoutUrl
+            lines(first: 10) {
+              edges {
+                node {
+                  id
+                  quantity
+                  attributes {
+                    key
+                    value
+                  }
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                      title
+                    }
+                  }
+                }
+              }
             }
-
-            const lineItems = [{merchandiseId, quantity, attributes: [{key: "Size", value: size.value}]}]
-
-            console.log(cartId, lineItems)
-
-            const countryHeader = req.headers.get('x-vercel-ip-country');
-            const country = countryHeader === 'CA' ? 'CA' : 'US'; // default to US
-
-
-            const query = `
-                mutation addCartLines($cartId: ID!, $lines: [CartLineInput!]!, $country: CountryCode) 
-                @inContext(country: $country) {
-                cartLinesAdd(cartId: $cartId, lines: $lines) {
-                    cart {
-                    id
-                    lines(first: 10) {
-                        edges {
-                        node {
-                            id
-                            attributes { 
-                            key
-                            value
-                            }
-                            merchandise {
-                            ... on ProductVariant {
-                                id
-                            }
-                            }
-                        }
-                        }
-                    }
-                    cost {
-                        totalAmount {
-                        amount
-                        currencyCode
-                        }
-                        subtotalAmount {
-                        amount
-                        currencyCode
-                        }
-                        totalTaxAmount {
-                        amount
-                        currencyCode
-                        }
-                        totalDutyAmount {
-                        amount
-                        currencyCode
-                        }
-                    }
-                    }
-                    userErrors {
-                    field
-                    message
-                    }
-                }
-                }
-
-            `
-
-            const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
-                method: "POST",
-                headers: {
-                    'X-Shopify-Storefront-Access-Token': `${process.env.SHOPIFY_PUBLIC}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    query,
-                    variables: { cartId, lines: lineItems },
-                    country
-                })
-            })
-
-            
-            
-            const data:any = await response.json();
-            console.log("Shopify API response:", JSON.stringify(data, null, 2))
-            
-    
-
-            // Check if cartLinesAdd is available and has userErrors
-        
-                if (data?.cartLinesAdd?.userErrors.length > 0) {
-                    console.error('User errors:', data.cartLinesAdd.userErrors);
-                    return NextResponse.json({error: "Shopify error", details: data.cartLinesAdd.userErrors }, { status: 400 })
-                }
-            
-            return NextResponse.json({ success: true, cart: data.data.cartLinesAdd.cart });
-        } catch (error) {
-            console.error(error);
-            return NextResponse.json({ error: 'Error adding items to cart' })
+          }
+          userErrors {
+            field
+            message
+          }
         }
-    
+      }
+    `;
+
+    const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_PUBLIC!,
+      },
+      body: JSON.stringify({
+        query,
+        variables: {
+          cartInput: { lines },
+          country,
+          language,
+        },
+      }),
+    });
+
+    const data = await response.json();
+    console.log("Shopify API response:", JSON.stringify(data, null, 2));
+
+    const errors = data?.data?.cartCreate?.userErrors;
+    if (errors?.length > 0) {
+      return NextResponse.json({ error: "Shopify user error", details: errors }, { status: 400 });
+    }
+
+    const cart = data?.data?.cartCreate?.cart;
+    if (!cart) {
+      return NextResponse.json({ error: "Cart creation failed", raw: data }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, cart });
+  } catch (error) {
+    console.error("Cart creation error:", error);
+    return NextResponse.json({ error: 'Server error creating cart' }, { status: 500 });
+  }
 }

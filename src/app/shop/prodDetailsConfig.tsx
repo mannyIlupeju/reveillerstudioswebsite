@@ -301,8 +301,9 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
              ],
            };
 
-            if (!sizeDetails) {
-              throw new Error('Please select a size');
+            if (!sizeDetails || !sizeDetails.value) {
+              setCartError('Please select a size.');
+              return;
             }
             
             // Do NOT do this:
@@ -316,9 +317,18 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 cartId: shopifyCartId,
-                merchandiseId: productVariantID,
-                quantity: selectedQuantity,
-                size: sizeDetails
+                lines: [
+                  {
+                    merchandiseId: productVariantID,
+                    quantity: selectedQuantity,
+                    attributes: [
+                      {
+                        key: sizeDetails.name,
+                        value: sizeDetails.value
+                      }
+                    ]
+                  }
+                ]
               })
             });
             
