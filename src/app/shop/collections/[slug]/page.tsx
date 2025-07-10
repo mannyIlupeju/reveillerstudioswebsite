@@ -48,17 +48,16 @@ export default async function Page({params}: {params: Promise<{ slug: string }> 
 
 
 export async function generateStaticParams() {
-    try {
-      const response = await client.request(collectionParamQuery)
-      const paths = response.data.collections.edges.map((item:any)=> ({
-        slug: item.node.handle
-      })) || []
+  try {
+    const res = await client.request(collectionQuery);
 
-      return paths;
-      
-    }catch(error){
-      console.error('Error fetching collections data:', error)
-      return [];
-    }
+    const collections = res?.data?.collections?.edges || [];
+
+    return collections.map((collection: any) => ({
+      slug: collection.node.handle,
+    }));
+  } catch (error) {
+    console.error("Error fetching collections data:", error);
+    return [];
+  }
 }
-

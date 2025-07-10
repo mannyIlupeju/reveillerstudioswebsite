@@ -43,17 +43,16 @@ export default async function Page({ params }: PageProps): Promise<JSX.Element> 
 // Generate Static Params for Dynamic Routes
 export async function generateStaticParams() {
   try {
-    // Fetch a list of products to generate paths
-    const response = await client.request(paramQuery);
-    const paths = response.data.products.edges.map((edge: any) => ({
-      slug: edge.node.handle,
-    })) || [];
+    const res = await client.request(paramQuery);
+    const collections = res?.data?.collections?.edges || [];
+    const products = res?.data?.products?.edges || [];
 
-    return paths;
+    return products.map((p: any) => ({ slug: p.node.handle }));
   } catch (error) {
     console.error("Error generating static params:", error);
-    return [];
+    return []; // Return empty array to prevent build failure
   }
+
 }
 
 export const dynamic = 'force-dynamic';
