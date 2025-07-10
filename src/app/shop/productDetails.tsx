@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
 import { useCurrency } from '../../Context/context/CurrencyContext'
-import { formatMoney } from '../../../utils/formatMoney'
+import { formatMoney } from '../../utils/formatMoney'
 
 
 const ProductDetails = ({ products, recommendations }: any) => {

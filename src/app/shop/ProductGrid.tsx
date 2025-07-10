@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCurrency } from '../../Context/context/CurrencyContext';
-import { formatMoney } from '../../../utils/formatMoney';
+import { formatMoney } from '../../utils/formatMoney';
 
 type Item = {
   id: string;

@@ -1,4 +1,4 @@
-import client from "../../src/lib/shopify/shopify-client/shopify-client"
+import client from "../../lib/shopify/shopify-client/shopify-client"
 
 export const fetchProducts = async (country: string = 'US') => {
     const productQuery = `

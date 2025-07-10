@@ -1,6 +1,6 @@
 'use client'
 
-import { setLoading, setCartItems, setError } from "../../store/cartSlice";
+import { setLoading, setCartItems, setError } from "../../../store/cartSlice";
 import {Dispatch} from "redux"
 
 

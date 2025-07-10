@@ -1,6 +1,6 @@
 import React from 'react'
 import client from '../../../../lib/shopify/shopify-client/shopify-client'
-import { fetchCategories } from '../../../../../utils/fetchCategories/fetchCategories';
+import { fetchCategories } from '../../../../utils/fetchCategories/fetchCategories';
 import ProductGrid from '../../ProductGrid'
 import ProductCategories from '../../productCategories'
 import { collectionQuery, collectionParamQuery } from '@/lib/shopify/queries/queries';

@@ -4,16 +4,16 @@ import React, {useState, useEffect} from 'react'
 import DOMPurify from 'isomorphic-dompurify';
 import { useSelector, useDispatch} from 'react-redux'
 import Accordion from '@/components/Accordion/Accordion';
-import { getAccordionData  } from '../../../utils/AccordionDataObj/accordion';
+import { getAccordionData  } from '../../utils/AccordionDataObj/accordion';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import Cookies from 'js-cookie'
 import { useGlobalContext } from '../../Context/GlobalContext';
 import { setLoading, setError } from '../../../store/cartSlice';
 import type { RootState } from '../../../store/store';
 import { CartItem } from '../../../store/cartSlice';
-import { refreshCart } from '../../../utils/cartFunctions/cartFunctions';
+import { refreshCart } from '../../utils/cartFunctions/cartFunctions';
 import { useCurrency } from '../../Context/context/CurrencyContext';
-import { formatMoney } from '../../../utils/formatMoney';
+import { formatMoney } from '../../utils/formatMoney';
 
 
 

@@ -1,1 +1,6 @@
-{}
+{
+  "/api/detectCountry/route": "app/api/detectCountry/route.js",
+  "/shop/page": "app/shop/page.js",
+  "/shop/collections/[slug]/page": "app/shop/collections/[slug]/page.js",
+  "/shop/allProducts/[slug]/page": "app/shop/allProducts/[slug]/page.js"
+}

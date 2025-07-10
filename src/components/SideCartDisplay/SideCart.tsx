@@ -10,10 +10,10 @@ import { useGlobalContext } from '../../Context/GlobalContext';
 import { RootState } from "../../../store/store";
 import {useSelector, useDispatch} from 'react-redux'
 import { removeItem, setLoading, updateQuantity, setCartItems, setError, clearCart } from "../../../store/cartSlice";
-import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../../utils/cartFunctions/cartFunctions";
+import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../utils/cartFunctions/cartFunctions";
 import useIsMobile from '../../../hooks/useIsMobile';
 import { useCurrency } from '../../Context/context/CurrencyContext';
-import { formatMoney } from '../../../utils/formatMoney';
+import { formatMoney } from '../../utils/formatMoney';
 
 export default function SideCart() {
 

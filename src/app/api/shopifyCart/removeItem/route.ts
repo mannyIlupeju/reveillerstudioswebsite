@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import shopifyFetch from '../../../../../utils/ShopifyFetchUtils/shopifyFetchUtils';
+import shopifyFetch from '../../../../utils/ShopifyFetchUtils/shopifyFetchUtils';
 
 export async function POST(req: Request) {
   console.log("=== REMOVE ITEM API ROUTE ===");
