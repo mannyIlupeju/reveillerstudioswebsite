@@ -3,22 +3,16 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { useCanvas } from '@/Context/context/CanvasContext';
+import { useCanvas } from '../../Context/context/CanvasContext';
 import * as motion from "motion/react-client"
 
-
-type videoType = {
-    src: string,
-    preload: boolean,
-}
 
 
 const ThreeSketch = () => {
   const { backgroundCanvasRef } = useCanvas()
   const modelRef = useRef<THREE.Group | null>(null);
-  const constraintRef = useRef<HTMLDivElement>(null)
 
-  const [box1Pos, setBox1Pos] = useState({ x: 0, y: 0 });
+
   const [box2Pos, setBox2Pos] = useState({ x: 0, y: 0 });
 
 
