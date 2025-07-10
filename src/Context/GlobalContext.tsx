@@ -69,7 +69,8 @@ type GlobalContextType = {
   LoginHere:()=>void;
   RegisterHere:()=>void;
   showMessage: boolean;
-  setShowMessage: () => void
+  setShowMessage: () => void;
+  showConfirmationMessage: () => void;
   
 };
 

@@ -1,17 +1,21 @@
 'use client';
 
 import React, {useEffect} from 'react';
-import Navigation from '@/components/Navigation/Navigation';
-import Footer from '@/components/Footer/Footer';
-import SideNav from '@/components/SideNavDisplay/SideNav';
+import Navigation from '../components/Navigation/Navigation';
+import Footer from '../components/Footer/Footer';
+import SideNav from '../components/SideNavDisplay/SideNav';
 import SideCart from '../components/SideCartDisplay/SideCart';
-import { useGlobalContext } from '@/Context/GlobalContext';
+import { useGlobalContext } from '../Context/GlobalContext';
 import { usePathname } from 'next/navigation';
-import {AnimatePresence} from 'framer-motion'
+import CountrySwitchModal from '../components/CountrySwitchModal/CountrySwitchModal';
 
 
+type Props = {
+  children: React.ReactNode;
+  detectedCountry: 'CA' | 'US';
+};
 
-export default function LayoutWithCart({ children }: { children: React.ReactNode }) {
+export default function LayoutWithCart({ children, detectedCountry }: Props) {
   const { isCartOpen, setIsCartOpen, isMenuOpen, toggleMenu } = useGlobalContext();
 
   const pathname = usePathname();
@@ -77,6 +81,9 @@ export default function LayoutWithCart({ children }: { children: React.ReactNode
 
      
        <Navigation />
+
+       <CountrySwitchModal detectedCountry={detectedCountry} /> 
+
        
         <main className="flex flex-col">
           {children}

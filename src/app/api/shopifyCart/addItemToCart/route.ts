@@ -21,54 +21,59 @@ export  async function POST(req: Request) {
 
             console.log(cartId, lineItems)
 
+            const countryHeader = req.headers.get('x-vercel-ip-country');
+            const country = countryHeader === 'CA' ? 'CA' : 'US'; // default to US
+
 
             const query = `
-                mutation addCartLines($cartId: ID!, $lines: [CartLineInput!]!) {
-                    cartLinesAdd(cartId: $cartId, lines: $lines) {
-                        cart {
+                mutation addCartLines($cartId: ID!, $lines: [CartLineInput!]!, $country: CountryCode) 
+                @inContext(country: $country) {
+                cartLinesAdd(cartId: $cartId, lines: $lines) {
+                    cart {
+                    id
+                    lines(first: 10) {
+                        edges {
+                        node {
                             id
-                            lines(first: 10) {
-                                edges {
-                                    node {
-                                        id
-                                        attributes { 
-                                            key
-                                            value
-                                        }
-                                        merchandise {
-                                            ... on ProductVariant {
-                                                id
-                                            }
-                                        }
-                                    }
-                                }
+                            attributes { 
+                            key
+                            value
                             }
-                            cost {
-                                totalAmount {
-                                    amount
-                                    currencyCode
-                                }
-                                subtotalAmount {
-                                    amount
-                                    currencyCode
-                                }
-                                totalTaxAmount {
-                                    amount
-                                    currencyCode
-                                }
-                                totalDutyAmount {
-                                    amount
-                                    currencyCode
-                                }
+                            merchandise {
+                            ... on ProductVariant {
+                                id
+                            }
                             }
                         }
-                        userErrors {
-                            field
-                            message
                         }
                     }
+                    cost {
+                        totalAmount {
+                        amount
+                        currencyCode
+                        }
+                        subtotalAmount {
+                        amount
+                        currencyCode
+                        }
+                        totalTaxAmount {
+                        amount
+                        currencyCode
+                        }
+                        totalDutyAmount {
+                        amount
+                        currencyCode
+                        }
+                    }
+                    }
+                    userErrors {
+                    field
+                    message
+                    }
                 }
-            `;
+                }
+
+            `
 
             const response = await fetch(`https://${process.env.SHOPIFY_DOMAIN}/api/${process.env.SHOPIFY_API_VERSION}/graphql.json`, {
                 method: "POST",
@@ -78,7 +83,8 @@ export  async function POST(req: Request) {
                 },
                 body: JSON.stringify({
                     query,
-                    variables: { cartId, lines: lineItems }
+                    variables: { cartId, lines: lineItems },
+                    country
                 })
             })
 

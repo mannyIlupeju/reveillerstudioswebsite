@@ -7,13 +7,15 @@ import Image from 'next/image'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
-import ProductImage from '@/components/ProductImage'
-
+import { useCurrency } from '../../Context/context/CurrencyContext'
+import { formatMoney } from '../../../utils/formatMoney'
 
 
 const ProductDetails = ({ products, recommendations }: any) => {
   console.log(products)
   const { images, descriptionHtml, title, priceRange, variants, collections, totalInventory } = products
+  const {currency } = useCurrency();
+
 
   const imageUrl = images.edges.map((item: any) => item.node)
   const [loadedImages, setLoadedImages] = useState<number[]>([])
@@ -203,8 +205,7 @@ const ProductDetails = ({ products, recommendations }: any) => {
 
                     {item.priceRange ? (
                       <p>
-                        {item.priceRange.minVariantPrice.amount}{" "}
-                        {item.priceRange.minVariantPrice.currencyCode}
+                      {currency.code} {formatMoney(Number(item.priceRange.minVariantPrice.amount), currency.code)}
                       </p>
                     ) : (
                       <div className="h-5 bg-gray-300 rounded w-[100px] animate-pulse" />

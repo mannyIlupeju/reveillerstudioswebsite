@@ -6,12 +6,14 @@ import { FaXmark } from "react-icons/fa6";
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import * as motion from "motion/react-client"
 import Image from "next/image"
-import { useGlobalContext } from '@/Context/GlobalContext';
+import { useGlobalContext } from '../../Context/GlobalContext';
 import { RootState } from "../../../store/store";
 import {useSelector, useDispatch} from 'react-redux'
 import { removeItem, setLoading, updateQuantity, setCartItems, setError, clearCart } from "../../../store/cartSlice";
 import { removeCartItem, updateCartQty, refreshCart, handleCheckout } from "../../../utils/cartFunctions/cartFunctions";
 import useIsMobile from '../../../hooks/useIsMobile';
+import { useCurrency } from '../../Context/context/CurrencyContext';
+import { formatMoney } from '../../../utils/formatMoney';
 
 export default function SideCart() {
 
@@ -21,6 +23,8 @@ export default function SideCart() {
 
 
   const {setIsCartOpen, isCartOpen} = useGlobalContext();
+
+  const { currency } = useCurrency();
 
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   console.log("=== SIDE CART REDUX DATA ===");
@@ -107,9 +111,8 @@ export default function SideCart() {
           
                   <div className="flex flex-col justify-center">
                       <span className="text-md">{item.title}</span>
-                      <span className="text-md"> Price: {Number.parseFloat(Number(item.price * item.quantity).toFixed(2))}
-                          {item.currencyCode}
-                      </span>
+                      <span className="text-md"> Price: {formatMoney(Number(item.price * item.quantity), currency.code)}</span>
+
                       <span className="text-md">Size: {item.size.value}</span>
                     
                       <div className='flex w-fit mt-2 gap-2'>
@@ -172,7 +175,7 @@ export default function SideCart() {
           <div className="mt-8 flex flex-col gap-4">
             <div className="flex justify-between">
               <span className="text-lg">Sub Total:  </span>
-              <span >${cartTotal} {cartItems[0]?.currencyCode || ''}</span>
+              <span >{formatMoney(Number(cartTotal), currency.code)}</span>
             </div>
           <button 
             className="border-black border-2 w-full p-2"
@@ -184,7 +187,7 @@ export default function SideCart() {
         
       </div>
      
-      <p className="text-xl mx-auto">Estimated Total: ${cartTotal} {cartItems[0]?.currencyCode || ''} </p>
+      <p className="text-xl mx-auto">Estimated Total: {currency.code} {formatMoney(Number(cartTotal), currency.code)} </p>
       <button 
         className="bg-zinc-800 w-full text-white p-4 mx-auto"
         onClick={() => handleCheckout(cartId)}

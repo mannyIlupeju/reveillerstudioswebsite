@@ -1,20 +1,21 @@
-'use client'
-
-import React, {useState, useEffect } from 'react'
-import Navigation from '@/components/Navigation/Navigation'
-import Footer from '@/components/Footer/Footer'
-import AppProviders from './Providers/route'
+import React from 'react'
+import AppProviders from './Providers/AppProviders'
 import LayoutWithCart from './layoutWithCart'
+import { headers } from 'next/headers';
+import CookieConsentModal from '../components/CookieConsentModal/cookieConsent';
 
 import "./globals.css";
 
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   
+  const headerStore = await headers();
+  const country = headerStore.get('x-vercel-ip-country') === 'CA' ? 'CA' : 'US';
+
 
 
   return (
@@ -22,7 +23,8 @@ export default function RootLayout({
      <html lang="en">
       <body>
       <AppProviders> 
-        <LayoutWithCart>
+      <CookieConsentModal />
+        <LayoutWithCart detectedCountry={country}>
           {children}
         </LayoutWithCart>
         </AppProviders>

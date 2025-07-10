@@ -49,12 +49,13 @@ type Recommendation2sVariables = {
 
 
 
-export async function getProductRecommendations(productId: string) {
+export async function getProductRecommendations(productId: string, country: string) {
     try {
       const response  = await client.request(recommendationQuery, {
         variables: {
           productId: `${productId}`,
           intent: 'RELATED',
+          country: country, // Pass the country parameter to the query
         },
       });
 
