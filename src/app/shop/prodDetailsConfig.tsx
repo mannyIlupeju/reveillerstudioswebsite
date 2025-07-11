@@ -361,8 +361,8 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
 
   return (
-    <aside className='xl:absolute xl:z-1 xl:top-4 p-3 flex flex-col w-fit gap-5 font-bold cursor-pointer'>
-      <div className='prodDetailsOptionsBox p-3 text-xl flex gap-10 w-fit rounded-lg border-black'>
+    <aside className='xl:absolute xl:z-1 xl:top-4 xl:text-lg xl:mx-0 mx-2 text-sm flex justify-items-start flex-col w-fit gap-5 font-bold cursor-pointer'>
+      <div className='prodDetailsOptionsBox p-3 xl:text-lg lg:text-md text-sm flex gap-10 w-2xl rounded-lg border-black'>
         <span className=''>{title}</span>
         {/* <span>${productPrice}</span> */}
         <span>{currency.code} {formatMoney(Number(productPrice), currency.code)}</span>
@@ -372,7 +372,7 @@ export default function ProdDetailsConfiguration({id, title, priceRange, variant
 
       {/* Size options display buttons */}
       <div
-        className='flex flex-row justify-around gap-8'
+        className='flex flex-row justify-around xl:gap-8 gap-2 w-fit'
         key={productVariants.id}
       >
         {variants.edges.map((item: any, index: any) => {

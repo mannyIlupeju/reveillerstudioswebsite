@@ -137,8 +137,8 @@ export default function CartDisplay({cart}:CartProps){
                         >
                             <Image
                                 src={item.image}
-                                width={250}
-                                height={250}
+                                width={120}
+                                height={100}
                                 priority
                                 alt={item.title}
                             />

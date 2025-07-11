@@ -94,9 +94,9 @@ export default function LayoutWithCart({ children, detectedCountry }: Props) {
 
 
     
-      <div className="xl:hidden">
-        <SideNav/>
-      </div>
+      
+      <SideNav/>
+      
       
 
       

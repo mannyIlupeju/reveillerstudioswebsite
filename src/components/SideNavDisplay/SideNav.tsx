@@ -41,13 +41,12 @@ const SideNav = () => {
 
 
   return (
-        <div className="max-w-3xl fixed bottom-2 left-1/2 lg:px-3 px-20 py-3 -translate-x-1/2 shadow-md rounded-t-md glassBox mx-auto items-center text-xs">
-                <div className=" mx-auto flex gap-1 justify-between uppercase items-center font-extrabold">
+        <div className="xl:hidden fixed bottom-2 left-1/2 -translate-x-1/2 w-[95%] max-w-md py-3 shadow-md rounded-t-md glassBox text-xs z-50 bg-white">
+                <div className=" mx-auto flex gap-0 justify-between uppercase items-center font-extrabold">
                     <Link href='/' className={linkClass('/')}>Home</Link>
                     <Link href='/shop' className={linkClass('/shop')}>Shop</Link>
-                    <Link href='/account' className={linkClass('/account')}>Account</Link>
-                    <Link href='/archive' className={linkClass('/archive')}>Archive</Link>
-                    <Link href='/journal' className={linkClass('/journal')}>Journal</Link>
+                    <Link href='/about' className={linkClass('/about')}>About</Link>
+                    {/* <Link href='/journal' className={linkClass('/journal')}>Journal</Link> */}
 
                     <div className="flex items-center" >
                         <div className={`flex gap-1 ${isCartOpen ? 'bg-zinc-400 text-white font-bold p-2' : 'text-gray-600 orange-hover font-bold p-2'} rounded-md transition-colors duration-200`} onClick={toggleCart}>

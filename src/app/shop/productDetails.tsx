@@ -173,7 +173,7 @@ const ProductDetails = ({ products, recommendations }: any) => {
       </div>
 
       {/* Recommended Products */}
-      <section className={`p-3 ml-4 transition-opacity duration-700 ${allLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <section className={`p-3 ml-2 xl:mt-4 mt-24 transition-opacity duration-700 ${allLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {recommendations?.length > 0 && (
           <section className="px-4">
             <h2 className="text-xl font-semibold mb-4">Recommended Products</h2>
@@ -196,7 +196,7 @@ const ProductDetails = ({ products, recommendations }: any) => {
                   </div>
 
                   {/* Text Skeletons */}
-                  <div className="flex flex-col align-bottom space-y-2">
+                  <div className="flex flex-col mx-auto align-bottom space-y-2">
                     {item.title ? (
                       <h3 className="text-lg">{item.title}</h3>
                     ) : (
