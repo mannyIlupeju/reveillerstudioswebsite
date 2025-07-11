@@ -234,7 +234,7 @@ canvas {
   /* From https://css.glass */
 background: rgba(235, 120, 22, 0.4);
 border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+box-shadow: 0 4px 30px rgba(195, 142, 142, 0.1);
 backdrop-filter: blur(7.2px);
 -webkit-backdrop-filter: blur(7.2px);
 border: 1px solid rgba(235, 120, 22, 0.3);
